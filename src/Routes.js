@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useAuth } from "./contexts/Auth";
 
 import Auth from './screens/Auth'
 import Orders from './screens/Orders'
@@ -23,8 +24,8 @@ const OrdersStackScreen = () => (
 const Tab = createBottomTabNavigator();
 
 export default Routes = () => {
-  const isSignedIn = true;
-  return isSignedIn ? (
+  const { user } = useAuth();
+  return user ? (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
         <Tab.Screen name="Home" component={Home} />

@@ -1,10 +1,13 @@
-import { Text, View } from "react-native"
+import { Text, View, Button} from "react-native";
+import { useAuth } from "../contexts/Auth";
 
 export default Auth = () => {
+    const { signIn } = useAuth();
     return <View>
-        <Text>
-            Auth
-        </Text>
+        <Button
+            title="Google Sign-In"
+            onPress={async () => await signIn()}
+        />
     </View>
 
 }
