@@ -1,24 +1,21 @@
 import Router from './src/Routes';
 import React, { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
-import AuthProvider from './src/contexts/Auth';
+import useAuth from './src/contexts/AuthContext';
 
 export default App = () => {
 
-  function onAuthStateChanged(user) {
+  const { setUser } = useAuth();
 
-    console.log(user);
+  async function handleUserEvents(user) {
+    setUser(user)
   }
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    const subscriber = auth().onIdTokenChanged(handleUserEvents);
+    return subscriber;
   }, []);
 
-  return (
-    <AuthProvider>
-      <Router></Router>
+  return <Router />
 
-    </AuthProvider>
-  )
 };
