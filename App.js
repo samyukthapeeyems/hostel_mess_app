@@ -3,12 +3,15 @@ import React, { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import useAuth from './src/contexts/AuthContext';
 
-export default App = () => {
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { COLORS } from './src/constants/theme';
+import { Platform } from 'react-native';
 
+export default App = () => {
   const { setUser } = useAuth();
 
   async function handleUserEvents(user) {
-    setUser(user)
+    setUser(user);
   }
 
   useEffect(() => {
@@ -16,6 +19,14 @@ export default App = () => {
     return subscriber;
   }, []);
 
-  return <Router />
-
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.blue,
+        paddingTop: Platform.OS === 'android' ? 0 : 35,
+      }}>
+      <Router />
+    </SafeAreaView>
+  );
 };

@@ -5,11 +5,6 @@ import useAuth from './contexts/AuthContext';
 
 import { View, TouchableOpacity, Platform } from 'react-native';
 
-// import Auth from './screens/Auth';
-// import Orders from './screens/Orders';
-// import OrderDetails from './screens/OrderDetails';
-// import Profile from './screens/Profile';
-// import Home from './screens/Home'
 import { MenuIcon, OrdersIcon, ProfileIcon } from '../assets/icons';
 
 const OrdersStack = createStackNavigator();
