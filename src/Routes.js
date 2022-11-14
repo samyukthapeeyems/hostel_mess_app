@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import useAuth from './contexts/AuthContext';
+=======
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import useAuth from "./contexts/AuthContext";
+import {CartProvider} from "./contexts/CartContext";
+>>>>>>> exp
 
 import { View, TouchableOpacity, Platform } from 'react-native';
 
 import { MenuIcon, OrdersIcon, ProfileIcon } from '../assets/icons';
+
 
 const OrdersStack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -29,7 +38,8 @@ const OrdersStackScreen = () => (
     initialRouteName="Orders"
     screenOptions={{ headerShown: false }}>
     <OrdersStack.Screen name="Orders" component={Orders} />
-    <OrdersStack.Screen name="OrderDetails" component={OrderDetails} />
+    <OrdersStack.Screen name="OrderDetails" component={OrderDetails}
+    />
   </OrdersStack.Navigator>
 );
 
@@ -107,6 +117,7 @@ export default Routes = () => {
   const { isAuthenticated } = useAuth();
 
   return isAuthenticated ? (
+<<<<<<< HEAD
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{ headerShown: false }}
@@ -122,6 +133,21 @@ export default Routes = () => {
       <AuthStack.Navigator
         initialRouteName="Orders"
         screenOptions={{ headerShown: false }}>
+=======
+    <CartProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="OrdersStack" component={OrdersStackScreen} />
+          <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </CartProvider>
+
+  ) : (
+    <NavigationContainer>
+      <AuthStack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false }}>
+>>>>>>> exp
         <AuthStack.Screen name="Auth" component={Auth} />
       </AuthStack.Navigator>
     </NavigationContainer>
