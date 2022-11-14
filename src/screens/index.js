@@ -1,15 +1,8 @@
-import { default as Auth } from './Auth'
-import Orders from './Orders'
-import OrderDetails from './OrderDetails'
-import Profile from './Profile'
-import { default as Home } from './Home'
+import Cart from './Cart';
+import Orders from './Orders';
+import Profile from './Profile';
+import Menu from './Menu';
+import OrderDetails from './OrderDetails';
+import Auth from './Auth';
 
-
-
-export default {
-    Auth,
-    Home,
-    OrderDetails,
-    Orders,
-    Profile
-}
+export { Cart, Menu, Orders, Profile, OrderDetails, Auth };
