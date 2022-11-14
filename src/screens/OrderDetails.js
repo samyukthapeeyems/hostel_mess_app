@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SIZES } from "../constants/theme";
-import Ionicons from "@expo/vector-icons/Ionicons";
+// import Ionicons from "@expo/vector-icons/Ionicons";
 // import OrderDetailsHeder from "./OrderDetailsHeder";
 // import OrderDetailsContent from "./OrderDetailsContent";
 
@@ -13,7 +13,7 @@ const OrderDetailsHeader = ({ route, navigation }) => {
         {
           <TouchableOpacity onPress={() => navigation.navigate("Orders")}>
             <Text>
-              <Ionicons name="arrow-back-outline" size={32} color="white" />
+              {/* <Ionicons name="arrow-back-outline" size={32} color="white" /> */}
             </Text>
           </TouchableOpacity>
         }

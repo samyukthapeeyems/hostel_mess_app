@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { GreenAddIcon, GrayMinusIcon } from "../assets/icons";
+import { GreenAddIcon, GrayMinusIcon } from "../../assets/icons";
 
 const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
   return (

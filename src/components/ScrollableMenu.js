@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../constants/theme";
-import porotta from "../assets/images/porotta.png";
-import chappathi from "../assets/images/chappathi.png";
-import dosa from "../assets/images/dosa.png";
-import { GreenButton } from "../assets/icons";
+import porotta from "../../assets/images/porotta.png";
+import chappathi from "../../assets/images/chappathi.png";
+import dosa from "../../assets/images/dosa.png";
+import { GreenButton } from "../../assets/icons";
 import ItemCounter from "./ItemCounter";
 import { useState } from "react";
 
@@ -130,6 +130,7 @@ const MenuItem = ({ item }) => {
     <View
       style={{
         marginVertical: 4,
+        // backgroundColor : '#000',
         paddingLeft: 10,
         flexDirection: "row",
         flexWrap: "wrap",
@@ -231,7 +232,7 @@ const ScrollableMenu = () => (
     <SectionList
       sections={DATA}
       keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <MenuItem item={item} />}
+      renderItem={({ item }) => <MenuItem item={item}  />}
       renderSectionHeader={MenuCardTitle}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={SectionListHeader}

@@ -1,7 +1,7 @@
 import { COLORS, SIZES } from "../constants/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image, StyleSheet, Text, View } from "react-native";
-import PrflPic from "../assets/images/PrflPic.png";
+import PrflPic from "../../assets/images/PrflPic.png";
 import { useState } from "react";
 export const CircleButton = ({ navigation }) => {
   return (

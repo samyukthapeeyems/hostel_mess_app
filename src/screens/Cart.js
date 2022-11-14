@@ -9,10 +9,10 @@ import {
   Button,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
+// import Ionicons from '@expo/vector-icons/Ionicons';
 import { SIZES } from '../constants/theme';
 import { ItemCounter } from '../components';
-import { BreakfastIcon, LunchIcon, DinnerIcon } from '../assets/icons';
+import { BreakfastIcon, LunchIcon, DinnerIcon } from '../../assets/icons';
 import { SquareButton } from '../components/Button';
 
 const listOfCart = [

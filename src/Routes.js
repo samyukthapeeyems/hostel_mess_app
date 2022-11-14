@@ -1,27 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import useAuth from './contexts/AuthContext';
-=======
-=======
->>>>>>> main
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import useAuth from "./contexts/AuthContext";
-import {CartProvider} from "./contexts/CartContext";
-<<<<<<< HEAD
->>>>>>> exp
-=======
-=======
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import useAuth from './contexts/AuthContext';
->>>>>>> 3366495acc0fc9fb4a5e6dcaedb08c4de65d0eb3
->>>>>>> main
+import { CartProvider } from "./contexts/CartContext";
+
 
 import { View, TouchableOpacity, Platform } from 'react-native';
 
@@ -31,8 +14,9 @@ import { MenuIcon, OrdersIcon, ProfileIcon } from '../assets/icons';
 const OrdersStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const MenuStack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-import { Menu, Cart, Orders, OrderDetails, Profile } from './screens';
+import { Menu, Orders, Profile, Auth } from './screens';
 
 const MenuStackScreen = () => {
   return (
@@ -40,7 +24,7 @@ const MenuStackScreen = () => {
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
       <MenuStack.Screen name="Home" component={Menu} />
-      <MenuStack.Screen name="Cart" component={Cart} />
+      {/* <MenuStack.Screen name="Cart" component={Cart} /> */}
     </MenuStack.Navigator>
   );
 };
@@ -50,92 +34,89 @@ const OrdersStackScreen = () => (
     initialRouteName="Orders"
     screenOptions={{ headerShown: false }}>
     <OrdersStack.Screen name="Orders" component={Orders} />
-    <OrdersStack.Screen name="OrderDetails" component={OrderDetails}
-    />
+    {/* <OrdersStack.Screen name="OrderDetails" component={OrderDetails}
+    /> */}
   </OrdersStack.Navigator>
 );
 
 // custom tab bar
-const MyTabBar = ({ state, descriptors, navigation }) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        height: 75,
-        paddingBottom: Platform.OS === 'ios' ? 25 : 0,
-      }}>
-      {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
-        let icon = '';
-        if (route.name == 'MenuStack') {
-          icon = <MenuIcon />;
-        } else if (route.name == 'OrdersStack') {
-          icon = <OrdersIcon />;
-        } else {
-          icon = <ProfileIcon />;
-        }
+// const MyTabBar = ({ state, descriptors, navigation }) => {
+//   return (
+//     <View
+//       style={{
+//         flexDirection: 'row',
+//         backgroundColor: 'white',
+//         height: 75,
+//         paddingBottom: Platform.OS === 'ios' ? 25 : 0,
+//       }}>
+//       {state.routes.map((route, index) => {
+//         const { options } = descriptors[route.key];
+//         const label =
+//           options.tabBarLabel !== undefined
+//             ? options.tabBarLabel
+//             : options.title !== undefined
+//               ? options.title
+//               : route.name;
+//         let icon = '';
+//         if (route.name == 'MenuStack') {
+//           icon = <MenuIcon />;
+//         } else if (route.name == 'OrdersStack') {
+//           icon = <OrdersIcon />;
+//         } else {
+//           icon = <ProfileIcon />;
+//         }
 
-        const isFocused = state.index === index;
+//         const isFocused = state.index === index;
 
-        const onPress = () => {
-          const event = navigation.emit({
-            type: 'tabPress',
-            target: route.key,
-          });
+//         const onPress = () => {
+//           const event = navigation.emit({
+//             type: 'tabPress',
+//             target: route.key,
+//           });
 
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
+//           if (!isFocused && !event.defaultPrevented) {
+//             navigation.navigate(route.name);
+//           }
+//         };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
+//         const onLongPress = () => {
+//           navigation.emit({
+//             type: 'tabLongPress',
+//             target: route.key,
+//           });
+//         };
 
-        return (
-          <TouchableOpacity
-            accessibilityRole="button"
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
-            onPress={onPress}
-            key={index}
-            style={{
-              flex: 1,
-              opacity: isFocused ? 1 : 0.4,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <View>{icon}</View>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  );
-};
+//         return (
+//           <TouchableOpacity
+//             accessibilityRole="button"
+//             accessibilityLabel={options.tabBarAccessibilityLabel}
+//             testID={options.tabBarTestID}
+//             onPress={onPress}
+//             key={index}
+//             style={{
+//               flex: 1,
+//               opacity: isFocused ? 1 : 0.4,
+//               alignItems: 'center',
+//               justifyContent: 'center',
+//             }}>
+//             <View>{icon}</View>
+//           </TouchableOpacity>
+//         );
+//       })}
+//     </View>
+//   );
+// };
 
-const Tab = createBottomTabNavigator();
 
 export default Routes = () => {
   const { isAuthenticated } = useAuth();
 
   return isAuthenticated ? (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     <CartProvider>
       <NavigationContainer>
         <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
-          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Home" component={Menu} />
           <Tab.Screen name="OrdersStack" component={OrdersStackScreen} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
@@ -145,42 +126,6 @@ export default Routes = () => {
   ) : (
     <NavigationContainer>
       <AuthStack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false }}>
-=======
->>>>>>> main
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="MenuStack"
-        tabBar={props => <MyTabBar {...props} />}>
-        <Tab.Screen name="MenuStack" component={MenuStackScreen} />
-        <Tab.Screen name="OrdersStack" component={OrdersStackScreen} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  ) : (
-    <NavigationContainer>
-      <AuthStack.Navigator
-        initialRouteName="Orders"
-        screenOptions={{ headerShown: false }}>
-<<<<<<< HEAD
-=======
-    <CartProvider>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="OrdersStack" component={OrdersStackScreen} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </CartProvider>
-
-  ) : (
-    <NavigationContainer>
-      <AuthStack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false }}>
->>>>>>> exp
-=======
->>>>>>> 3366495acc0fc9fb4a5e6dcaedb08c4de65d0eb3
->>>>>>> main
         <AuthStack.Screen name="Auth" component={Auth} />
       </AuthStack.Navigator>
     </NavigationContainer>
