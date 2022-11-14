@@ -7,7 +7,6 @@ export default Profile = () => {
             title={'Pay with Razorpay'}
             onPress={() => {
                 var options = {
-                    description: 'Credits towards consultation',
                     //  image: 'https://i.imgur.com/3g7nmJC.png',
                     currency: 'INR',
                     key: 'rzp_test_63Ql0ORtf7nOeb', // Your api key
@@ -31,6 +30,20 @@ export default Profile = () => {
                             },
                         },
                     },
+
+                    prefill: {
+                        name: "",
+                        email: "test@test.com",
+                        contact: "9999999999"
+                    },
+                
+                    theme : {
+                        hide_topbar : true,
+                        color : '#32BA7C'
+                    } ,
+                    checkout : {
+                        name : "Canteen"
+                    }
 
 
                 };
