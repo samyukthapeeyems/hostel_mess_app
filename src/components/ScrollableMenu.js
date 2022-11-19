@@ -162,9 +162,9 @@ const MenuItem = ({ item }) => {
           flexWrap: "wrap",
         }}
       >
-        <Text style={{ fontSize: 16, fontWeight: "700" }}>{item.foodItem}</Text>
+        <Text style={{ fontSize: 16, fontWeight: "700" , color : 'black'}}>{item.foodItem}</Text>
 
-        <Text style={{ fontSize: 12, fontWeight: "400", marginBottom: 4 }}>
+        <Text style={{ fontSize: 12, fontWeight: "400", marginBottom: 4 ,color : 'black'}}>
           {item.details}
         </Text>
 
@@ -250,6 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     marginBottom: 10,
+    color : 'black'
   },
   menuCardTitleContainer: {
     flexDirection: "row",
@@ -258,6 +259,7 @@ const styles = StyleSheet.create({
   menuCardText: {
     fontSize: 20,
     fontWeight: "700",
+    color : 'black'
   },
   item: {
     backgroundColor: "#f9c2ff",
