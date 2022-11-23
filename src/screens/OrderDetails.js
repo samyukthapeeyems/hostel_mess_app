@@ -1,8 +1,14 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { SIZES } from "../constants/theme";
-// import Ionicons from "@expo/vector-icons/Ionicons";
-// import OrderDetailsHeder from "./OrderDetailsHeder";
-// import OrderDetailsContent from "./OrderDetailsContent";
+import MyStatusBar from "../components/MyStatusBar";
+import { COLORS } from "../constants/theme";
+import { LeftArrow } from "../assets/icons";
 
 const OrderDetailsHeader = ({ route, navigation }) => {
   // const { Itemid } = route.params;
@@ -11,9 +17,9 @@ const OrderDetailsHeader = ({ route, navigation }) => {
     <View style={styles.orderDetailscontainer}>
       <View style={styles.orderDetailsbackbutton}>
         {
-          <TouchableOpacity onPress={() => navigation.navigate("Orders")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text>
-              {/* <Ionicons name="arrow-back-outline" size={32} color="white" /> */}
+              <LeftArrow />
             </Text>
           </TouchableOpacity>
         }
@@ -121,22 +127,55 @@ const OrderDetailsContent = () => {
     </View>
   );
 };
+const GenerateToken = ({ navigation }) => {
+  return (
+    <TouchableOpacity
+      style={{
+        backgroundColor: "#32BA7C",
+        paddingVertical: 15,
+        marginVertical: 15,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginHorizontal: 16,
+      }}
+      onPress={() => navigation.navigate("Token")}
+    >
+      <Text style={{ color: "white", fontSize: 18, fontWeight: "700" }}>
+        Generate Token
+      </Text>
+    </TouchableOpacity>
+  );
+};
 const OrderDetails = ({ navigation }) => {
   return (
-    <View>
+    <>
+      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
+
       <OrderDetailsHeader navigation={navigation} />
-      <View style={styles.container}>
-        <Text style={styles.containerText}>BILL DETAILS</Text>
-        <OrderDetailsContent />
-      </View>
-    </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <View style={styles.container}>
+            <Text style={styles.containerText}>BILL DETAILS</Text>
+            <OrderDetailsContent />
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+          }}
+        >
+          <GenerateToken />
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 
 export default OrderDetails;
 
 const styles = StyleSheet.create({
-  container: {},
   containerText: { padding: 10, fontWeight: "400", fontSize: 12 },
   deatialsView: {},
   orderDetailscontainer: {
