@@ -112,7 +112,7 @@ const WalletContent = ({ navigation }) => {
 const Wallet = ({ navigation }) => {
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
+      <MyStatusBar backgroundColor={COLORS.green} barStyle="light-content" />
       <WalletHeader navigation={navigation} />
       <WalletContent navigation={navigation} />
     </>
