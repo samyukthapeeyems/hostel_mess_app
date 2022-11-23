@@ -1,4 +1,5 @@
-import Svg, { SvgProps, Rect, Path } from "react-native-svg";
+import Svg, { SvgProps, Rect, Path } from 'react-native-svg';
+import React from 'react';
 
 const MenuIcon = () => (
   <Svg width={27} height={35} viewBox="0 0 27 35">
@@ -138,13 +139,7 @@ const GrayMinusIcon = () => (
 );
 
 const BreakfastIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M9.25 6a3.25 3.25 0 1 0-6.5 0M2.495 2.495 2.43 2.43m7.075.065.065-.065-.065.065ZM6 1.04V1v.04ZM1.04 6H1h.04ZM11 6h-.04.04Z"
       stroke="#0C0F17"
@@ -162,13 +157,7 @@ const BreakfastIcon = () => (
 );
 
 const LunchIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M6 9.25a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5ZM9.57 9.57l-.065-.065m0-7.01.065-.065-.065.065ZM2.43 9.57l.065-.065-.065.065ZM6 1.04V1v.04ZM6 11v-.04.04ZM1.04 6H1h.04ZM11 6h-.04.04ZM2.495 2.495 2.43 2.43l.065.065Z"
       stroke="#0C0F17"
@@ -179,13 +168,7 @@ const LunchIcon = () => (
 );
 
 const DinnerIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M1.015 6.21c.18 2.575 2.365 4.67 4.98 4.785A5.255 5.255 0 0 0 10.48 8.86c.41-.555.19-.925-.495-.8-.335.06-.68.085-1.04.07C6.5 8.03 4.5 5.985 4.49 3.57c-.005-.65.13-1.265.375-1.825.27-.62-.055-.915-.68-.65-1.98.835-3.335 2.83-3.17 5.115Z"
       stroke="#0C0F17"
@@ -193,9 +176,20 @@ const DinnerIcon = () => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
-
+const LeftArrow = () => (
+  <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Path
+      d="M9.57 5.93 3.5 12l6.07 6.07M20.5 12H3.67"
+      stroke="#fff"
+      strokeWidth={1.5}
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
 
 export {
   MenuIcon,
@@ -206,5 +200,6 @@ export {
   GrayMinusIcon,
   BreakfastIcon,
   LunchIcon,
-  DinnerIcon
+  DinnerIcon,
+  LeftArrow,
 };
