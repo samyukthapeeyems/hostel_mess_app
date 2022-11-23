@@ -1,10 +1,17 @@
-import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
+  Image,
+} from 'react-native';
 import MyStatusBar from '../components/MyStatusBar';
 import { COLORS } from '../constants/theme';
 import CircleButton from '../components/Header';
 import React from 'react';
 import useAuth from '../contexts/AuthContext';
-import PrflPic from '../../assets/images/PrflPic.png'
+import PrflPic from '../../assets/images/PrflPic.png';
 
 const ProfileHeader = () => {
   return (
@@ -15,19 +22,16 @@ const ProfileHeader = () => {
 };
 
 const PrflButton = () => {
-  return(
-    <TouchableOpacity 
-    >
-    <Image
-      source={PrflPic}
-      resizeMode="contain"
-      style={{ width: 42, height: 42, borderRadius: 50 }}
-    />
-  </TouchableOpacity>
-  )
-
-}
- 
+  return (
+    <TouchableOpacity>
+      <Image
+        source={PrflPic}
+        resizeMode="contain"
+        style={{ width: 42, height: 42, borderRadius: 50 }}
+      />
+    </TouchableOpacity>
+  );
+};
 
 const UserInfoCard = () => (
   <View
@@ -59,8 +63,10 @@ const UserInfoCard = () => (
           paddingVertical: 13,
           paddingLeft: 10,
         }}>
-        <Text style={{ fontSize: 24, fontWeight: '700',color:COLORS.black }}>Anna</Text>
-        <Text style={{color:COLORS.black}}>anna@gmail.com</Text>
+        <Text style={{ fontSize: 24, fontWeight: '700', color: COLORS.black }}>
+          Anna
+        </Text>
+        <Text style={{ color: COLORS.black }}>anna@gmail.com</Text>
       </View>
     </View>
     {/* right item  */}
@@ -124,7 +130,8 @@ const ProfileWallet = ({ navigation }) => {
             justifyContent: 'flex-start',
             marginLeft: 15,
           }}>
-          <Text style={{ fontSize: 14, fontWeight: 'bold',color:COLORS.black }}>
+          <Text
+            style={{ fontSize: 14, fontWeight: 'bold', color: COLORS.black }}>
             eCanteen Wallet
           </Text>
         </View>
@@ -135,14 +142,14 @@ const ProfileWallet = ({ navigation }) => {
             justifyContent: 'flex-end',
             marginRight: 15,
           }}>
-          <Text style={{ fontSize: 20, color:COLORS.black }}> > </Text>
+          <Text style={{ fontSize: 20, color: COLORS.black }}> > </Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
-const ProfileLogout = () => {
+const ProfileLogout = ({ signOut }) => {
   return (
     <TouchableOpacity
       style={{
@@ -153,7 +160,7 @@ const ProfileLogout = () => {
         marginHorizontal: 24,
         borderRadius: 10,
       }}
-      onPress={() => {}}>
+      onPress={async () => await signOut()}>
       <Text style={{ fontSize: 20, fontWeight: '700', color: 'white' }}>
         LOG OUT
       </Text>
@@ -177,7 +184,7 @@ const Profile = ({ navigation }) => {
         <UserInfoCard />
         <ProfileContent2 />
         <ProfileWallet navigation={navigation} />
-        <Button title="Google Log out" onPress={async () => await signOut()} />
+        {/* <Button title="Google Log out" onPress={async () => await signOut()} /> */}
       </View>
       <View
         style={{
@@ -185,7 +192,7 @@ const Profile = ({ navigation }) => {
           justifyContent: 'flex-end',
           marginBottom: 15,
         }}>
-        <ProfileLogout />
+        <ProfileLogout signOut={signOut} />
       </View>
     </>
   );
