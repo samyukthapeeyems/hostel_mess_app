@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
     marginBottom: 10,
+    color : COLORS.black
   },
   menuCardTitleContainer: {
     flexDirection: 'row',
@@ -216,6 +217,8 @@ const styles = StyleSheet.create({
   menuCardText: {
     fontSize: 20,
     fontWeight: '700',
+    color : COLORS.black
+
   },
   item: {
     backgroundColor: '#f9c2ff',
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   title: {
-    fontSize: 24,
+    fontSize: 24,color:COLORS.black
   },
   conatiner: { width: '100%' },
   textinput: {
@@ -266,8 +269,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.green,
   },
-  detailsText: { fontSize: 12, fontWeight: '400', marginBottom: 4 },
-  itemTitle: { fontSize: 16, fontWeight: '700' },
+  detailsText: { fontSize: 12, fontWeight: '400', marginBottom: 4 ,color : COLORS.black},
+  itemTitle: { fontSize: 16, fontWeight: '700',color : COLORS.black},
   menuItemBox: {
     marginVertical: 4,
     paddingLeft: 10,

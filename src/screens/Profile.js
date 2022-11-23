@@ -108,7 +108,7 @@ const ProfileWallet = ({ navigation }) => {
             justifyContent: 'flex-start',
             marginLeft: 15,
           }}>
-          <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+          <Text style={{ fontSize: 14, fontWeight: 'bold',color:COLORS.black }}>
             eCanteen Wallet
           </Text>
         </View>
@@ -119,7 +119,7 @@ const ProfileWallet = ({ navigation }) => {
             justifyContent: 'flex-end',
             marginRight: 15,
           }}>
-          <Text style={{ fontSize: 20 }}> > </Text>
+          <Text style={{ fontSize: 20, color:COLORS.black }}> > </Text>
         </View>
       </View>
     </TouchableOpacity>

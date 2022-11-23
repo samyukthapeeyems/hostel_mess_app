@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { GreenAddIcon, GrayMinusIcon } from '../../assets/icons';
 import React from 'react';
+import { COLORS } from '../constants/theme';
 
 const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
   return (
@@ -25,7 +26,7 @@ const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
         <GrayMinusIcon />
       </TouchableOpacity>
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-        <Text>{count}</Text>
+        <Text style ={{color : COLORS.black}}>{count}</Text>
       </View>
       <TouchableOpacity
         onPress={handleAddItems}
@@ -35,6 +36,7 @@ const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
           height: '100%',
           justifyContent: 'center',
           alignItems: 'center',
+
         }}>
         <GreenAddIcon />
       </TouchableOpacity>
