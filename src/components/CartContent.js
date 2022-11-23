@@ -12,19 +12,6 @@ const CartContent = () => {
           2 porotta 2 chicken curry + tea
         </Text>
       </View>
-      {/* <View style={styles.buttonview}>
-        <TouchableOpacity style={styles.touch} onPress={decrement}>
-          <Text style={styles.size}> -</Text>
-        </TouchableOpacity>
-        <View>
-          <Text>{count}</Text>
-        </View>
-
-        <TouchableOpacity style={styles.touch} onPress={increment}>
-          <Text style={styles.size}>+</Text>
-        </TouchableOpacity>
-      </View> */}
-
       <View style={styles.rupee}>
         <Text>Rs 60</Text>
       </View>
@@ -37,15 +24,6 @@ const styles = StyleSheet.create({
   container1: { flex: 3, backgroundColor: "white", padding: 8, marginLeft: 10 },
   container2: { fontWeight: "700", fontSize: 15 },
   container2text: { fontWeight: "400", fontSize: 10 },
-  buttonview: {
-    flex: 2,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  touch: { padding: 6 },
-  size: { fontSize: 25 },
   rupee: {
     flex: 1,
     backgroundColor: "white",
