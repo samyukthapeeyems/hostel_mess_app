@@ -7,108 +7,110 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
-} from "react-native";
-import { COLORS } from "../constants/theme";
-import porotta from "../../assets/images/porotta.png";
-import chappathi from "../../assets/images/chappathi.png";
-import dosa from "../../assets/images/dosa.png";
-import { GreenButton } from "../../assets/icons";
-import ItemCounter from "./ItemCounter";
-import { useState } from "react";
+} from 'react-native';
+import { COLORS } from '../constants/theme';
+
+import porotta from '../../assets/images/porotta.png';
+import chappathi from '../../assets/images/chappathi.png';
+import dosa from '../../assets/images/dosa.png';
+
+import { GreenButton } from '../../assets/icons';
+import ItemCounter from './ItemCounter';
+import React, { useState } from 'react';
 
 const DATA = [
   {
-    title: "✨Recommended",
+    title: '✨Recommended',
     data: [
       {
         id: 1,
-        foodItem: "Pizza",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Pizza',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 30,
         img: porotta,
       },
       {
         id: 2,
-        foodItem: "Burger",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Burger',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 70,
         img: chappathi,
       },
       {
         id: 3,
-        foodItem: "Risotto",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Risotto',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 90,
         img: dosa,
       },
     ],
   },
   {
-    title: "Sides",
+    title: 'Sides',
     data: [
       {
         id: 4,
-        foodItem: "French Fries",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'French Fries',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 20,
         img: porotta,
       },
       {
         id: 5,
-        foodItem: "Onion rings",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Onion rings',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 70,
         img: chappathi,
       },
       {
         id: 6,
-        foodItem: "Fried Shrimps",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Fried Shrimps',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 60,
         img: dosa,
       },
     ],
   },
   {
-    title: "Drinks",
+    title: 'Drinks',
     data: [
       {
         id: 7,
-        foodItem: "Water",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Water',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 30,
         img: dosa,
       },
       {
         id: 8,
-        foodItem: "Coke",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Coke',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 30,
         img: chappathi,
       },
       {
         id: 9,
-        foodItem: "Beer",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Beer',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 30,
         img: porotta,
       },
     ],
   },
   {
-    title: "Desserts",
+    title: 'Desserts',
     data: [
       {
         id: 10,
-        foodItem: "Cheese Cake",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Cheese Cake',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 25,
         img: porotta,
       },
       {
         id: 11,
-        foodItem: "Ice cream",
-        details: "2 Piece Porotta, 1 Portion of ...",
+        foodItem: 'Ice cream',
+        details: '2 Piece Porotta, 1 Portion of ...',
         cost: 20,
         img: dosa,
       },
@@ -117,34 +119,18 @@ const DATA = [
 ];
 
 const MenuItem = ({ item }) => {
-  const [items, setItems] = useState(2);
   const [count, setCount] = useState(0);
   const handleAddItems = () => {
-    setCount((count) => count + 1);
+    setCount(count => count + 1);
   };
   const handleRemoveItems = () => {
-    setCount((count) => count - 1);
+    setCount(count => count - 1);
   };
 
   return (
-    <View
-      style={{
-        marginVertical: 4,
-        // backgroundColor : '#000',
-        paddingLeft: 10,
-        flexDirection: "row",
-        flexWrap: "wrap",
-      }}
-    >
+    <View style={styles.menuItemBox}>
       {/* left item  */}
-      <View
-        style={{
-          padding: 10,
-          justifyContent: "center",
-          // backgroundColor: COLORS.yellow,
-          flexWrap: "wrap",
-        }}
-      >
+      <View style={styles.leftItem}>
         <Image
           source={item.img}
           resizeMode="contain"
@@ -152,41 +138,13 @@ const MenuItem = ({ item }) => {
         />
       </View>
       {/* center item  */}
-      <View
-        style={{
-          flex: 2,
-          // backgroundColor: "cyan",
-          flexDirection: "column",
-          paddingVertical: 10,
-          paddingHorizontal: 10,
-          flexWrap: "wrap",
-        }}
-      >
-        <Text style={{ fontSize: 16, fontWeight: "700" , color : 'black'}}>{item.foodItem}</Text>
-
-        <Text style={{ fontSize: 12, fontWeight: "400", marginBottom: 4 ,color : 'black'}}>
-          {item.details}
-        </Text>
-
-        <Text
-          style={{
-            fontSize: 24,
-            fontWeight: "700",
-            color: COLORS.green,
-          }}
-        >
-          ₹{item.cost}
-        </Text>
+      <View style={styles.centerItem}>
+        <Text style={styles.itemTitle}>{item.foodItem}</Text>
+        <Text style={styles.detailsText}>{item.details}</Text>
+        <Text style={styles.costText}>₹{item.cost}</Text>
       </View>
       {/* right item  */}
-      <View
-        style={{
-          flex: 1,
-          // backgroundColor: "pink",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <View style={styles.rightItem}>
         {count === 0 ? (
           <TouchableOpacity onPress={handleAddItems}>
             <GreenButton />
@@ -228,11 +186,11 @@ const MenuCardTitle = ({ section: { title } }) => (
   </View>
 );
 const ScrollableMenu = () => (
-  <View style={{ flex: 1, backgroundColor: "white", paddingHorizontal: 15 }}>
+  <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 15 }}>
     <SectionList
       sections={DATA}
       keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <MenuItem item={item}  />}
+      renderItem={({ item }) => <MenuItem item={item} />}
       renderSectionHeader={MenuCardTitle}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={SectionListHeader}
@@ -248,46 +206,73 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     fontSize: 30,
-    fontWeight: "700",
+    fontWeight: '700',
     marginBottom: 10,
-    color : 'black'
   },
   menuCardTitleContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     backgroundColor: COLORS.white,
   },
   menuCardText: {
     fontSize: 20,
-    fontWeight: "700",
-    color : 'black'
+    fontWeight: '700',
   },
   item: {
-    backgroundColor: "#f9c2ff",
+    backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 4,
   },
   sectionHeader: {
     fontSize: 32,
-    // backgroundColor: "white",
-    // paddingTop: 10,
+
     padding: 7,
   },
   title: {
     fontSize: 24,
   },
-  conatiner: { width: "100%" },
+  conatiner: { width: '100%' },
   textinput: {
     fontSize: 18,
-    backgroundColor: "#7676801F",
+    backgroundColor: '#7676801F',
     paddingHorizontal: 12,
     paddingVertical: 10,
     marginVertical: 15,
     borderRadius: 10,
   },
   imageContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
+  },
+  leftItem: {
+    padding: 10,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  centerItem: {
+    flex: 2,
+    flexDirection: 'column',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexWrap: 'wrap',
+  },
+  rightItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  costText: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: COLORS.green,
+  },
+  detailsText: { fontSize: 12, fontWeight: '400', marginBottom: 4 },
+  itemTitle: { fontSize: 16, fontWeight: '700' },
+  menuItemBox: {
+    marginVertical: 4,
+    paddingLeft: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });
 

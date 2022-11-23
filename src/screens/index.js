@@ -3,6 +3,8 @@ import Orders from './Orders';
 import Profile from './Profile';
 import Menu from './Menu';
 import OrderDetails from './OrderDetails';
-import Auth from './Auth';
+import Token from './Token';
+import Wallet from './Wallet';
+import AddPayment from './AddPayment';
 
-export { Cart, Menu, Orders, Profile, OrderDetails, Auth };
+export { Cart, Menu, Orders, Profile, OrderDetails, Token, Wallet, AddPayment };

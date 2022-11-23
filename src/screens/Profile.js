@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity , StyleSheet} from "react-native";
-import MyStatusBar from "../components/MyStatusBar";
-import { COLORS } from "../constants/theme";
-import { CircleButton } from "../components/Button";
+import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import MyStatusBar from '../components/MyStatusBar';
+import { COLORS } from '../constants/theme';
+// import CircleButton from '../components/Header';
+import React from 'react';
+import useAuth from '../contexts/AuthContext';
 
 const ProfileHeader = () => {
   return (
@@ -14,38 +16,34 @@ const ProfileHeader = () => {
 const UserInfoCard = () => (
   <View
     style={{
-      flexDirection: "row",
+      flexDirection: 'row',
       paddingHorizontal: 16,
       paddingVertical: 30,
-      backgroundColor: "white",
-    }}
-  >
+      backgroundColor: 'white',
+    }}>
     {/* left item  */}
     <View
       style={{
         flex: 1,
-        flexDirection: "row",
-      }}
-    >
+        flexDirection: 'row',
+      }}>
       <View
         style={{
           flex: 1,
 
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircleButton />
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {/* <CircleButton /> */}
       </View>
       <View
         style={{
           flex: 3,
-          backgroundColor: "white",
+          backgroundColor: 'white',
           paddingVertical: 13,
           paddingLeft: 10,
-        }}
-      >
-        <Text style={{ fontSize: 24, fontWeight: "700" }}>Anna</Text>
+        }}>
+        <Text style={{ fontSize: 24, fontWeight: '700' }}>Anna</Text>
         <Text>anna@gmail.com</Text>
       </View>
     </View>
@@ -53,12 +51,11 @@ const UserInfoCard = () => (
     <View
       style={{
         flex: 1,
-        alignItems: "flex-end",
-        justifyContent: "center",
-      }}
-    >
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+      }}>
       <TouchableOpacity>
-        <Text style={{ fontWeight: "700", color: COLORS.blue, fontSize: 14 }}>
+        <Text style={{ fontWeight: '700', color: COLORS.blue, fontSize: 14 }}>
           EDIT PROFILE
         </Text>
       </TouchableOpacity>
@@ -69,29 +66,26 @@ const UserInfoCard = () => (
 const ProfileContent2 = () => {
   return (
     <View
-      style={{ flexDirection: "row", padding: 10, backgroundColor: "#D7F4E7" }}
-    >
+      style={{ flexDirection: 'row', padding: 10, backgroundColor: '#D7F4E7' }}>
       <View
         style={{
           flex: 1,
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
           marginLeft: 15,
-        }}
-      >
-        <Text style={{ fontSize: 14, color: "#32BA7C" }}>
+        }}>
+        <Text style={{ fontSize: 14, color: '#32BA7C' }}>
           Profile Incomplete
         </Text>
       </View>
       <View
         style={{
           flex: 1,
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
           marginRight: 15,
-        }}
-      >
-        <Text style={{ fontSize: 14, color: "#32BA7C" }}>Complete now</Text>
+        }}>
+        <Text style={{ fontSize: 14, color: '#32BA7C' }}>Complete now</Text>
       </View>
     </View>
   );
@@ -99,35 +93,32 @@ const ProfileContent2 = () => {
 
 const ProfileWallet = ({ navigation }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("Wallet")}>
+    <TouchableOpacity onPress={() => navigation.navigate('Wallet')}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           padding: 10,
-          backgroundColor: "white",
+          backgroundColor: 'white',
           marginTop: 20,
-        }}
-      >
+        }}>
         <View
           style={{
             flex: 1,
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
             marginLeft: 15,
-          }}
-        >
-          <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+          }}>
+          <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
             eCanteen Wallet
           </Text>
         </View>
         <View
           style={{
             flex: 1,
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
             marginRight: 15,
-          }}
-        >
+          }}>
           <Text style={{ fontSize: 20 }}> > </Text>
         </View>
       </View>
@@ -135,20 +126,19 @@ const ProfileWallet = ({ navigation }) => {
   );
 };
 
-
 const ProfileLogout = () => {
   return (
     <TouchableOpacity
       style={{
         backgroundColor: COLORS.red,
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 15,
         marginHorizontal: 24,
         borderRadius: 10,
       }}
-    >
-      <Text style={{ fontSize: 20, fontWeight: "700", color: "white" }}>
+      onPress={() => {}}>
+      <Text style={{ fontSize: 20, fontWeight: '700', color: 'white' }}>
         LOG OUT
       </Text>
     </TouchableOpacity>
@@ -156,6 +146,8 @@ const ProfileLogout = () => {
 };
 
 const Profile = ({ navigation }) => {
+  const { signOut } = useAuth();
+
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
@@ -169,14 +161,14 @@ const Profile = ({ navigation }) => {
         <UserInfoCard />
         <ProfileContent2 />
         <ProfileWallet navigation={navigation} />
+        <Button title="Google Log out" onPress={async () => await signOut()} />
       </View>
       <View
         style={{
           flex: 1,
-          justifyContent: "flex-end",
+          justifyContent: 'flex-end',
           marginBottom: 15,
-        }}
-      >
+        }}>
         <ProfileLogout />
       </View>
     </>
@@ -186,12 +178,12 @@ const Profile = ({ navigation }) => {
 export default Profile;
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", backgroundColor: "#3358F9" },
+  container: { flexDirection: 'row', backgroundColor: '#3358F9' },
   containerText: {
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: 24,
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     paddingVertical: 21,
     paddingLeft: 16,
   },
