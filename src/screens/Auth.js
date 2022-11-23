@@ -22,7 +22,7 @@ const Auth = () => {
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
       {/* <Button title="Google Sign-In" onPress={async () => await signIn()} /> */}
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: 'orange' }}>
+        <View style={{ flex: 1 }}>
           {/* <Image source={LoginImg} resizeMode="cover" /> */}
           <ImageBackground
             source={LoginImg}
