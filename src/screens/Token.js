@@ -88,7 +88,7 @@ const Token = ({ navigation }) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginHorizontal: 16,
-            }}>
+            }} onPress ={()=> navigation.navigate("Menu")}>
             <Text style={{ color: '#32BA7C', fontSize: 18, fontWeight: '700' }}>
               BACK TO HOME
             </Text>
