@@ -21,7 +21,7 @@ import MyTabBar from './components/MyTabBar';
 
 const Tabs = createBottomTabNavigator();
 
-const TabsScreen = () => {
+const TabsScreen = ({navigation}) => {
   return (
     <Tabs.Navigator
       initialRouteName="Menu"

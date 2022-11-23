@@ -102,7 +102,7 @@ const CartContent = ({ item }) => {
       </View>
 
       <View style={styles.rupee}>
-        <Text>₹{item.cost}</Text>
+        <Text style ={{color: COLORS.black}}>₹{item.cost}</Text>
       </View>
     </View>
   );
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 15,
   },
-  container2: { fontWeight: '700', fontSize: 15 },
-  container2text: { fontWeight: '400', fontSize: 10 },
+  container2: { fontWeight: '700', fontSize: 15, color: COLORS.black},
+  container2text: { fontWeight: '400', fontSize: 10 ,color: COLORS.black},
   buttonview: {
     flex: 2,
     backgroundColor: 'white',
@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 
   cartHeadercontainer: {

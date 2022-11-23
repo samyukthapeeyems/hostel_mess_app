@@ -12,7 +12,7 @@ const MyStatusBar = ({ backgroundColor, ...props }) => (
 );
 const styles = StyleSheet.create({
   statusBar: {
-    height: STATUSBAR_HEIGHT,
+    height: Platform.OS === 'android' ? 10: STATUSBAR_HEIGHT,
   },
 });
 

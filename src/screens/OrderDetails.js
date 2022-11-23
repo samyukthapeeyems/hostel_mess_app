@@ -49,7 +49,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-start',
               justifyContent: 'flex-start',
             }}>
-            <Text style>Porotta & Beef</Text>
+            <Text style={{color: COLORS.black}}>Porotta & Beef</Text>
           </View>
           <View
             style={{
@@ -57,7 +57,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
             }}>
-            <Text>₹60</Text>
+            <Text style={{color: COLORS.black}}>₹60</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
@@ -67,7 +67,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-start',
               justifyContent: 'flex-start',
             }}>
-            <Text style>Biriyani Rice</Text>
+            <Text style={{color: COLORS.black}}>Biriyani Rice</Text>
           </View>
           <View
             style={{
@@ -75,7 +75,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
             }}>
-            <Text>₹60</Text>
+            <Text style={{color: COLORS.black}}>₹60</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row', paddingTop: 5 }}>
@@ -85,7 +85,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-start',
               justifyContent: 'flex-start',
             }}>
-            <Text style>Tea</Text>
+            <Text style={{color: COLORS.black}}>Tea</Text>
           </View>
           <View
             style={{
@@ -93,7 +93,7 @@ const OrderDetailsContent = () => {
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
             }}>
-            <Text>₹10</Text>
+            <Text style={{color: COLORS.black}}>₹10</Text>
           </View>
         </View>
       </View>
@@ -105,7 +105,7 @@ const OrderDetailsContent = () => {
             justifyContent: 'flex-start',
             paddingTop: 10,
           }}>
-          <Text style>Total</Text>
+          <Text style={{color: COLORS.black}}>Total</Text>
         </View>
         <View
           style={{
@@ -113,7 +113,7 @@ const OrderDetailsContent = () => {
             alignItems: 'flex-end',
             justifyContent: 'flex-end',
           }}>
-          <Text>₹130</Text>
+          <Text style={{color: COLORS.black}}>₹130</Text>
         </View>
       </View>
     </View>
@@ -166,7 +166,8 @@ const OrderDetails = ({ navigation }) => {
 export default OrderDetails;
 
 const styles = StyleSheet.create({
-  containerText: { padding: 10, fontWeight: '400', fontSize: 12 },
+  containerText: { padding: 10, fontWeight: '400', fontSize: 12,    color: COLORS.black
+},
   deatialsView: {},
   orderDetailscontainer: {
     flexDirection: 'row',
