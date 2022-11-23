@@ -1,33 +1,34 @@
 import { Text, Button } from "react-native"
-import RazorpayCheckout from 'react-native-razorpay';
+import AllInOneSDKManager from 'paytm_allinone_react-native';
+
 
 export default Profile = () => {
-    return (
-        <Button
-            title={'Pay with Razorpay'}
-            onPress={() => {
-              var options = {
-                description: 'Credits towards consultation',
-              //  image: 'https://i.imgur.com/3g7nmJC.png',
-                currency: 'INR',
-                key: 'rzp_test_63Ql0ORtf7nOeb', // Your api key
-                amount: '5000',
-                method : 'upi'
-                // name: 'foo',
-            
-              };
-              RazorpayCheckout.open(options)
-                .then(data => {
-                  // handle success
-                  alert(`Success: ${data.razorpay_payment_id}`);
-                })
-                .catch(error => {
-                  // handle failure
-                  alert(`Error: ${error.code} | ${error.description}`);
-                });
-            }}
-          />
-    )
+  return (
+    <Button
+      title={'Pay with Razorpay'}
+      onPress={() => {
+        AllInOneSDKManager.startTransaction(
+          orderId = "orderId",
+          mid = "xZhVnv93110728543806",
+          txnToken = "tranxToken",
+          amount = "1000",
+          callbackUrl = "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=<order_id>",
+          isStaging = false,
+          appInvokeRestricted,
+          urlScheme = "canteen://"
+        )
+          .then((result) => {
+            console.log("result", result);
+            // handle result ..
+          })
+          .catch((err) => {
+            // handle error ..
+          });
+      }
+
+      }
+    />
+  )
 }
 // import { View, Text } from "react-native";
 // import ProfileHeader from "../components/ProfileHeader";
