@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
 import MyStatusBar from '../components/MyStatusBar';
 import { COLORS } from '../constants/theme';
-// import CircleButton from '../components/Header';
+import CircleButton from '../components/Header';
 import React from 'react';
 import useAuth from '../contexts/AuthContext';
+import PrflPic from '../../assets/images/PrflPic.png'
 
 const ProfileHeader = () => {
   return (
@@ -12,6 +13,21 @@ const ProfileHeader = () => {
     </View>
   );
 };
+
+const PrflButton = () => {
+  return(
+    <TouchableOpacity 
+    >
+    <Image
+      source={PrflPic}
+      resizeMode="contain"
+      style={{ width: 42, height: 42, borderRadius: 50 }}
+    />
+  </TouchableOpacity>
+  )
+
+}
+ 
 
 const UserInfoCard = () => (
   <View
@@ -34,7 +50,7 @@ const UserInfoCard = () => (
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {/* <CircleButton /> */}
+        <PrflButton />
       </View>
       <View
         style={{
@@ -43,8 +59,8 @@ const UserInfoCard = () => (
           paddingVertical: 13,
           paddingLeft: 10,
         }}>
-        <Text style={{ fontSize: 24, fontWeight: '700' }}>Anna</Text>
-        <Text>anna@gmail.com</Text>
+        <Text style={{ fontSize: 24, fontWeight: '700',color:COLORS.black }}>Anna</Text>
+        <Text style={{color:COLORS.black}}>anna@gmail.com</Text>
       </View>
     </View>
     {/* right item  */}
