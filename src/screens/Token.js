@@ -31,24 +31,6 @@ const TokenHeader = ({ route, navigation }) => {
   );
 };
 
-const BackToHome = () => {
-  return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: COLORS.white,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        width: '100%',
-        marginTop: 50,
-        borderRadius: 10,
-      }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', color: '#32BA7C' }}>
-        Back to Home
-      </Text>
-    </TouchableOpacity>
-  );
-};
 
 const Token = ({ navigation }) => {
   return (
@@ -61,6 +43,7 @@ const Token = ({ navigation }) => {
           flexDirection: 'column',
           backgroundColor: '#32BA7C',
         }}>
+        {/* <View style={{flex:1, }} /> */}
         <View
           style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
           <View
@@ -87,8 +70,7 @@ const Token = ({ navigation }) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginHorizontal: 16,
-            }}
-            onPress={() => navigation.navigate('Menu')}>
+            }} onPress ={()=> navigation.navigate("Menu")}>
             <Text style={{ color: '#32BA7C', fontSize: 18, fontWeight: '700' }}>
               BACK TO HOME
             </Text>
