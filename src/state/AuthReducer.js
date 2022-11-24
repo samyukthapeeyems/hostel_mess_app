@@ -1,27 +1,26 @@
 export const initialState = {
-    user: null,
-    isAuthenticated : false
-}
+  user: null,
+  isAuthenticated: false,
+};
 
 export function AuthReducer(state, action) {
-    const { type, payload } = action;
+  const {type, payload} = action;
 
-    switch (type) {
-        case "SIGN_IN":
-            console.log("SIGN_IN");
+  switch (type) {
+    case 'SIGN_IN':
+      console.log('SIGN_IN');
 
-            return {
-                user: payload.user,
-                isAuthenticated : payload.isAuthenticated
-            };
+      return {
+        user: payload.user,
+        isAuthenticated: payload.isAuthenticated,
+      };
 
-        case "SIGN_OUT":
-            console.log("SIGN_OUT");
+    case 'SIGN_OUT':
+      console.log('SIGN_OUT');
 
-            return {
-                isAuthenticated : payload.isAuthenticated,
-                user: null
-            };
-
-    }
+      return {
+        isAuthenticated: payload.isAuthenticated,
+        user: null,
+      };
+  }
 }

@@ -37,8 +37,6 @@ allprojects {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
-
-            url "https://artifactory.paytm.in/libs-release-local"
         }
         maven {
             // Android JSC is installed from npm
@@ -53,5 +51,9 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+        maven { 
+            url "https://artifactory.paytm.in/libs-release-local"        
+        }
+
     }
 }

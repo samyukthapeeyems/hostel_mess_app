@@ -1,4 +1,5 @@
-import Svg, { SvgProps, Rect, Path } from "react-native-svg";
+import Svg, { SvgProps, Rect, Path, G, Defs, ClipPath } from 'react-native-svg';
+import React from 'react';
 
 const MenuIcon = () => (
   <Svg width={27} height={35} viewBox="0 0 27 35">
@@ -138,13 +139,7 @@ const GrayMinusIcon = () => (
 );
 
 const BreakfastIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M9.25 6a3.25 3.25 0 1 0-6.5 0M2.495 2.495 2.43 2.43m7.075.065.065-.065-.065.065ZM6 1.04V1v.04ZM1.04 6H1h.04ZM11 6h-.04.04Z"
       stroke="#0C0F17"
@@ -162,13 +157,7 @@ const BreakfastIcon = () => (
 );
 
 const LunchIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M6 9.25a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5ZM9.57 9.57l-.065-.065m0-7.01.065-.065-.065.065ZM2.43 9.57l.065-.065-.065.065ZM6 1.04V1v.04ZM6 11v-.04.04ZM1.04 6H1h.04ZM11 6h-.04.04ZM2.495 2.495 2.43 2.43l.065.065Z"
       stroke="#0C0F17"
@@ -179,13 +168,7 @@ const LunchIcon = () => (
 );
 
 const DinnerIcon = () => (
-  <Svg
-    width={12}
-    height={12}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    
-  >
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M1.015 6.21c.18 2.575 2.365 4.67 4.98 4.785A5.255 5.255 0 0 0 10.48 8.86c.41-.555.19-.925-.495-.8-.335.06-.68.085-1.04.07C6.5 8.03 4.5 5.985 4.49 3.57c-.005-.65.13-1.265.375-1.825.27-.62-.055-.915-.68-.65-1.98.835-3.335 2.83-3.17 5.115Z"
       stroke="#0C0F17"
@@ -193,9 +176,36 @@ const DinnerIcon = () => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
+const LeftArrow = () => (
+  <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Path
+      d="M9.57 5.93 3.5 12l6.07 6.07M20.5 12H3.67"
+      stroke="#fff"
+      strokeWidth={1.5}
+      strokeMiterlimit={10}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
 
+const GoogleLogo = () => (
+  <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <G clipPath="url(#a)" fill="#fff">
+      <Path d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82Z" />
+      <Path d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-3.98v3.09C3.515 21.3 7.565 24 12.255 24Z" />
+      <Path d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62h-3.98a11.86 11.86 0 0 0 0 10.76l3.98-3.09Z" />
+      <Path d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0c-4.69 0-8.74 2.7-10.71 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96Z" />
+    </G>
+    <Defs>
+      <ClipPath id="a">
+        <Path fill="#fff" d="M0 0h24v24H0z" />
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
 
 export {
   MenuIcon,
@@ -206,5 +216,7 @@ export {
   GrayMinusIcon,
   BreakfastIcon,
   LunchIcon,
-  DinnerIcon
+  DinnerIcon,
+  LeftArrow,
+  GoogleLogo,
 };

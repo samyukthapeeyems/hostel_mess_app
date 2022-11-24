@@ -3,17 +3,14 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  FlatList,
   SectionList,
-  Button,
+  SafeAreaView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-// import Ionicons from '@expo/vector-icons/Ionicons';
-import { SIZES } from '../constants/theme';
-import { ItemCounter } from '../components';
-import { BreakfastIcon, LunchIcon, DinnerIcon } from '../../assets/icons';
-import { SquareButton } from '../components/Button';
+import React, { useState } from 'react';
+import ItemCounter from '../components/ItemCounter';
+import { LeftArrow } from '../../assets/icons';
+import MyStatusBar from '../components/MyStatusBar';
+import { COLORS } from '../constants/theme';
 
 const listOfCart = [
   {
@@ -68,10 +65,8 @@ const CartHeader = ({ navigation }) => {
   return (
     <View style={styles.cartHeadercontainer}>
       <View style={styles.cartHeaderbackbutton}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Text>
-            <Ionicons name="arrow-back-outline" size={32} color="white" />
-          </Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <LeftArrow />
         </TouchableOpacity>
       </View>
       <View style={styles.cartheaderview}>
@@ -80,40 +75,7 @@ const CartHeader = ({ navigation }) => {
     </View>
   );
 };
-function OptDinner() {
-  const [optDinner, setOptDinner] = useState(false);
-  //   const increment = () => setCount((count) => count + 1);
-  const handleOptDinner = () => setOptDinner(optDinner => !optDinner);
-  return (
-    <View style={styles.optDinnercontainer}>
-      <View style={styles.optDinnercontainer1}>
-        <View style={styles.optDinnerbuttonview}>
-          <SquareButton handleOptDinner={handleOptDinner} />
-          <Text style={styles.optDinneropt}> Opt for Dinner 🍛</Text>
-        </View>
-        <View style={styles.optDinnerfoodview}>
-          <Text style={styles.optDinnerfoodtext}>
-            The Food marked as Dinner in your Current Cart will be marked as
-            your preference for dinner too
-          </Text>
-        </View>
-      </View>
-      {/* <TouchableOpacity onPress={increment}>
-        <Text>Click me</Text>
-        <Text>{count}</Text>
-      </TouchableOpacity> */}
-      {/* {optDinner ? (
-        <TouchableOpacity>
-          <Text>Opted for dinner</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity>
-          <Text>Not Opted for dinner</Text>
-        </TouchableOpacity>
-      )} */}
-    </View>
-  );
-}
+
 const CartContent = ({ item }) => {
   const [count, setCount] = useState(0);
   const increment = () => {
@@ -122,7 +84,6 @@ const CartContent = ({ item }) => {
   const decrement = () => {
     setCount(count => count - 1);
   };
-  //   console.log(item);
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
@@ -141,102 +102,27 @@ const CartContent = ({ item }) => {
       </View>
 
       <View style={styles.rupee}>
-        <Text>₹{item.cost}</Text>
+        <Text style ={{color: COLORS.black}}>₹{item.cost}</Text>
       </View>
     </View>
   );
 };
-const Confirm = () => {
+const ConfirmOrder = ({ navigation }) => {
   return (
-    <>
-      <View style={styles.confirmcontainer}>
-        <View style={styles.confirmsubview1}>
-          <Text style={{ color: '#32BA7C' }}> 2 Items </Text>
-        </View>
-
-        <View style={styles.confirmsubview2}>
-          <Text style={{ color: '#32BA7C', fontWeight: '700', fontSize: 18 }}>
-            {' '}
-            Rs 120
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.confirmCaution}>
-        <Text style={styles.confirmCautiontext}>
-          Once you confirm your order, your order will be sent to canteen and
-          food will be prepared soon
-        </Text>
-      </View>
-
-      <View style={styles.confirmbutton}>
-        <Text style={{ color: 'white', fontSize: 18 }}>CONFIRM ORDER</Text>
-      </View>
-    </>
+    <TouchableOpacity style={styles.confirmbutton}>
+      <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
+        CONFIRM ORDER
+      </Text>
+    </TouchableOpacity>
   );
 };
-const CartContent2 = () => {
-  return (
-    <>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          padding: 10,
-          //   marginVertical: 5,
-        }}>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            backgroundColor: '#EFEFF0',
-            padding: 10,
-            marginRight: 12,
-            borderRadius: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <BreakfastIcon />
-          <Text style={{ fontWeight: '400', fontSize: 13 }}> Breakfast</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            backgroundColor: '#EFEFF0',
-            padding: 10,
-            marginRight: 12,
-            borderRadius: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <LunchIcon />
-          <Text style={{ fontWeight: '400', fontSize: 13 }}> Lunch</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            backgroundColor: '#EFEFF0',
-            padding: 10,
-            borderRadius: 10,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <DinnerIcon />
-          <Text style={{ fontWeight: '400', fontSize: 13 }}> Dinner</Text>
-        </TouchableOpacity>
-      </View>
-      <OptDinner />
-    </>
-  );
-};
 const OrderList = () => (
   <View style={{ backgroundColor: 'white', flex: 1 }}>
     <SectionList
       sections={listOfCart}
       keyExtractor={item => item.id}
       renderItem={CartContent}
-      ListFooterComponent={CartContent2}
       showsVerticalScrollIndicator={false}
     />
   </View>
@@ -244,21 +130,21 @@ const OrderList = () => (
 const Cart = ({ navigation, route }) => {
   console.log(navigation.isFocused);
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <CartHeader navigation={navigation} />
-      {/* <View style={{ backgroundColor: "red", flex: 1 }}>
-        <OptDinner />
-    </View> */}
-      <OrderList />
-      <Confirm />
-    </View>
+    <>
+      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
+
+      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <CartHeader navigation={navigation} />
+
+        <OrderList />
+        <ConfirmOrder />
+      </SafeAreaView>
+    </>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    //   marginVertical: 10
-    // paddingHorizontal: 10,
   },
   container1: {
     flex: 3,
@@ -266,8 +152,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 15,
   },
-  container2: { fontWeight: '700', fontSize: 15 },
-  container2text: { fontWeight: '400', fontSize: 10 },
+  container2: { fontWeight: '700', fontSize: 15, color: COLORS.black},
+  container2text: { fontWeight: '400', fontSize: 10 ,color: COLORS.black},
   buttonview: {
     flex: 2,
     backgroundColor: 'white',
@@ -282,6 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 
   cartHeadercontainer: {
@@ -298,12 +185,12 @@ const styles = StyleSheet.create({
   },
   cartheaderview: {
     backgroundColor: '#3358F9',
-    flex: 8,
+    flex: 10,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
   cartheadertext: {
-    fontSize: SIZES.large * 2,
+    fontSize: 28,
     color: 'white',
     fontWeight: 'bold',
   },
@@ -340,7 +227,6 @@ const styles = StyleSheet.create({
   confirmCaution: {
     backgroundColor: '#D7F4E7',
     padding: 10,
-    // marginTop: 10,
     marginHorizontal: 10,
     marginTop: 10,
     borderRadius: 10,
@@ -355,13 +241,12 @@ const styles = StyleSheet.create({
   },
   confirmbutton: {
     backgroundColor: '#32BA7C',
-    padding: 10,
-    marginVertical: 10,
+    paddingVertical: 15,
+    marginVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 16,
   },
 });
 
