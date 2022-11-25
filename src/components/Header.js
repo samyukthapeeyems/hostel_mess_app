@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 import { SIZES, COLORS } from '../constants/theme';
 import PrflPic from '../../assets/images/PrflPic.png';
 
@@ -40,7 +47,7 @@ const Header = ({ navigation }) => {
       </View>
       {/* profile icon  */}
       <View style={styles.profileiconview}>
-        <CircleButton navigation={navigation} />
+        {/* <CircleButton navigation={navigation} /> */}
       </View>
     </View>
   );
@@ -49,10 +56,14 @@ const Header = ({ navigation }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', backgroundColor: COLORS.blue },
+  container: {
+    flexDirection: 'row',
+    backgroundColor: COLORS.blue,
+    paddingTop: StatusBar.currentHeight,
+  },
   leftsideview: {
     flex: 1,
-    paddingVertical: 12,
+    // paddingVertical: 12,
     paddingLeft: 16,
   },
   leftsidetext1: { fontSize: 14, color: 'white', opacity: 0.5 },
@@ -66,5 +77,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     marginRight: 10,
+    // backgroundColor: 'red',
   },
 });
