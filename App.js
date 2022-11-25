@@ -4,7 +4,6 @@ import auth from '@react-native-firebase/auth';
 import useAuth from './src/contexts/AuthContext';
 import { Platform, View, Text, StatusBar, StyleSheet } from 'react-native';
 
-
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 

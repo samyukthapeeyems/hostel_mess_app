@@ -1,4 +1,13 @@
-import { View, Text, StyleSheet, TextInput, Image, FlatList, TouchableOpacity, Button } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import MyStatusBar from '../components/MyStatusBar';
@@ -9,23 +18,21 @@ import MenuItem from '../components/MenuItem';
 import CartBanner from '../components/CartBanner';
 import useCart from '../contexts/CartContext';
 
-
 export default Menu = ({ navigation }) => {
-
   const [itemList, setItemList] = useState([]);
-  const [query , setQuery] = useState('');
-  const {items} = useCart();
+  const [query, setQuery] = useState('');
+  const { items } = useCart();
 
-  const onResult = (snapShot) => {
-    let items = []
+  const onResult = snapShot => {
+    let items = [];
     snapShot.forEach(item => {
       items.push({
         id: item.id,
-        ...item.data()
-      })
-    })
+        ...item.data(),
+      });
+    });
     setItemList(items);
-  }
+  };
 
   function onError(error) {
     console.error(error);
@@ -36,7 +43,7 @@ export default Menu = ({ navigation }) => {
       .collection('items')
       .onSnapshot(onResult, onError);
     return itemCleanUp;
-  }, [])
+  }, []);
 
   return (
     <>
@@ -45,9 +52,8 @@ export default Menu = ({ navigation }) => {
         <Header navigation={navigation} />
         {/* <ScrollableMenu /> */}
 
-
-
-        <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 15 }}>
+        <View
+          style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 15 }}>
           <SearchBar setQuery={setQuery} />
           <FlatList
             data={itemList}
@@ -56,12 +62,9 @@ export default Menu = ({ navigation }) => {
           />
         </View>
 
-
-      {
-        items.length > 0 && <CartBanner navigation={navigation} count={items.length}/>
-      }
-
-        
+        {items.length > 0 && (
+          <CartBanner navigation={navigation} count={items.length} />
+        )}
       </View>
     </>
   );
@@ -81,27 +84,18 @@ const MenuCardTitle = ({ section: { title } }) => (
   </View>
 );
 
-
-
-const SearchBar = ({setQuery}) => {
+const SearchBar = ({ setQuery }) => {
   return (
     <View style={styles.conatiner}>
       <TextInput
         placeholder="🔍 Porotta, Dosa ..."
         style={styles.textinput}
         placeholderTextColor="#3C3C4399"
-        onChangeText={(term)=>setQuery(term)}
+        onChangeText={term => setQuery(term)}
       />
     </View>
   );
 };
-
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -113,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
     marginBottom: 10,
-    color: COLORS.black
+    color: COLORS.black,
   },
   menuCardTitleContainer: {
     flexDirection: 'row',
@@ -122,8 +116,7 @@ const styles = StyleSheet.create({
   menuCardText: {
     fontSize: 20,
     fontWeight: '700',
-    color: COLORS.black
-
+    color: COLORS.black,
   },
   item: {
     backgroundColor: '#f9c2ff',
@@ -136,7 +129,8 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   title: {
-    fontSize: 24, color: COLORS.black
+    fontSize: 24,
+    color: COLORS.black,
   },
   conatiner: { width: '100%' },
   textinput: {
@@ -174,7 +168,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.green,
   },
-  detailsText: { fontSize: 12, fontWeight: '400', marginBottom: 4, color: COLORS.black },
+  detailsText: {
+    fontSize: 12,
+    fontWeight: '400',
+    marginBottom: 4,
+    color: COLORS.black,
+  },
   itemTitle: { fontSize: 16, fontWeight: '700', color: COLORS.black },
   menuItemBox: {
     marginVertical: 4,
@@ -183,6 +182,3 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
 });
-
-
-

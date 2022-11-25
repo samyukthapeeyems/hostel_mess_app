@@ -5,17 +5,16 @@ import {
   TouchableOpacity,
   SectionList,
   SafeAreaView,
-  FlatList
+  FlatList,
 } from 'react-native';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ItemCounter from '../components/ItemCounter';
 import { LeftArrow } from '../../assets/icons';
 import MyStatusBar from '../components/MyStatusBar';
 import { COLORS } from '../constants/theme';
-import useCart from "../contexts/CartContext"
+import useCart from '../contexts/CartContext';
 import firestore from '@react-native-firebase/firestore';
-import { CartItem } from '../components/CartItem';
-
+import CartItem from '../components/CartItem';
 
 const CartHeader = ({ navigation }) => {
   return (
@@ -57,7 +56,7 @@ const CartContent = ({ item }) => {
       </View>
 
       <View style={styles.rupee}>
-        <Text style ={{color: COLORS.black}}>₹{item.cost}</Text>
+        <Text style={{ color: COLORS.black }}>₹{item.cost}</Text>
       </View>
     </View>
   );
@@ -72,7 +71,7 @@ const ConfirmOrder = ({ navigation }) => {
   );
 };
 
-const OrderList = ({items}) => (
+const OrderList = ({ items }) => (
   <View style={{ backgroundColor: 'white', flex: 1 }}>
     {/* <SectionList
       sections={items}
@@ -80,33 +79,31 @@ const OrderList = ({items}) => (
       renderItem={CartContent}
       showsVerticalScrollIndicator={false}
     /> */}
-     <FlatList
-            data={items}
-            renderItem={({ item }) => <CartItem item={item} />}
-            keyExtractor={item => item.id}
-          />
+    <FlatList
+      data={items}
+      renderItem={({ item }) => <CartItem item={item} />}
+      // keyExtractor={item => item.id}
+    />
+    {/* <CartItem /> */}
   </View>
 );
 const Cart = ({ navigation, route }) => {
   console.log(navigation.isFocused);
-  const [ itm , setItm] =useState()
-  const {items} = useCart();
+  const [itm, setItm] = useState();
+  const { items, totalAmount } = useCart();
+  console.log(totalAmount);
 
   useEffect(() => {
-    let arr =[]
-    items.forEach((item)=> {
-    arr.push(
-      firestore()
-      .collection('items')
-      .doc(item.id)
-      .get())
-  })
-  Promise.all(arr).then( snapShot => {
-    let itm = []
-    snapShot.forEach(item =>  itm.push(item.data()));
-    setItm(itm)
-  })
-  },[])
+    let arr = [];
+    items.forEach(item => {
+      arr.push(firestore().collection('items').doc(item.id).get());
+    });
+    Promise.all(arr).then(snapShot => {
+      let itm = [];
+      snapShot.forEach(item => itm.push(item.data()));
+      setItm(itm);
+    });
+  }, []);
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
@@ -114,7 +111,7 @@ const Cart = ({ navigation, route }) => {
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
         <CartHeader navigation={navigation} />
 
-        <OrderList items = {itm}/>
+        <OrderList items={itm} />
         <ConfirmOrder />
       </SafeAreaView>
     </>
@@ -130,8 +127,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 15,
   },
-  container2: { fontWeight: '700', fontSize: 15, color: COLORS.black},
-  container2text: { fontWeight: '400', fontSize: 10 ,color: COLORS.black},
+  container2: { fontWeight: '700', fontSize: 15, color: COLORS.black },
+  container2text: { fontWeight: '400', fontSize: 10, color: COLORS.black },
   buttonview: {
     flex: 2,
     backgroundColor: 'white',
@@ -146,7 +143,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
 
   cartHeadercontainer: {
@@ -229,3 +225,16 @@ const styles = StyleSheet.create({
 });
 
 export default Cart;
+
+// import { View, Text } from 'react-native';
+// import React from 'react';
+
+// const Cart = () => {
+//   return (
+//     <View>
+//       <Text style={{ color: 'black' }}>Cart</Text>
+//     </View>
+//   );
+// };
+
+// export default Cart;
