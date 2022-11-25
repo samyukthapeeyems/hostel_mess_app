@@ -7,7 +7,9 @@ import { COLORS } from '../constants/theme';
 
 import { GreenButton } from '../../assets/icons';
 import ItemCounter from './ItemCounter';
-import CImage from './CImage'
+import Image from './Image'
+
+
 
 export default function MenuItem({ item }) {
 
@@ -24,7 +26,7 @@ export default function MenuItem({ item }) {
         <View style={styles.menuItemBox}>
             {/* left item  */}
             <View style={styles.leftItem}>
-                <CImage path={item.image} />
+                <Image path={item.image} />
             </View>
             {/* center item  */}
             <View style={styles.centerItem}>
