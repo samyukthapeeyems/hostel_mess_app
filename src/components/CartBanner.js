@@ -1,27 +1,25 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import useCart from '../contexts/CartContext';
+import Button from './Button';
 
-export default function ViewCart({ navigation }) {
+
+export default function CartBanner({ navigation , count }) {
 
   const { items } = useCart();
   return (
-    <>
-      {
-        items.length > 0 &&
         <View style={styles.container}>
-          <TouchableOpacity style={styles.touch}>
-            <Text style={styles.textcolor}>{items.length} items in Cart</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          <Button
+            style={styles.touch}
+            textStyle={styles.textcolor}>
+            {`${count} items in cart`}
+          </Button>
+          <Button
             style={styles.touch1}
+            textStyle={styles.textviewcart}
             onPress={() => navigation.navigate('Cart')}>
-            <Text style={styles.textviewcart}>View Cart</Text>
-          </TouchableOpacity>
+            View Cart
+          </Button>
         </View>
-      }
-    </>
-
-
   );
 };
 

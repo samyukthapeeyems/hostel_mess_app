@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, SectionList, Image, FlatList, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, FlatList, TouchableOpacity, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import MyStatusBar from '../components/MyStatusBar';
@@ -6,14 +6,15 @@ import { COLORS } from '../constants/theme';
 import firestore from '@react-native-firebase/firestore';
 import MenuItem from '../components/MenuItem';
 
-//import ScrollableMenu from '../components/ScrollableMenu';
-import ViewCart from '../components/ViewCart';
-
+import CartBanner from '../components/CartBanner';
+import useCart from '../contexts/CartContext';
 
 
 export default Menu = ({ navigation }) => {
 
   const [itemList, setItemList] = useState([]);
+  const [query , setQuery] = useState('');
+  const {items} = useCart();
 
   const onResult = (snapShot) => {
     let items = []
@@ -47,6 +48,7 @@ export default Menu = ({ navigation }) => {
 
 
         <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 15 }}>
+          <SearchBar setQuery={setQuery} />
           <FlatList
             data={itemList}
             renderItem={({ item }) => <MenuItem item={item} />}
@@ -55,57 +57,15 @@ export default Menu = ({ navigation }) => {
         </View>
 
 
+      {
+        items.length > 0 && <CartBanner navigation={navigation} count={items.length}/>
+      }
 
-
-        <ViewCart navigation={navigation} />
+        
       </View>
     </>
   );
 };
-
-//export default Menu;
-
-
-
-// const MenuItem = ({ item }) => {
-
-//   const [count, setCount] = useState(0);
-//   const handleAddItems = () => {
-//     setCount(count => count + 1);
-//   };
-//   const handleRemoveItems = () => {
-//     setCount(count => count - 1);
-//   };
-
-//   return (
-//     <View style={styles.menuItemBox}>
-//       {/* left item  */}
-//       <View style={styles.leftItem}>
-//         <CImage path={item.image} />
-//       </View>
-//       {/* center item  */}
-//       <View style={styles.centerItem}>
-//         <Text style={styles.itemTitle}>{item.name}</Text>
-//         <Text style={styles.detailsText}>{item.name}</Text>
-//         <Text style={styles.costText}>₹{item.price}</Text>
-//       </View>
-//       {/* right item  */}
-//       <View style={styles.rightItem}>
-//         {count === 0 ? (
-//           <TouchableOpacity onPress={handleAddItems}>
-//             <GreenButton />
-//           </TouchableOpacity>
-//         ) : (
-//           <ItemCounter
-//             count={count}
-//             handleAddItems={handleAddItems}
-//             handleRemoveItems={handleRemoveItems}
-//           />
-//         )}
-//       </View>
-//     </View>
-//   );
-// };
 
 const SectionListHeader = () => (
   <View style={{ backgroundColor: COLORS.white }}>
@@ -123,7 +83,18 @@ const MenuCardTitle = ({ section: { title } }) => (
 
 
 
-
+const SearchBar = ({setQuery}) => {
+  return (
+    <View style={styles.conatiner}>
+      <TextInput
+        placeholder="🔍 Porotta, Dosa ..."
+        style={styles.textinput}
+        placeholderTextColor="#3C3C4399"
+        onChangeText={(term)=>setQuery(term)}
+      />
+    </View>
+  );
+};
 
 
 
