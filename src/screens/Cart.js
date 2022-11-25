@@ -5,61 +5,17 @@ import {
   TouchableOpacity,
   SectionList,
   SafeAreaView,
+  FlatList
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import ItemCounter from '../components/ItemCounter';
 import { LeftArrow } from '../../assets/icons';
 import MyStatusBar from '../components/MyStatusBar';
 import { COLORS } from '../constants/theme';
+import useCart from "../contexts/CartContext"
+import firestore from '@react-native-firebase/firestore';
+import { CartItem } from '../components/CartItem';
 
-const listOfCart = [
-  {
-    title: '✨Recommended',
-    data: [
-      {
-        id: 1,
-        foodItem: 'Pizza',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 30,
-      },
-      {
-        id: 2,
-        foodItem: 'Burger',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 70,
-      },
-      {
-        id: 3,
-        foodItem: 'Risotto',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 90,
-      },
-    ],
-  },
-  {
-    title: 'Sides',
-    data: [
-      {
-        id: 4,
-        foodItem: 'French Fries',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 20,
-      },
-      {
-        id: 5,
-        foodItem: 'Onion rings',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 70,
-      },
-      {
-        id: 6,
-        foodItem: 'Fried Shrimps',
-        details: '2 Piece Porotta, 1 Portion of ...',
-        cost: 60,
-      },
-    ],
-  },
-];
 
 const CartHeader = ({ navigation }) => {
   return (
@@ -89,7 +45,6 @@ const CartContent = ({ item }) => {
       <View style={styles.container1}>
         <Text style={styles.container2}>{item.foodItem}</Text>
         <Text style={styles.container2text}>
-          {' '}
           2 porotta 2 chicken curry + tea
         </Text>
       </View>
@@ -117,18 +72,41 @@ const ConfirmOrder = ({ navigation }) => {
   );
 };
 
-const OrderList = () => (
+const OrderList = ({items}) => (
   <View style={{ backgroundColor: 'white', flex: 1 }}>
-    <SectionList
-      sections={listOfCart}
+    {/* <SectionList
+      sections={items}
       keyExtractor={item => item.id}
       renderItem={CartContent}
       showsVerticalScrollIndicator={false}
-    />
+    /> */}
+     <FlatList
+            data={items}
+            renderItem={({ item }) => <CartItem item={item} />}
+            keyExtractor={item => item.id}
+          />
   </View>
 );
 const Cart = ({ navigation, route }) => {
   console.log(navigation.isFocused);
+  const [ itm , setItm] =useState()
+  const {items} = useCart();
+
+  useEffect(() => {
+    let arr =[]
+    items.forEach((item)=> {
+    arr.push(
+      firestore()
+      .collection('items')
+      .doc(item.id)
+      .get())
+  })
+  Promise.all(arr).then( snapShot => {
+    let itm = []
+    snapShot.forEach(item =>  itm.push(item.data()));
+    setItm(itm)
+  })
+  },[])
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
@@ -136,7 +114,7 @@ const Cart = ({ navigation, route }) => {
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
         <CartHeader navigation={navigation} />
 
-        <OrderList />
+        <OrderList items = {itm}/>
         <ConfirmOrder />
       </SafeAreaView>
     </>
