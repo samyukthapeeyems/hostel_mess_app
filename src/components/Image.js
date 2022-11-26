@@ -27,9 +27,8 @@ export default function _Image({ path }) {
                 url &&
                 <>
                     <Image source={{ uri: url }}
-                        style={{ borderRadius : 10 , height : 60 , width : 60 }}
-                        resizeMode="cover"
-                        
+                        style={{ borderRadius : 10 , height : 75 , width : 75 }}
+                        resizeMode="cover" 
                     />
                 </>
             }

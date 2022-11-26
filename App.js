@@ -2,10 +2,8 @@ import Router from './src/Routes';
 import { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import useAuth from './src/contexts/AuthContext';
-import { Platform, View, StatusBar, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-const STATUSBAR_HEIGHT = StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 
 const App = () => {
   const { setUser } = useAuth();

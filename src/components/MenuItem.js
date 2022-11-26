@@ -27,7 +27,7 @@ export default function MenuItem({ item }) {
       {/* center item  */}
       <View style={styles.centerSection}>
         <Text style={styles.itemTitle}>{item.name}</Text>
-        <Text style={styles.detailsText}>{item.name}</Text>
+        <Text style={styles.detailsText} numberOfLines={2}>{item.description}</Text>
         <Text style={styles.costText}>₹{item.price}</Text>
       </View>
       {/* right item  */}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingVertical: 10,
     paddingHorizontal: 10,
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
   },
   rightSection: {
     flex: 1,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   detailsText: {
     fontSize: 12,
     fontWeight: '400',
-    color: COLORS.black,
+    color: 'grey',
   },
-  itemTitle: { fontSize: 16, fontWeight: '700', color: COLORS.black },
+  itemTitle: { fontSize: 18, fontWeight: '700', color: COLORS.black },
 });

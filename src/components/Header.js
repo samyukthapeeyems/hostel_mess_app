@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { SIZES, COLORS } from '../constants/theme';
-import PrflPic from '../../assets/images/PrflPic.png';
+import useAuth from '../contexts/AuthContext';
 
 export const CircleButton = ({ navigation }) => {
   return (
@@ -18,32 +11,33 @@ export const CircleButton = ({ navigation }) => {
         navigation.navigate('Profile');
       }}>
       <Image
-        source={PrflPic}
+        source={{ uri : user.photoURL}}
         resizeMode="contain"
         style={{ width: 42, height: 42, borderRadius: 50 }}
       />
     </TouchableOpacity>
   );
 };
+
+
 const Header = ({ navigation }) => {
-  const [timeOfDay, setTimeOfDay] = useState(0);
+  const {user } = useAuth();
+  const [greeting, setGreeting] = useState('');
 
-  let greeting = '';
   useEffect(() => {
-    var hours = new Date().getHours(); //Current Hours
-    setTimeOfDay(hours);
-  }, []);
-  if (timeOfDay < 12) greeting = 'Morning';
-  else if (timeOfDay > 12) greeting = 'Afternoon';
-  else if (timeOfDay > 18) greeting = 'Evening';
+    let hrs = new Date().getHours();
+    let message = (hrs >= 16) ? "Good Evening" : (hrs >= 12 && hrs < 16) ? "Good Afternoon" : "Good Morning";
+    setGreeting(message);
 
-  const [user, setUser] = useState('Anna');
+  }, []);
+
+
   return (
     <View style={styles.container}>
       {/* left side text  */}
       <View style={styles.leftsideview}>
-        <Text style={styles.leftsidetext1}>Good {greeting}</Text>
-        <Text style={styles.leftsidetext2}>{user}</Text>
+        <Text style={styles.leftsidetext1}>{greeting}</Text>
+        <Text style={styles.leftsidetext2}>{user.displayName}</Text>
       </View>
       {/* profile icon  */}
       <View style={styles.profileiconview}>
