@@ -13,8 +13,9 @@ import { LeftArrow } from '../../assets/icons';
 import MyStatusBar from '../components/MyStatusBar';
 import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
-import firestore from '@react-native-firebase/firestore';
 import CartItem from '../components/CartItem';
+import { useItems } from '../functions/items';
+import { err } from 'react-native-svg/lib/typescript/xml';
 
 const CartHeader = ({ navigation }) => {
   return (
@@ -87,29 +88,41 @@ const OrderList = ({ items }) => (
     {/* <CartItem item={item} /> */}
   </View>
 );
-const Cart = ({ navigation, route }) => {
+
+
+
+
+
+export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
+  const { getItemList } = useItems()
   // console.log(totalAmount);
 
   useEffect(() => {
-    let arr = [];
-    items.forEach(item => {
-      arr.push(firestore().collection('items').doc(item.id).get());
-    });
-    Promise.all(arr).then(snapShot => {
-      let itm = [];
-      snapShot.forEach(item => itm.push(item.data()));
-      setItm(itm);
-    });
+    async function x() {
+
+      try {
+        let itemIdList = items.map(item => item.id)
+        console.log(itemIdList)
+        let e = await getItemList(itemIdList)
+        console.log(e)
+      } catch (err) {
+        console.log(err)
+      }
+
+
+    }
+    x()
+
   }, []);
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      {/* <CartHeader navigation={navigation} /> */}
+      <CartHeader navigation={navigation} />
 
-      {/* <OrderList items={itm} /> */}
-      {/* <ConfirmOrder /> */}
+      <OrderList items={itm} />
+      <ConfirmOrder />
     </>
   );
 };
@@ -220,7 +233,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
 
 // import { View, Text } from 'react-native';
 // import React from 'react';

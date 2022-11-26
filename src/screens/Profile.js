@@ -127,11 +127,6 @@ export default function Profile ({ navigation }) {
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
       <View style={{ flex: 9 }}>
         <ProfileHeader />
-        {/* <ProfileHeader />
-        <ProfileContent />
-        <ProfileDue />
-      <ProfileTotDue /> */}
-        {/* <ProfileLogout /> */}
 
         {/* user card */}
         <View style={styles.user.container} >

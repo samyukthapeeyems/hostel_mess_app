@@ -18,9 +18,10 @@ import {
 
 import MyTabBar from './components/MyTabBar';
 
-const Tabs = createBottomTabNavigator();
 
-const TabsScreen = ({ navigation }) => {
+const TabsScreen = () => {
+  const Tabs = createBottomTabNavigator();
+
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
@@ -45,11 +46,11 @@ const TabsScreen = ({ navigation }) => {
     </Tabs.Navigator>
   );
 };
-const AuthStack = createStackNavigator();
 
-const RootStack = createStackNavigator();
 
 const RootStackScreen = () => {
+  const RootStack = createStackNavigator();
+
   return (
     <CartProvider>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
@@ -66,7 +67,7 @@ const RootStackScreen = () => {
 
 export default function Routes() {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+  const AuthStack = createStackNavigator();
 
   return isAuthenticated ? (
     <NavigationContainer>
