@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, FlatList } from 'react-native';
+import { View, StyleSheet, TextInput, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import MyStatusBar from '../components/MyStatusBar';
@@ -38,8 +38,8 @@ const Menu = ({ navigation }) => {
     setItemList(items);
   };
 
-  function onError(e) {
-    console.error(e);
+  function onError(error) {
+    console.error(error);
   }
 
   useEffect(() => {

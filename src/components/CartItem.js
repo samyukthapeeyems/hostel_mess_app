@@ -3,7 +3,7 @@ import ItemCounter from './ItemCounter';
 import { COLORS } from '../constants/theme';
 import { useState } from 'react';
 const CartItem = ({ item }) => {
-  console.log(item);
+  console.log(item.price);
   const [count, setCount] = useState(0);
   const increment = () => {
     setCount(count => count + 1);
@@ -15,7 +15,6 @@ const CartItem = ({ item }) => {
     <View style={styles.container}>
       <View style={styles.container1}>
         <Text style={styles.container2}>{item.name}</Text>
-        {/* <Text style={styles.container2text}>{item.name}</Text> */}
       </View>
       <View style={styles.buttonview}>
         <ItemCounter

@@ -82,9 +82,9 @@ const OrderList = ({ items }) => (
     <FlatList
       data={items}
       renderItem={({ item }) => <CartItem item={item} />}
-      // keyExtractor={item => item.id}
+      keyExtractor={item => item.id}
     />
-    {/* <CartItem /> */}
+    {/* <CartItem item={item} /> */}
   </View>
 );
 const Cart = ({ navigation, route }) => {

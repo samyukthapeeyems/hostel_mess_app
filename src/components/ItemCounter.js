@@ -1,19 +1,11 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { GreenAddIcon, GrayMinusIcon } from '../../assets/icons';
 import React from 'react';
 import { COLORS } from '../constants/theme';
 
 const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
   return (
-    <View
-      style={{
-        backgroundColor: '#7676801F',
-        flexDirection: 'row',
-        paddingHorizontal: 4,
-        width: 80,
-        height: 40,
-        borderRadius: 9,
-      }}>
+    <View style={styles.counterContainer}>
       <TouchableOpacity
         onPress={handleRemoveItems}
         style={{
@@ -26,7 +18,7 @@ const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
         <GrayMinusIcon />
       </TouchableOpacity>
       <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-        <Text style ={{color : COLORS.black}}>{count}</Text>
+        <Text style={{ color: COLORS.black }}>{count}</Text>
       </View>
       <TouchableOpacity
         onPress={handleAddItems}
@@ -36,12 +28,22 @@ const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
           height: '100%',
           justifyContent: 'center',
           alignItems: 'center',
-
         }}>
         <GreenAddIcon />
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  counterContainer: {
+    backgroundColor: '#7676801F',
+    flexDirection: 'row',
+    paddingHorizontal: 4,
+    width: 80,
+    height: 40,
+    borderRadius: 9,
+  },
+});
 
 export default ItemCounter;
