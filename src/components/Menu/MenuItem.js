@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import useCart from '../contexts/CartContext';
+import useCart from '../../contexts/CartContext';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { COLORS } from '../constants/theme';
+import { COLORS } from '../../constants/theme';
 
-import { GreenButton } from '../../assets/icons';
-import ItemCounter from './ItemCounter';
-import Image from './Image';
+import { GreenButton } from '../../../assets/icons';
+import ItemCounter from '../ItemCounter';
+import Image from '../Image';
 
 export default function MenuItem({ item }) {
   const { items, addToCart, removeFromCart, totalAmount } = useCart();

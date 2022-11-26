@@ -14,7 +14,7 @@ import {
   Token,
   Wallet,
   AddPayment,
-  Auth
+  Auth,
 } from './screens';
 
 import MyTabBar from './components/MyTabBar';
@@ -49,7 +49,6 @@ const RootStackScreen = () => {
         <RootStack.Screen name="AddPayment" component={AddPayment} />
       </RootStack.Navigator>
     </CartProvider>
-
   );
 };
 const Routes = () => {

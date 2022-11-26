@@ -8,5 +8,14 @@ import Wallet from './Wallet';
 import AddPayment from './AddPayment';
 import Auth from './Auth';
 
-
-export { Cart, Menu, Orders, Profile, OrderDetails, Token, Wallet, AddPayment ,Auth};
+export {
+  Cart,
+  Menu,
+  Orders,
+  Profile,
+  OrderDetails,
+  Token,
+  Wallet,
+  AddPayment,
+  Auth,
+};

@@ -1,13 +1,13 @@
 import { View, StyleSheet, TextInput, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import MyStatusBar from '../components/MyStatusBar';
-import { COLORS } from '../constants/theme';
 import firestore from '@react-native-firebase/firestore';
-import MenuItem from '../components/MenuItem';
-
-import CartBanner from '../components/CartBanner';
 import useCart from '../contexts/CartContext';
+
+import MyStatusBar from '../components/MyStatusBar';
+
+import { CartBanner, MenuHeader, MenuItem } from '../components/Menu';
+
+import { COLORS } from '../constants/theme';
 
 const SearchBar = ({ setQuery }) => {
   return (
@@ -21,6 +21,7 @@ const SearchBar = ({ setQuery }) => {
     </View>
   );
 };
+
 const Menu = ({ navigation }) => {
   const [itemList, setItemList] = useState([]);
   const [query, setQuery] = useState('');
@@ -53,7 +54,7 @@ const Menu = ({ navigation }) => {
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <Header navigation={navigation} />
+      <MenuHeader navigation={navigation} />
       <View style={styles.menuPageContent}>
         <FlatList
           data={itemList}
@@ -70,6 +71,8 @@ const Menu = ({ navigation }) => {
   );
 };
 
+export default Menu;
+
 const styles = StyleSheet.create({
   menuPageContent: { flex: 1, backgroundColor: 'white', paddingHorizontal: 15 },
   searchBarContainer: {
@@ -84,5 +87,3 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
-export default Menu;

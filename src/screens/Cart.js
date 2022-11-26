@@ -107,13 +107,12 @@ const Cart = ({ navigation, route }) => {
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      {/* <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
         <CartHeader navigation={navigation} />
 
         <OrderList items={itm} />
         <ConfirmOrder />
-      </SafeAreaView>
+      </SafeAreaView> */}
     </>
   );
 };

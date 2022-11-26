@@ -1,53 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
-import { SIZES, COLORS } from '../constants/theme';
-import PrflPic from '../../assets/images/PrflPic.png';
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { COLORS } from '../constants/theme';
 
-export const CircleButton = ({ navigation }) => {
+const Header = () => {
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => {
-        navigation.navigate('Profile');
-      }}>
-      <Image
-        source={PrflPic}
-        resizeMode="contain"
-        style={{ width: 42, height: 42, borderRadius: 50 }}
-      />
-    </TouchableOpacity>
-  );
-};
-const Header = ({ navigation }) => {
-  const [timeOfDay, setTimeOfDay] = useState(0);
-
-  let greeting = '';
-  useEffect(() => {
-    var hours = new Date().getHours(); //Current Hours
-    setTimeOfDay(hours);
-  }, []);
-  if (timeOfDay < 12) greeting = 'Morning';
-  else if (timeOfDay > 12) greeting = 'Afternoon';
-  else if (timeOfDay > 18) greeting = 'Evening';
-
-  const [user, setUser] = useState('Anna');
-  return (
-    <View style={styles.container}>
-      {/* left side text  */}
-      <View style={styles.leftsideview}>
-        <Text style={styles.leftsidetext1}>Good {greeting}</Text>
-        <Text style={styles.leftsidetext2}>{user}</Text>
-      </View>
-      {/* profile icon  */}
-      <View style={styles.profileiconview}>
-        {/* <CircleButton navigation={navigation} /> */}
+    <View style={styles.headerContainer}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text1}>Header</Text>
+        <Text style={styles.text1}>Header</Text>
       </View>
     </View>
   );
@@ -56,27 +16,18 @@ const Header = ({ navigation }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
+  headerContainer: {
+    height: 60,
     backgroundColor: COLORS.blue,
-    paddingTop: StatusBar.currentHeight,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
   },
-  leftsideview: {
-    flex: 1,
-    // paddingVertical: 12,
-    paddingLeft: 16,
+  textContainer: {
+    backgroundColor: 'yellow',
   },
-  leftsidetext1: { fontSize: 14, color: 'white', opacity: 0.5 },
-  leftsidetext2: {
-    fontSize: 28,
+  text1: {
+    fontSize: 14,
     color: 'white',
-    fontWeight: 'bold',
-  },
-  profileiconview: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    marginRight: 10,
-    // backgroundColor: 'red',
+    opacity: 0.5,
   },
 });
