@@ -20,7 +20,7 @@ export const SIZES = {
 
 export const BUTTON = StyleSheet.create({
   green: {
-    backgroundColor: COLORS.green,
+    backgroundColor: 'green',
     borderRadius: 10,
     paddingVertical: 16,
     paddingHorizontal: 15,

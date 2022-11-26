@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
-import useCart from '../../contexts/CartContext';
-import Button from '../Button';
+import useCart from '../contexts/CartContext';
+import Button from './Button';
 
 export default function CartBanner({ navigation, count }) {
   const { items } = useCart();

@@ -1,26 +1,14 @@
-import { View, StyleSheet, TextInput, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import useCart from '../contexts/CartContext';
-
 import MyStatusBar from '../components/MyStatusBar';
-
-import { CartBanner, MenuHeader, MenuItem } from '../components/Menu';
+import MenuItem from '../components/MenuItem';
 
 import { COLORS } from '../constants/theme';
-
-const SearchBar = ({ setQuery }) => {
-  return (
-    <View style={styles.searchBarContainer}>
-      <TextInput
-        placeholder="🔍 Porotta, Dosa ..."
-        style={styles.textinput}
-        placeholderTextColor="#3C3C4399"
-        onChangeText={term => setQuery(term)}
-      />
-    </View>
-  );
-};
+import Header from '../components/Header';
+import CartBanner from '../components/CartBanner';
+import SearchBar from '../components/SearchBar';
 
 const Menu = ({ navigation }) => {
   const [itemList, setItemList] = useState([]);
@@ -50,17 +38,26 @@ const Menu = ({ navigation }) => {
 
     return itemCleanUp;
   }, []);
+  const renderseperator = () => {
+    return <View style={{ backgroundColor: '#d9d9d9', height: 1.5 }} />;
+  };
 
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <MenuHeader navigation={navigation} />
+      <Header navigation={navigation} />
       <View style={styles.menuPageContent}>
         <FlatList
           data={itemList}
           renderItem={({ item }) => <MenuItem item={item} />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<SearchBar setQuery={setQuery} />}
+          ItemSeparatorComponent={renderseperator}
+          ListHeaderComponent={
+            <SearchBar
+              setter={setQuery}
+              placeholderText={'🔍 Porotta Dosa ...'}
+            />
+          }
           showsVerticalScrollIndicator={false}
         />
       </View>
@@ -74,16 +71,9 @@ const Menu = ({ navigation }) => {
 export default Menu;
 
 const styles = StyleSheet.create({
-  menuPageContent: { flex: 1, backgroundColor: 'white', paddingHorizontal: 15 },
-  searchBarContainer: {
-    width: '100%',
-  },
-  textinput: {
-    fontSize: 18,
-    backgroundColor: '#7676801F',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    marginVertical: 15,
-    borderRadius: 10,
+  menuPageContent: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 15,
   },
 });

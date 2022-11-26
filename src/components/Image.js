@@ -21,11 +21,20 @@ export default function _Image({ path }) {
 
       {url && (
         <>
-          <Image
-            source={{ uri: url }}
-            style={{ borderRadius: 10, height: 75, width: 75 }}
-            resizeMode="cover"
-          />
+            {
+                loading &&
+                <Text style={{ color: "black" }}>lOADING</Text>
+            }
+
+            {
+                url &&
+                <>
+                    <Image source={{ uri: url }}
+                        style={{ borderRadius : 10 , height : 75 , width : 75 }}
+                        resizeMode="cover" 
+                    />
+                </>
+            }
         </>
       )}
     </>

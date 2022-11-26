@@ -30,20 +30,12 @@
 //     />
 //   )
 // }
-// import { View, Text } from "react-native";
-// import ProfileHeader from "../components/ProfileHeader";
-// import ProfileContent from "../components/ProfileContent";
-// import ProfileContent2 from "../components/ProfileContent2";
-// import ProfileDue from "../components/ProfileDue";
-// import ProfileTotDue from "../components/ProfileTotDue";
-// import ProfileWallet from "../components/ProfileWallet";
-// import ProfileLogout from "../components/ProfileLogout";
+
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  Button,
   Image,
 } from 'react-native';
 import MyStatusBar from '../components/MyStatusBar';
@@ -51,7 +43,9 @@ import { COLORS } from '../constants/theme';
 import CircleButton from '../components/Header';
 import React from 'react';
 import useAuth from '../contexts/AuthContext';
-import PrflPic from '../../assets/images/PrflPic.png';
+import Button from '../components/Button';
+
+
 
 const ProfileHeader = () => {
   return (
@@ -60,70 +54,6 @@ const ProfileHeader = () => {
     </View>
   );
 };
-
-const PrflButton = () => {
-  return (
-    <TouchableOpacity>
-      <Image
-        source={PrflPic}
-        resizeMode="contain"
-        style={{ width: 42, height: 42, borderRadius: 50 }}
-      />
-    </TouchableOpacity>
-  );
-};
-
-const UserInfoCard = () => (
-  <View
-    style={{
-      flexDirection: 'row',
-      paddingHorizontal: 16,
-      paddingVertical: 30,
-      backgroundColor: 'white',
-    }}>
-    {/* left item  */}
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-      }}>
-      <View
-        style={{
-          flex: 1,
-
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <PrflButton />
-      </View>
-      <View
-        style={{
-          flex: 3,
-          backgroundColor: 'white',
-          paddingVertical: 13,
-          paddingLeft: 10,
-        }}>
-        <Text style={{ fontSize: 24, fontWeight: '700', color: COLORS.black }}>
-          Anna
-        </Text>
-        <Text style={{ color: COLORS.black }}>anna@gmail.com</Text>
-      </View>
-    </View>
-    {/* right item  */}
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}>
-      <TouchableOpacity>
-        <Text style={{ fontWeight: '700', color: COLORS.blue, fontSize: 14 }}>
-          EDIT PROFILE
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-);
 
 const ProfileContent2 = () => {
   return (
@@ -182,34 +112,15 @@ const ProfileWallet = ({ navigation }) => {
             justifyContent: 'flex-end',
             marginRight: 15,
           }}>
-          <Text style={{ fontSize: 20, color: COLORS.black }}> > </Text>
+          <Text style={{ fontSize: 20, color: COLORS.black }}>{' > '}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
-const ProfileLogout = ({ signOut }) => {
-  return (
-    <TouchableOpacity
-      style={{
-        backgroundColor: COLORS.red,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 15,
-        marginHorizontal: 24,
-        borderRadius: 10,
-      }}
-      onPress={async () => await signOut()}>
-      <Text style={{ fontSize: 20, fontWeight: '700', color: 'white' }}>
-        LOG OUT
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const Profile = ({ navigation }) => {
-  const { signOut } = useAuth();
+export default function Profile ({ navigation }) {
+  const { signOut, user } = useAuth();
 
   return (
     <>
@@ -221,27 +132,54 @@ const Profile = ({ navigation }) => {
         <ProfileDue />
       <ProfileTotDue /> */}
         {/* <ProfileLogout /> */}
-        <UserInfoCard />
+
+        {/* user card */}
+        <View style={styles.user.container} >
+          {/* left item  */}
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+              <Image
+                source={{ uri: user.photoURL }}
+                resizeMode="contain"
+                style={styles.user.profilePicture}
+              />
+            </View>
+            <View style={styles.user.detailsContainer}>
+              <Text style={styles.user.name}> {user.displayName} </Text>
+              <Text style={styles.user.text}>{user.email}</Text>
+            </View>
+          </View>
+          {/* right item  */}
+          <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', }}>
+            <Button textStyle={styles.editProfile.text}>EDIT PROFILE</Button>
+          </View>
+        </View>
+        {/* user card */}
+
+
         <ProfileContent2 />
         <ProfileWallet navigation={navigation} />
-        {/* <Button title="Google Log out" onPress={async () => await signOut()} /> */}
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          marginBottom: 15,
-        }}>
-        <ProfileLogout signOut={signOut} />
+
+      <View style={styles.logOut.container}>
+        <Button style={styles.logOut.button}
+          textStyle={styles.logOut.text}
+          onPress={async () => await signOut()}
+        >
+          LOGOUT
+        </Button>
       </View>
     </>
   );
-};
-
-export default Profile;
+}
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', backgroundColor: '#3358F9' },
+
+  container: {
+    flexDirection: 'row',
+    backgroundColor: '#3358F9'
+  },
+
   containerText: {
     fontWeight: '700',
     fontSize: 24,
@@ -250,4 +188,60 @@ const styles = StyleSheet.create({
     paddingVertical: 21,
     paddingLeft: 16,
   },
+
+  user: {
+    container: {
+      flexDirection: 'row',
+      paddingHorizontal: 16,
+      paddingVertical: 30,
+      backgroundColor: 'white',
+    },
+    detailsContainer: {
+      flex: 3,
+      backgroundColor: 'white',
+      paddingVertical: 13,
+      paddingLeft: 10,
+    },
+    profilePicture: {
+      width: 42,
+      height: 42,
+      borderRadius: 50
+    },
+    name: {
+      fontSize: 24,
+      fontWeight: '700',
+      color: COLORS.black
+    },
+    text: {
+      color: COLORS.black
+    }
+  },
+
+  editProfile: {
+    text: {
+      fontWeight: '700',
+      color: COLORS.blue,
+      fontSize: 14
+    }
+  },
+  logOut: {
+    container: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      marginBottom: 15,
+    },
+    button: {
+      backgroundColor: COLORS.red,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 15,
+      marginHorizontal: 24,
+      borderRadius: 10,
+    },
+    text: {
+      fontSize: 20,
+      fontWeight: '700',
+      color: 'white'
+    }
+  }
 });

@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native';
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import useAuth from './contexts/AuthContext';
+import { CartProvider } from './contexts/CartContext';
 
 import {
   Menu,
@@ -18,7 +17,6 @@ import {
 } from './screens';
 
 import MyTabBar from './components/MyTabBar';
-import { CartProvider } from './contexts/CartContext';
 
 const Tabs = createBottomTabNavigator();
 
@@ -26,9 +24,22 @@ const TabsScreen = ({ navigation }) => {
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
-      screenOptions={{ headerShown: false }}
+      // screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
       tabBar={props => <MyTabBar {...props} />}>
-      <Tabs.Screen name="Menu" component={Menu} />
+      <Tabs.Screen
+        name="Menu"
+        component={Menu}
+        options={{ title: 'My home' }}
+      />
       <Tabs.Screen name="Orders" component={Orders} />
       <Tabs.Screen name="Profile" component={Profile} />
     </Tabs.Navigator>
@@ -37,6 +48,7 @@ const TabsScreen = ({ navigation }) => {
 const AuthStack = createStackNavigator();
 
 const RootStack = createStackNavigator();
+
 const RootStackScreen = () => {
   return (
     <CartProvider>
@@ -51,7 +63,8 @@ const RootStackScreen = () => {
     </CartProvider>
   );
 };
-const Routes = () => {
+
+export default function Routes() {
   const { isAuthenticated } = useAuth();
   console.log(isAuthenticated);
 
@@ -68,6 +81,4 @@ const Routes = () => {
       </AuthStack.Navigator>
     </NavigationContainer>
   );
-};
-
-export default Routes;
+}

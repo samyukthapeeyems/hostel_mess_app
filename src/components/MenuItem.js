@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import useCart from '../../contexts/CartContext';
+import useCart from '../contexts/CartContext';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { COLORS } from '../../constants/theme';
+import { COLORS } from '../constants/theme';
 
-import { GreenButton } from '../../../assets/icons';
-import ItemCounter from '../ItemCounter';
-import Image from '../Image';
+import { GreenButton } from '../../assets/icons';
+import ItemCounter from './ItemCounter';
+import Image from './Image';
 
 export default function MenuItem({ item }) {
   const { items, addToCart, removeFromCart, totalAmount } = useCart();
   const [count, setCount] = useState();
-  // console.log(item);
+
   useEffect(() => {
     let _item = items.find(element => element.id == item.id);
     if (_item?.quantity) setCount(_item.quantity);
@@ -27,9 +27,7 @@ export default function MenuItem({ item }) {
       {/* center item  */}
       <View style={styles.centerSection}>
         <Text style={styles.itemTitle}>{item.name}</Text>
-        <Text style={styles.detailsText} numberOfLines={2}>
-          {item.description}
-        </Text>
+        <Text style={styles.detailsText} numberOfLines={2}>{item.description}</Text>
         <Text style={styles.costText}>₹{item.price}</Text>
       </View>
       {/* right item  */}
