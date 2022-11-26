@@ -1,24 +1,12 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import useAuth from './contexts/AuthContext';
+import { CartProvider } from './contexts/CartContext';
 
-import {
-  Menu,
-  Orders,
-  Profile,
-  OrderDetails,
-  Cart,
-  Token,
-  Wallet,
-  AddPayment,
-  Auth
-} from './screens';
+import { Menu, Orders, Profile, OrderDetails, Cart, Token, Wallet, AddPayment, Auth } from './screens';
 
 import MyTabBar from './components/MyTabBar';
-import { CartProvider } from './contexts/CartContext';
 
 const Tabs = createBottomTabNavigator();
 
@@ -37,6 +25,8 @@ const TabsScreen = ({ navigation }) => {
 const AuthStack = createStackNavigator();
 
 const RootStack = createStackNavigator();
+
+
 const RootStackScreen = () => {
   return (
     <CartProvider>
@@ -49,10 +39,12 @@ const RootStackScreen = () => {
         <RootStack.Screen name="AddPayment" component={AddPayment} />
       </RootStack.Navigator>
     </CartProvider>
-
   );
 };
-const Routes = () => {
+
+
+
+export default function Routes() {
   const { isAuthenticated } = useAuth();
   console.log(isAuthenticated);
 
@@ -70,5 +62,3 @@ const Routes = () => {
     </NavigationContainer>
   );
 };
-
-export default Routes;

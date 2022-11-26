@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useCart from '../contexts/CartContext';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -51,21 +51,20 @@ export default function MenuItem({ item }) {
 
 const styles = StyleSheet.create({
   menuItemContainer: {
-    marginVertical: 4,
+    marginVertical: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    // backgroundColor: 'red',
   },
   leftSection: {
-    padding: 10,
     justifyContent: 'center',
-    flexWrap: 'wrap',
+    padding: 5,
   },
   centerSection: {
     flex: 2,
     flexDirection: 'column',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    flexWrap: 'nowrap',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
   },
   rightSection: {
     flex: 1,
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   detailsText: {
     fontSize: 12,
     fontWeight: '400',
-    color: 'grey',
+    color: 'gray',
   },
   itemTitle: { fontSize: 18, fontWeight: '700', color: COLORS.black },
 });

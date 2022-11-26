@@ -1,10 +1,12 @@
+import { StyleSheet } from 'react-native';
+
 export const COLORS = {
-  white: "#FFFFFF",
-  blue: "#3358F9",
-  green: "#32BA7C",
-  yellow: "#F5B80D",
-  red: "#E24C4B",
-  black :"#000000"
+  white: '#FFFFFF',
+  blue: '#3358F9',
+  green: '#32BA7C',
+  yellow: '#F5B80D',
+  red: '#E24C4B',
+  black: '#000000',
 };
 
 export const SIZES = {
@@ -16,13 +18,32 @@ export const SIZES = {
   extraLarge: 24,
 };
 
-export const FONTS = {
-  bold: "InterBold",
-  semiBold: "InterSemiBold",
-  medium: "InterMedium",
-  regular: "InterRegular",
-  light: "InterLight",
-};
+export const BUTTON = StyleSheet.create({
+  green: {
+    backgroundColor: 'green',
+    borderRadius: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  yellow: {
+    backgroundColor: 'yellow',
+    borderRadius: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  red: {
+    backgroundColor: 'red',
+    borderRadius: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export const SHADOWS = {
   light: {
