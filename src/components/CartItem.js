@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ItemCounter from './ItemCounter';
 import { COLORS } from '../constants/theme';
-import { useState } from 'react';
-const CartItem = ({ item }) => {
-  console.log(item.price);
+import React, { useState } from 'react';
+const CartItem = ({ item, orderedItems, listOfQty }) => {
+  // orderedItems.map()
+  // console.log(listOfQty);
+  // console.log('The quanityt of this item is' + item.quantity);
   const [count, setCount] = useState(0);
   const increment = () => {
     setCount(count => count + 1);
@@ -25,7 +27,9 @@ const CartItem = ({ item }) => {
       </View>
 
       <View style={styles.rupee}>
-        <Text style={{ color: COLORS.black }}>₹{item.price}</Text>
+        <Text style={{ color: COLORS.black, fontWeight: '500' }}>
+          ₹{item.price}
+        </Text>
       </View>
     </View>
   );

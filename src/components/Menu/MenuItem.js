@@ -11,7 +11,7 @@ import Image from '../Image';
 export default function MenuItem({ item }) {
   const { items, addToCart, removeFromCart, totalAmount } = useCart();
   const [count, setCount] = useState();
-
+  // console.log(item);
   useEffect(() => {
     let _item = items.find(element => element.id == item.id);
     if (_item?.quantity) setCount(_item.quantity);

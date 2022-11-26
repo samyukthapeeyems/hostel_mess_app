@@ -2,10 +2,9 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import { firebase } from '@react-native-firebase/auth';
 import { COLORS } from '../../constants/theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-// import Image from '../Image';
-
-const MenuHeader = () => {
+const MenuHeader = ({ navigation }) => {
   const user = firebase.auth().currentUser;
 
   if (user) {
@@ -18,11 +17,13 @@ const MenuHeader = () => {
         <Text style={styles.text2}>{user.displayName.split(' ')[0]}</Text>
       </View>
       <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: user.photoURL }}
-          style={styles.imgStyles}
-          resizeMode="cover"
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image
+            source={{ uri: user.photoURL }}
+            style={styles.imgStyles}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

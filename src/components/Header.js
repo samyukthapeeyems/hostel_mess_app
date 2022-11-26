@@ -1,13 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { COLORS } from '../constants/theme';
+import { LeftArrow } from '../../assets/icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Header = () => {
+const Header = ({ title, navigation }) => {
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.text1}>Header</Text>
-        <Text style={styles.text1}>Header</Text>
+      <View style={styles.iconContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <LeftArrow />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>{title}</Text>
       </View>
     </View>
   );
@@ -17,17 +23,24 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 60,
     backgroundColor: COLORS.blue,
-    paddingVertical: 12,
+    // height: 60,
+    flexDirection: 'row',
+    paddingVertical: 18,
     paddingHorizontal: 16,
   },
-  textContainer: {
-    backgroundColor: 'yellow',
+  iconContainer: {
+    marginRight: 10,
+    justifyContent: 'center',
+    // backgroundColor: 'brown',
   },
-  text1: {
-    fontSize: 14,
+  titleContainer: {
+    justifyContent: 'center',
+    // backgroundColor: 'green',
+  },
+  titleText: {
     color: 'white',
-    opacity: 0.5,
+    fontSize: 24,
+    fontWeight: '700',
   },
 });

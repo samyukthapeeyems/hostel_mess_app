@@ -1,97 +1,60 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SectionList,
-  SafeAreaView,
-  FlatList,
-} from 'react-native';
-import React, { useState, useEffect } from 'react';
-import ItemCounter from '../components/ItemCounter';
-import { LeftArrow } from '../../assets/icons';
+import { FlatList, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import MyStatusBar from '../components/MyStatusBar';
-import { COLORS } from '../constants/theme';
-import useCart from '../contexts/CartContext';
-import firestore from '@react-native-firebase/firestore';
+import { BUTTON, COLORS } from '../constants/theme';
+import Header from '../components/Header';
 import CartItem from '../components/CartItem';
 
-const CartHeader = ({ navigation }) => {
-  return (
-    <View style={styles.cartHeadercontainer}>
-      <View style={styles.cartHeaderbackbutton}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <LeftArrow />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.cartheaderview}>
-        <Text style={styles.cartheadertext}>Cart</Text>
-      </View>
-    </View>
-  );
-};
+import useCart from '../contexts/CartContext';
+import firestore from '@react-native-firebase/firestore';
+import Button from '../components/Button';
 
-const CartContent = ({ item }) => {
-  const [count, setCount] = useState(0);
-  const increment = () => {
-    setCount(count => count + 1);
-  };
-  const decrement = () => {
-    setCount(count => count - 1);
-  };
-  return (
-    <View style={styles.container}>
-      <View style={styles.container1}>
-        <Text style={styles.container2}>{item.foodItem}</Text>
-        <Text style={styles.container2text}>
-          2 porotta 2 chicken curry + tea
-        </Text>
-      </View>
-      <View style={styles.buttonview}>
-        <ItemCounter
-          count={count}
-          handleAddItems={increment}
-          handleRemoveItems={decrement}
-        />
-      </View>
+const OrderList = ({ items, orderedItems }) => {
+  // console.log(items);
+  // const listOfQty = orderedItems.map(myFunction1);
+  function myFunction1(i) {
+    return i.quantity;
+  }
+  let newItems = items;
+  newItems.map(item => {
+    x = orderedItems.map(myFunction1);
+  });
+  console.log(newItems);
+  // console.log(listOfQty);
+  // let listOfItems = items;
 
-      <View style={styles.rupee}>
-        <Text style={{ color: COLORS.black }}>₹{item.cost}</Text>
-      </View>
-    </View>
-  );
-};
-const ConfirmOrder = ({ navigation }) => {
-  return (
-    <TouchableOpacity style={styles.confirmbutton}>
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
-        CONFIRM ORDER
-      </Text>
-    </TouchableOpacity>
-  );
-};
+  // // letlistOfItems.map(myFunction);
+  // for (let i = 0; i < 3; i++) {
+  //   listOfItems[i].qty = listOfQty[i];
+  // }
 
-const OrderList = ({ items }) => (
-  <View style={{ backgroundColor: 'white', flex: 1 }}>
-    {/* <SectionList
-      sections={items}
-      keyExtractor={item => item.id}
-      renderItem={CartContent}
-      showsVerticalScrollIndicator={false}
-    /> */}
+  // console.log('list is: ' + listOfItems);
+
+  return (
     <FlatList
       data={items}
       renderItem={({ item }) => <CartItem item={item} />}
       keyExtractor={item => item.id}
+      style={styles.listContainer}
+      // orderedItems={orderedItems}
     />
-    {/* <CartItem item={item} /> */}
-  </View>
-);
-const Cart = ({ navigation, route }) => {
-  console.log(navigation.isFocused);
+  );
+};
+
+const Cart = ({ navigation }) => {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
-  console.log(totalAmount);
+  let orderedItems = items;
+  console.log(orderedItems);
+
+  // console.log(listOfQty);
+  // let newItems = items.forEach(myFunction);
+
+  // function myFunction(item) {
+  //   item.number = 1;
+  // }
+  // console.log(newItems);
+  // console.log('The quantity is' + items[0].quantity);
 
   useEffect(() => {
     let arr = [];
@@ -107,133 +70,29 @@ const Cart = ({ navigation, route }) => {
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      {/* <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <CartHeader navigation={navigation} />
+      <Header title="Cart" navigation={navigation} />
 
-        <OrderList items={itm} />
-        <ConfirmOrder />
-      </SafeAreaView> */}
+      <OrderList items={itm} orderedItems={orderedItems} />
+      <View style={styles.buttonContainer}>
+        <Button
+          style={BUTTON.green}
+          textStyle={styles.buttonText}
+          onPress={() => console.log('Confirm Order Button pressed')}>
+          CONFIRM ORDER
+        </Button>
+      </View>
     </>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
-  container1: {
-    flex: 3,
-    backgroundColor: 'white',
-    paddingVertical: 16,
-    paddingHorizontal: 15,
-  },
-  container2: { fontWeight: '700', fontSize: 15, color: COLORS.black },
-  container2text: { fontWeight: '400', fontSize: 10, color: COLORS.black },
-  buttonview: {
-    flex: 2,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  touch: { padding: 6 },
-  size: { fontSize: 25 },
-  rupee: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  cartHeadercontainer: {
-    flexDirection: 'row',
-    height: 75,
-    backgroundColor: '#3358F9',
-  },
-  cartHeaderbackbutton: {
-    backgroundColor: '#3358F9',
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingLeft: 10,
-  },
-  cartheaderview: {
-    backgroundColor: '#3358F9',
-    flex: 10,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  cartheadertext: {
-    fontSize: 28,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-
-  optDinnercontainer: { backgroundColor: 'white', padding: 15 },
-  optDinnercontainer1: {
-    borderRadius: 10,
-    backgroundColor: '#FEF4DB',
-    padding: 10,
-    paddingBottom: 15,
-    borderWidth: 1,
-    borderColor: '#F5B80D',
-  },
-  optDinnerbuttonview: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  optDinneropt: { fontSize: 20, fontWeight: 'bold', color: '#F5B80D' },
-  optDinnerfoodview: { alignItems: 'center', justifyContent: 'center' },
-  optDinnerfoodtext: { fontSize: 10, marginLeft: 30 },
-
-  confirmcontainer: {
-    flexDirection: 'row',
-    backgroundColor: '#D7F4E7',
-    padding: 10,
-  },
-  confirmsubview1: { flex: 1 },
-  confirmsubview2: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-  confirmCaution: {
-    backgroundColor: '#D7F4E7',
-    padding: 10,
-    marginHorizontal: 10,
-    marginTop: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#32BA7C',
-  },
-  confirmCautiontext: {
-    fontSize: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#32BA7C',
-  },
-  confirmbutton: {
-    backgroundColor: '#32BA7C',
-    paddingVertical: 15,
-    marginVertical: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 16,
-  },
-});
 
 export default Cart;
 
-// import { View, Text } from 'react-native';
-// import React from 'react';
-
-// const Cart = () => {
-//   return (
-//     <View>
-//       <Text style={{ color: 'black' }}>Cart</Text>
-//     </View>
-//   );
-// };
-
-// export default Cart;
+const styles = StyleSheet.create({
+  buttonContainer: { paddingHorizontal: 16, paddingBottom: 10 },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  listContainer: { backgroundColor: 'white', flex: 1 },
+});
