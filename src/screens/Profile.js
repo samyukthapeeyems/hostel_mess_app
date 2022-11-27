@@ -1,7 +1,6 @@
 // import { Text, Button } from "react-native"
 // import AllInOneSDKManager from 'paytm_allinone_react-native';
 
-
 // export default Profile = () => {
 //   return (
 //     <Button
@@ -31,21 +30,13 @@
 //   )
 // }
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import CircleButton from '../components/Header';
 import React from 'react';
 import useAuth from '../contexts/AuthContext';
 import Button from '../components/Button';
-
-
 
 const ProfileHeader = () => {
   return (
@@ -119,20 +110,24 @@ const ProfileWallet = ({ navigation }) => {
   );
 };
 
-export default function Profile ({ navigation }) {
+export default function Profile({ navigation }) {
   const { signOut, user } = useAuth();
 
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
       <View style={{ flex: 9 }}>
-        <ProfileHeader />
+        {/* <ProfileHeader /> */}
 
         {/* user card */}
-        <View style={styles.user.container} >
+        <View style={styles.user.container}>
           {/* left item  */}
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
               <Image
                 source={{ uri: user.photoURL }}
                 resizeMode="contain"
@@ -145,22 +140,26 @@ export default function Profile ({ navigation }) {
             </View>
           </View>
           {/* right item  */}
-          <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+            }}>
             <Button textStyle={styles.editProfile.text}>EDIT PROFILE</Button>
           </View>
         </View>
         {/* user card */}
-
 
         <ProfileContent2 />
         <ProfileWallet navigation={navigation} />
       </View>
 
       <View style={styles.logOut.container}>
-        <Button style={styles.logOut.button}
+        <Button
+          style={styles.logOut.button}
           textStyle={styles.logOut.text}
-          onPress={async () => await signOut()}
-        >
+          onPress={async () => await signOut()}>
           LOGOUT
         </Button>
       </View>
@@ -169,10 +168,9 @@ export default function Profile ({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flexDirection: 'row',
-    backgroundColor: '#3358F9'
+    backgroundColor: '#3358F9',
   },
 
   containerText: {
@@ -200,24 +198,24 @@ const styles = StyleSheet.create({
     profilePicture: {
       width: 42,
       height: 42,
-      borderRadius: 50
+      borderRadius: 50,
     },
     name: {
       fontSize: 24,
       fontWeight: '700',
-      color: COLORS.black
+      color: COLORS.black,
     },
     text: {
-      color: COLORS.black
-    }
+      color: COLORS.black,
+    },
   },
 
   editProfile: {
     text: {
       fontWeight: '700',
       color: COLORS.blue,
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   },
   logOut: {
     container: {
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 20,
       fontWeight: '700',
-      color: 'white'
-    }
-  }
+      color: 'white',
+    },
+  },
 });

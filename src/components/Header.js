@@ -1,52 +1,25 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
-import { SIZES, COLORS } from '../constants/theme';
-import useAuth from '../contexts/AuthContext';
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { COLORS } from '../constants/theme';
+import { LeftArrow } from '../../assets/icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Header = ({ navigation }) => {
-  const { user } = useAuth();
-  const [greeting, setGreeting] = useState('');
-
-  const r = useRoute();
-
-  useEffect(() => {
-    let hrs = new Date().getHours();
-    let message = (hrs >= 16) ? 'Good Evening' : (hrs >= 12 && hrs < 16) ? 'Good Afternoon' : 'Good Morning';
-    setGreeting(message);
-  }, []);
-
+const Header = ({ navigation, iconShow, title }) => {
   return (
-    <View style={styles.headerContainer}>
-      {/* left side text  */}
-      <View style={styles.textContainer}>
-        <Text style={styles.greeting}>{greeting}</Text>
-        <Text style={styles.name}>{user.displayName.split(' ')[0]}</Text>
+    <SafeAreaView style={styles.headerContainer}>
+      <View style={styles.content}>
+        {iconShow ? (
+          <View style={styles.icon}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <LeftArrow />
+            </TouchableOpacity>
+          </View>
+        ) : null}
+
+        <Text style={styles.title}>{title}</Text>
       </View>
-      {/* profile icon  */}
-      <View style={styles.imageContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Image
-            source={{ uri: user.photoURL }}
-            resizeMode="contain"
-            style={{
-              width: 42,
-              height: 42,
-              borderRadius: 50,
-              borderWidth: 2,
-              borderColor: COLORS.yellow,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -54,33 +27,23 @@ export default Header;
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 60,
-    width: '100%',
     backgroundColor: COLORS.blue,
-    flexDirection: 'row',
-    paddingVertical: 10,
+    paddingVertical: 18,
     paddingHorizontal: 16,
+    flexDirection: 'row',
   },
-  textContainer: {
-    flex: 1,
+  content: {
+    // backgroundColor: 'green',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  greeting: {
+  icon: {
     color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-    opacity: 0.5,
-    // marginBottom: 3
+    marginRight: 10,
   },
-  name: {
+  title: {
     color: 'white',
     fontSize: 24,
     fontWeight: '700',
-  },
-  imageContainer: {
-    // backgroundColor: 'brown',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    // borderRadius: '50%',
   },
 });

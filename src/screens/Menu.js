@@ -1,7 +1,7 @@
-import { View, StyleSheet, FlatList , Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import { useNetInfo } from "@react-native-community/netinfo";
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import useCart from '../contexts/CartContext';
 import StatusBar from '../components/StatusBar';
@@ -38,34 +38,28 @@ const Menu = ({ navigation }) => {
   }
 
   useEffect(() => {
-
     if (!query) {
       const itemCleanUp = firestore()
-        .collection('items').orderBy("isAvailable", "desc")
+        .collection('items')
+        .orderBy('isAvailable', 'desc')
         .onSnapshot(onResult, onError);
 
       return itemCleanUp;
+    } else {
+      searchItems(query).then(snapShot => onResult(snapShot));
     }
-    else {
-      searchItems(query)
-        .then(snapShot => onResult(snapShot))
-    }
-
   }, [query]);
 
   return (
     <>
-      <StatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <Header navigation={navigation} />
+      {/* <StatusBar backgroundColor={COLORS.blue} barStyle="light-content" /> */}
+      {/* <Header navigation={navigation} /> */}
       <View style={styles.menuPageContent}>
-
         <FlatList
           data={itemList}
           renderItem={({ item }) => <MenuItem item={item} />}
           keyExtractor={item => item.id}
-          ItemSeparatorComponent={
-            <View style={styles.seperator} />
-          }
+          ItemSeparatorComponent={<View style={styles.seperator} />}
           ListHeaderComponent={
             <SearchBar
               setter={setQuery}
@@ -74,17 +68,12 @@ const Menu = ({ navigation }) => {
           }
           showsVerticalScrollIndicator={false}
         />
-
       </View>
 
-      {
-        !netinfo.isConnected  && <Banner>🔌 Oops!!! Connection lost</Banner>
-      }
-      {items.length > 0 &&
+      {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}
+      {items.length > 0 && (
         <CartBanner navigation={navigation} count={items.length} />
-      }
-
-
+      )}
     </>
   );
 };
@@ -99,6 +88,6 @@ const styles = StyleSheet.create({
   },
   seperator: {
     backgroundColor: '#d9d9d9',
-    height: 0.5
-  }
+    height: 0.5,
+  },
 });

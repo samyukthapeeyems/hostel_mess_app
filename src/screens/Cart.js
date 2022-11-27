@@ -89,43 +89,32 @@ const OrderList = ({ items }) => (
   </View>
 );
 
-
-
-
-
 export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
-  const { getItemList } = useItems()
+  const { getItemList } = useItems();
   // console.log(totalAmount);
 
   useEffect(() => {
     async function x() {
-
       try {
-        let itemIdList = items.map(item => item.id)
-        console.log(itemIdList)
-        let e = await getItemList(itemIdList)
-        console.log(e)
+        let itemIdList = items.map(item => item.id);
+        console.log(itemIdList);
+        let e = await getItemList(itemIdList);
+        console.log(e);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
-
-
     }
-    x()
-
+    x();
   }, []);
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <CartHeader navigation={navigation} />
-
       <OrderList items={itm} />
       <ConfirmOrder />
     </>
   );
-};
+}
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -232,7 +221,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
 });
-
 
 // import { View, Text } from 'react-native';
 // import React from 'react';

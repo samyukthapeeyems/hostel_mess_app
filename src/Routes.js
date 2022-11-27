@@ -1,8 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator  } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
+import React from 'react';
 
 import {
   Menu,
@@ -17,49 +18,107 @@ import {
 } from './screens';
 
 import MyTabBar from './components/MyTabBar';
-
-
+import MenuHeader from './components/MenuHeader';
+import Header from './components/Header';
 const TabsScreen = () => {
   const Tabs = createBottomTabNavigator();
 
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
-      // screenOptions={{ headerShown: false }}
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}
       tabBar={props => <MyTabBar {...props} />}>
       <Tabs.Screen
         name="Menu"
         component={Menu}
-        options={{ title: 'My home' }}
+        options={{ header: MenuHeader }}
       />
-      <Tabs.Screen name="Orders" component={Orders} />
-      <Tabs.Screen name="Profile" component={Profile} />
+
+      <Tabs.Screen
+        name="Orders"
+        component={Orders}
+        options={{
+          header: ({ navigation }) => (
+            <Header title="Orders" iconShow={false} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          header: ({ navigation }) => (
+            <Header title="My Profile" iconShow={false} />
+          ),
+        }}
+      />
     </Tabs.Navigator>
   );
 };
-
 
 const RootStackScreen = () => {
   const RootStack = createStackNavigator();
 
   return (
     <CartProvider>
-      <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen name="TabsScreen" component={TabsScreen} />
-        <RootStack.Screen name="Cart" component={Cart} />
-        <RootStack.Screen name="OrderDetails" component={OrderDetails} />
-        <RootStack.Screen name="Token" component={Token} />
-        <RootStack.Screen name="Wallet" component={Wallet} />
-        <RootStack.Screen name="AddPayment" component={AddPayment} />
+      <RootStack.Navigator>
+        <RootStack.Screen
+          name="TabsScreen"
+          component={TabsScreen}
+          options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            header: ({ navigation }) => (
+              <Header title="Cart" navigation={navigation} iconShow={true} />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="OrderDetails"
+          component={OrderDetails}
+          options={{
+            header: ({ navigation }) => (
+              <Header
+                title="OrderDetails"
+                navigation={navigation}
+                iconShow={true}
+              />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="Token"
+          component={Token}
+          options={{
+            header: ({ navigation }) => (
+              <Header title="Token" navigation={navigation} iconShow={true} />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="Wallet"
+          component={Wallet}
+          options={{
+            header: ({ navigation }) => (
+              <Header title="Wallet" navigation={navigation} iconShow={true} />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="AddPayment"
+          component={AddPayment}
+          options={{
+            header: ({ navigation }) => (
+              <Header
+                title="Add Payment"
+                navigation={navigation}
+                iconShow={true}
+              />
+            ),
+          }}
+        />
       </RootStack.Navigator>
     </CartProvider>
   );

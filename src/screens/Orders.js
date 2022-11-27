@@ -6,7 +6,6 @@ import {
   FlatList,
 } from 'react-native';
 import Header from '../components/Header';
-import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import React from 'react';
 
@@ -99,19 +98,14 @@ const Orders = ({ navigation }) => {
   let { navigate } = navigation;
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-
-      <Header navigation={navigation} />
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={OrderMenu}
-          keyExtractor={item => item.id}
-          renderItem={item => <OrderCard navigate={navigate} item={item} />}
-          style={styles.flatList}
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={renderseperator}
-        />
-      </View>
+      <FlatList
+        data={OrderMenu}
+        keyExtractor={item => item.id}
+        renderItem={item => <OrderCard navigate={navigate} item={item} />}
+        style={styles.flatList}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={renderseperator}
+      />
     </>
   );
 };
@@ -165,6 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   flatList: {
+    flex: 1,
     backgroundColor: 'white',
     paddingHorizontal: 10,
   },
