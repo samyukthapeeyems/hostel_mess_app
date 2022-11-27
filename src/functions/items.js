@@ -1,6 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 
 
+
+
 async function getItemList(itemIdList) {
     let itemPromiseList = [];
     itemIdList.forEach((itemId) => {
@@ -12,10 +14,7 @@ async function getItemList(itemIdList) {
     try {
         let itemList = [];
         let resultSnapShot = await Promise.all(itemPromiseList);
-        resultSnapShot.forEach((item) => {
-            itemList.push(item.data())
-        });
-        return itemList;
+        return resultSnapShot;
     }
     catch (error) {
         console.log(error)
@@ -24,14 +23,25 @@ async function getItemList(itemIdList) {
 }
 
 
+export function mapItemWithItemId(itemSnapShot) {
+    let items = [];
+    itemSnapShot.forEach(item => {
+        items.push({
+            id: item.id,
+            ...item.data(),
+        });
+    });
+    return items
+}
+
 export async function searchItems(name) {
     try {
-        
+
         let snapShotList = await firestore().collection('items')
             .where('name', '>=', name)
             .where('name', '<=', name + '\uf8ff')
-            .orderBy('name' , 'asc')
-            .orderBy('isAvailable' , 'desc')
+            .orderBy('name', 'asc')
+            .orderBy('isAvailable', 'desc')
             .get();
 
         return snapShotList;
@@ -45,6 +55,7 @@ export async function searchItems(name) {
 export const useItems = () => {
     return {
         getItemList,
-        searchItems
+        searchItems,
+        mapItemWithItemId
     }
 }

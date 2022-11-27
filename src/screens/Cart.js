@@ -3,19 +3,18 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SectionList,
-  SafeAreaView,
   FlatList,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import ItemCounter from '../components/ItemCounter';
 import { LeftArrow } from '../../assets/icons';
 import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
 import CartItem from '../components/CartItem';
 import { useItems } from '../functions/items';
-import { err } from 'react-native-svg/lib/typescript/xml';
+
+import Button from '../components/Button';
+// I'll clean this later (function), works for now
 
 const CartHeader = ({ navigation }) => {
   return (
@@ -29,46 +28,6 @@ const CartHeader = ({ navigation }) => {
         <Text style={styles.cartheadertext}>Cart</Text>
       </View>
     </View>
-  );
-};
-
-const CartContent = ({ item }) => {
-  const [count, setCount] = useState(0);
-  const increment = () => {
-    setCount(count => count + 1);
-  };
-  const decrement = () => {
-    setCount(count => count - 1);
-  };
-  return (
-    <View style={styles.container}>
-      <View style={styles.container1}>
-        <Text style={styles.container2}>{item.foodItem}</Text>
-        <Text style={styles.container2text}>
-          2 porotta 2 chicken curry + tea
-        </Text>
-      </View>
-      <View style={styles.buttonview}>
-        <ItemCounter
-          count={count}
-          handleAddItems={increment}
-          handleRemoveItems={decrement}
-        />
-      </View>
-
-      <View style={styles.rupee}>
-        <Text style={{ color: COLORS.black }}>₹{item.cost}</Text>
-      </View>
-    </View>
-  );
-};
-const ConfirmOrder = ({ navigation }) => {
-  return (
-    <TouchableOpacity style={styles.confirmbutton}>
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
-        CONFIRM ORDER
-      </Text>
-    </TouchableOpacity>
   );
 };
 
@@ -96,33 +55,44 @@ const OrderList = ({ items }) => (
 export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
-  const { getItemList } = useItems()
-  // console.log(totalAmount);
+  const { getItemList, mapItemWithItemId } = useItems()
 
   useEffect(() => {
     async function x() {
 
+      // I'll clean this later, works for now
       try {
         let itemIdList = items.map(item => item.id)
-        console.log(itemIdList)
         let e = await getItemList(itemIdList)
-        console.log(e)
+        e = mapItemWithItemId(e)
+        e.forEach((p, ind) => {
+          let { quantity } = items.find(item => item.id === p.id)
+          e[ind] = {
+            ...p,
+            price: quantity * p.price
+          }
+        })
+        setItm(e)
       } catch (err) {
         console.log(err)
       }
-
-
     }
     x()
 
-  }, []);
+    // I'll clean this later (function), works for now
+
+  }, [totalAmount]);
   return (
     <>
       <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
       <CartHeader navigation={navigation} />
 
       <OrderList items={itm} />
-      <ConfirmOrder />
+
+      <Button style={styles.confirmbutton}
+        textStyle={styles.confirmButtonText}>
+        CONFIRM ORDER
+      </Button>
     </>
   );
 };
@@ -231,18 +201,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 16,
   },
+
+  confirmButtonText: {
+    color: 'white', fontSize: 18, fontWeight: '700'
+  }
 });
-
-
-// import { View, Text } from 'react-native';
-// import React from 'react';
-
-// const Cart = () => {
-//   return (
-//     <View>
-//       <Text style={{ color: 'black' }}>Cart</Text>
-//     </View>
-//   );
-// };
-
-// export default Cart;
