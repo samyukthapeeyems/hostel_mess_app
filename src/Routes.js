@@ -1,9 +1,12 @@
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
-import React from 'react';
 
 import {
   Menu,
@@ -17,9 +20,28 @@ import {
   Auth,
 } from './screens';
 
+import { COLORS } from './constants/theme';
+import { LeftArrow } from '../assets/icons';
+
 import MyTabBar from './components/MyTabBar';
 import MenuHeader from './components/MenuHeader';
-import Header from './components/Header';
+import HeaderSkeleton from './components/HeaderSkeleton';
+
+const PageHeader = ({ navigation, iconShow, title }) => (
+  <HeaderSkeleton>
+    <View style={styles.content}>
+      {iconShow ? (
+        <View style={styles.icon}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <LeftArrow />
+          </TouchableOpacity>
+        </View>
+      ) : null}
+
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  </HeaderSkeleton>
+);
 const TabsScreen = () => {
   const Tabs = createBottomTabNavigator();
 
@@ -38,7 +60,7 @@ const TabsScreen = () => {
         component={Orders}
         options={{
           header: ({ navigation }) => (
-            <Header title="Orders" iconShow={false} />
+            <PageHeader title="Orders" iconShow={false} />
           ),
         }}
       />
@@ -47,7 +69,7 @@ const TabsScreen = () => {
         component={Profile}
         options={{
           header: ({ navigation }) => (
-            <Header title="My Profile" iconShow={false} />
+            <PageHeader title="My Profile" iconShow={false} />
           ),
         }}
       />
@@ -71,7 +93,11 @@ const RootStackScreen = () => {
           component={Cart}
           options={{
             header: ({ navigation }) => (
-              <Header title="Cart" navigation={navigation} iconShow={true} />
+              <PageHeader
+                title="Cart"
+                navigation={navigation}
+                iconShow={true}
+              />
             ),
           }}
         />
@@ -80,7 +106,7 @@ const RootStackScreen = () => {
           component={OrderDetails}
           options={{
             header: ({ navigation }) => (
-              <Header
+              <PageHeader
                 title="Order Details"
                 navigation={navigation}
                 iconShow={true}
@@ -93,7 +119,11 @@ const RootStackScreen = () => {
           component={Token}
           options={{
             header: ({ navigation }) => (
-              <Header title="Token" navigation={navigation} iconShow={true} />
+              <PageHeader
+                title="Token"
+                navigation={navigation}
+                iconShow={true}
+              />
             ),
           }}
         />
@@ -102,7 +132,11 @@ const RootStackScreen = () => {
           component={Wallet}
           options={{
             header: ({ navigation }) => (
-              <Header title="Wallet" navigation={navigation} iconShow={true} />
+              <PageHeader
+                title="Wallet"
+                navigation={navigation}
+                iconShow={true}
+              />
             ),
           }}
         />
@@ -111,7 +145,7 @@ const RootStackScreen = () => {
           component={AddPayment}
           options={{
             header: ({ navigation }) => (
-              <Header
+              <PageHeader
                 title="Add Payment"
                 navigation={navigation}
                 iconShow={true}
@@ -142,3 +176,54 @@ export default function Routes() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  textContainer: {
+    // flex: 1,
+    width: '100%',
+    backgroundColor: 'brown',
+  },
+  imgContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  greeting: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '500',
+    opacity: 0.5,
+  },
+  name: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: '700',
+  },
+  img: {
+    width: 42,
+    height: 42,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: COLORS.yellow,
+  },
+  headerContainer: {
+    backgroundColor: COLORS.blue,
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+  },
+  content: {
+    // backgroundColor: 'green',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    color: 'white',
+    marginRight: 10,
+  },
+  title: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: '700',
+  },
+});

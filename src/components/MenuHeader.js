@@ -1,8 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import useAuth from '../contexts/AuthContext';
 import { COLORS } from '../constants/theme';
+import Header from './HeaderSkeleton';
 
 const MenuHeader = () => {
   const { user } = useAuth();
@@ -21,31 +21,28 @@ const MenuHeader = () => {
     setGreeting(message);
   }, []);
   return (
-    <SafeAreaView style={styles.headerContainer}>
-      <View style={styles.textContainer}>
-        <Text style={styles.greeting}>{greeting}</Text>
-        <Text style={styles.name}>{user.displayName.split(' ')[0]}</Text>
+    <Header>
+      <View style={styles.content}>
+        <View style={styles.textContainer}>
+          <Text style={styles.greeting}>{greeting}</Text>
+          <Text style={styles.name}>{user.displayName.split(' ')[0]}</Text>
+        </View>
+        <View style={styles.imgContainer}>
+          <Image
+            source={{ uri: user.photoURL }}
+            resizeMode="contain"
+            style={styles.img}
+          />
+        </View>
       </View>
-      <View style={styles.imgContainer}>
-        <Image
-          source={{ uri: user.photoURL }}
-          resizeMode="contain"
-          style={styles.img}
-        />
-      </View>
-    </SafeAreaView>
+    </Header>
   );
 };
 
 export default MenuHeader;
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    backgroundColor: COLORS.blue,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-  },
+  content: { flexDirection: 'row' },
   textContainer: {
     flex: 1,
   },

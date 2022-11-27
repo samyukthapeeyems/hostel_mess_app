@@ -1,17 +1,15 @@
-import { View, StyleSheet, FlatList, Text } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 import useCart from '../contexts/CartContext';
-import StatusBar from '../components/StatusBar';
-import MenuItem from '../components/MenuItem';
 
-import { COLORS } from '../constants/theme';
-import Header from '../components/Header';
+import { useItems } from '../functions/items';
+
+import MenuItem from '../components/MenuItem';
 import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
-import { useItems } from '../functions/items';
 import Banner from '../components/Banner';
 
 const Menu = ({ navigation }) => {
@@ -19,11 +17,11 @@ const Menu = ({ navigation }) => {
   const [query, setQuery] = useState('');
 
   const { items } = useCart();
-  const { searchItems , mapItemWithItemId } = useItems();
+  const { searchItems, mapItemWithItemId } = useItems();
   const netinfo = useNetInfo();
 
   const onResult = snapShot => {
-    let items = mapItemWithItemId(snapShot)
+    let items = mapItemWithItemId(snapShot);
     setItemList(items);
   };
 
@@ -45,8 +43,6 @@ const Menu = ({ navigation }) => {
 
   return (
     <>
-      {/* <StatusBar backgroundColor={COLORS.blue} barStyle="light-content" /> */}
-      {/* <Header navigation={navigation} /> */}
       <View style={styles.menuPageContent}>
         <FlatList
           data={itemList}

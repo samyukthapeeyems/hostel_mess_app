@@ -5,7 +5,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import Header from '../components/Header';
+import Header from '../components/HeaderSkeleton';
 import { COLORS } from '../constants/theme';
 import React from 'react';
 

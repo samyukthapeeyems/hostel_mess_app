@@ -1,12 +1,11 @@
 import Router from './src/Routes';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import auth from '@react-native-firebase/auth';
 import useAuth from './src/contexts/AuthContext';
 import { View, StyleSheet } from 'react-native';
 
 const App = () => {
   const { setUser } = useAuth();
-
 
   async function handleUserEvents(user) {
     setUser(user);

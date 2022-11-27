@@ -33,7 +33,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
-import CircleButton from '../components/Header';
+import CircleButton from '../components/HeaderSkeleton';
 import React from 'react';
 import useAuth from '../contexts/AuthContext';
 import Button from '../components/Button';

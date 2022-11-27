@@ -1,29 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { COLORS } from '../constants/theme';
-import { LeftArrow } from '../../assets/icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Header = ({ navigation, iconShow, title }) => {
+const HeaderSkeleton = ({ children }) => {
   return (
     <SafeAreaView style={styles.headerContainer}>
-      <View style={styles.content}>
-        {iconShow ? (
-          <View style={styles.icon}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <LeftArrow />
-            </TouchableOpacity>
-          </View>
-        ) : null}
-
-        <Text style={styles.title}>{title}</Text>
-      </View>
+      <View style={styles.content}>{children}</View>
     </SafeAreaView>
   );
 };
 
-export default Header;
+export default HeaderSkeleton;
 
 const styles = StyleSheet.create({
   headerContainer: {
