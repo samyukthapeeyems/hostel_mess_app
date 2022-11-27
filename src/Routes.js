@@ -81,7 +81,7 @@ const RootStackScreen = () => {
           options={{
             header: ({ navigation }) => (
               <Header
-                title="OrderDetails"
+                title="Order Details"
                 navigation={navigation}
                 iconShow={true}
               />

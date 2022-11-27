@@ -30,19 +30,14 @@ const AddMoney = ({ navigation }) => {
     <TouchableOpacity
       style={styles.confirmbutton}
       onPress={() => navigation.navigate('AddPayment')}>
-      <Text style={styles.addMoney}>
-        + Add Money
-      </Text>
+      <Text style={styles.addMoney}>+ Add Money</Text>
     </TouchableOpacity>
   );
 };
 const RecentTransation = () => {
   return (
-    <View
-      style={styles.recentTransationview}>
-      <Text style={styles.recentTransationtext}>
-        Recent Transactions 💸
-      </Text>
+    <View style={styles.recentTransationview}>
+      <Text style={styles.recentTransationtext}>Recent Transactions 💸</Text>
     </View>
   );
 };
@@ -50,16 +45,9 @@ const WalletContent = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       {/* first half screen  */}
-      <View
-        style={styles.walletContentview}>
-        <Image
-          source={walletcard}
-          style={styles.walletcardimage}
-        />
-        <Text
-          style={styles.ewalletext}>
-          eCanteen Wallet
-        </Text>
+      <View style={styles.walletContentview}>
+        <Image source={walletcard} style={styles.walletcardimage} />
+        <Text style={styles.ewalletext}>eCanteen Wallet</Text>
         <Text
           style={{
             position: 'absolute',
@@ -92,8 +80,6 @@ const WalletContent = ({ navigation }) => {
 const Wallet = ({ navigation }) => {
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.green} barStyle="light-content" />
-      <WalletHeader navigation={navigation} />
       <WalletContent navigation={navigation} />
     </>
   );
@@ -134,28 +120,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // marginHorizontal: 14,
   },
-  addMoney : { color: 'white', fontSize: 18, fontWeight: '700' },
-  recentTransationview : {
+  addMoney: { color: 'white', fontSize: 18, fontWeight: '700' },
+  recentTransationview: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
     paddingVertical: 10,
   },
-recentTransationtext : { fontWeight: '700', fontSize: 22 },
-walletContentview : {
-  flex: 1,
-  paddingHorizontal: 15,
-  paddingTop: 16,
-},
-walletcardimage : {
-  width: '100%',
-  borderRadius: 10,
-},
-ewalletext : {
-  position: 'absolute',
-  fontSize: 24,
-  paddingHorizontal: 30,
-  paddingVertical: 30,
-  color: '#FFFFFF',
-  fontWeight: '700',
-}
+  recentTransationtext: { fontWeight: '700', fontSize: 22 },
+  walletContentview: {
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingTop: 16,
+  },
+  walletcardimage: {
+    width: '100%',
+    borderRadius: 10,
+  },
+  ewalletext: {
+    position: 'absolute',
+    fontSize: 24,
+    paddingHorizontal: 30,
+    paddingVertical: 30,
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
 });

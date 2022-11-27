@@ -64,8 +64,6 @@ const PaymentContent = () => {
 const AddPayment = ({ navigation }) => {
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <AddPaymentHeader navigation={navigation} />
       <PaymentContent />
     </>
   );

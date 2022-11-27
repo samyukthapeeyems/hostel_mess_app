@@ -31,12 +31,10 @@ const TokenHeader = ({ route, navigation }) => {
   );
 };
 
-
 const Token = ({ navigation }) => {
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.green} barStyle="light-content" />
-      <TokenHeader navigation={navigation} />
+      {/* <MyStatusBar backgroundColor={COLORS.green} barStyle="light-content" /> */}
       <View
         style={{
           flex: 1,
@@ -70,7 +68,8 @@ const Token = ({ navigation }) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginHorizontal: 16,
-            }} onPress ={()=> navigation.navigate("Menu")}>
+            }}
+            onPress={() => navigation.navigate('Menu')}>
             <Text style={{ color: '#32BA7C', fontSize: 18, fontWeight: '700' }}>
               BACK TO HOME
             </Text>

@@ -7,8 +7,7 @@ function MyTabBar({ state, descriptors, navigation }) {
       style={{
         flexDirection: 'row',
         backgroundColor: 'white',
-        height: '10%',
-        paddingBottom: Platform.OS === 'ios' ? 30 : 0,
+        height: 75,
       }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
