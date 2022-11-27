@@ -6,7 +6,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { SIZES } from '../constants/theme';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import { LeftArrow } from '../../assets/icons';
 import React from 'react';

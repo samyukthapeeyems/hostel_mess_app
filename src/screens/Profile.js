@@ -38,7 +38,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import CircleButton from '../components/Header';
 import React from 'react';

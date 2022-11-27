@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import { SIZES } from '../constants/theme';
 import walletcard from '../../assets/images/walletcard.png';

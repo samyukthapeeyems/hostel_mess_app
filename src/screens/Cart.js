@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect } from 'react';
 import ItemCounter from '../components/ItemCounter';
 import { LeftArrow } from '../../assets/icons';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
 import CartItem from '../components/CartItem';

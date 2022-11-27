@@ -14,21 +14,14 @@ import useAuth from '../contexts/AuthContext';
 const Header = ({ navigation }) => {
   const { user } = useAuth();
   const [greeting, setGreeting] = useState('');
-  const { getState, getParent } = useNavigation();
 
   const r = useRoute();
 
   useEffect(() => {
     let hrs = new Date().getHours();
-    let message =
-      hrs >= 16
-        ? 'Good Evening'
-        : hrs >= 12 && hrs < 16
-        ? 'Good Afternoon'
-        : 'Good Morning';
+    let message = (hrs >= 16) ? 'Good Evening' : (hrs >= 12 && hrs < 16) ? 'Good Afternoon' : 'Good Morning';
     setGreeting(message);
-    console.log(r);
-  }, [r]);
+  }, []);
 
   return (
     <View style={styles.headerContainer}>

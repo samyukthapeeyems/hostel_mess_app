@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import { LeftArrow } from '../../assets/icons';
 import React from 'react';

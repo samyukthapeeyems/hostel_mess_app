@@ -6,7 +6,7 @@ import {
   FlatList,
 } from 'react-native';
 import Header from '../components/Header';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import React from 'react';
 

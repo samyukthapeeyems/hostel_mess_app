@@ -30,13 +30,15 @@ export async function searchItems(name) {
         let snapShotList = await firestore().collection('items')
             .where('name', '>=', name)
             .where('name', '<=', name + '\uf8ff')
+            .orderBy('name' , 'asc')
+            .orderBy('isAvailable' , 'desc')
             .get();
 
         return snapShotList;
     }
     catch (error) {
         console.log(error)
-        throw e;
+        throw error;
     }
 }
 

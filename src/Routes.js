@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator  } from '@react-navigation/stack';
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 

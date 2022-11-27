@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS, SIZES } from '../constants/theme';
 import { LeftArrow } from '../../assets/icons';
 

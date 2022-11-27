@@ -7,7 +7,7 @@ import App from './App';
 import { name as appName } from './app.json';
 import messaging from '@react-native-firebase/messaging';
 import { AuthProvider } from './src/contexts/AuthContext';
-import notifee from '@notifee/react-native';
+//import notifee from '@notifee/react-native';
 import React from 'react';
 
 function onMessageReceived(message) {

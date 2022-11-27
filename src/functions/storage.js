@@ -15,7 +15,10 @@ export default function useStorage() {
     utils.getURL = async function (path) {
 
         try{
-            let url = await storage().ref(path).getDownloadURL();
+            let url = await storage()
+            //.setMaxOperationRetryTime(30)
+            .ref(path)
+            .getDownloadURL();
             console.log(url)
             return url
         }

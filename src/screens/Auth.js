@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import useAuth from '../contexts/AuthContext';
 import React from 'react';
-import MyStatusBar from '../components/MyStatusBar';
+import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import LoginImg from '../../assets/images/LoginImg.png';
 import { GoogleLogo } from '../../assets/icons';

@@ -4,9 +4,9 @@ import auth from '@react-native-firebase/auth';
 import useAuth from './src/contexts/AuthContext';
 import { View, StyleSheet } from 'react-native';
 
-
 const App = () => {
   const { setUser } = useAuth();
+
 
   async function handleUserEvents(user) {
     setUser(user);
@@ -26,16 +26,13 @@ const App = () => {
 
   useEffect(() => {
     const subscriber = auth().onIdTokenChanged(handleUserEvents);
-
     return subscriber;
   }, []);
 
   return (
-    // <View style={styles.container}>
     <View style={styles.container}>
       <Router />
     </View>
-    // </View>
   );
 };
 
