@@ -19,17 +19,11 @@ const Menu = ({ navigation }) => {
   const [query, setQuery] = useState('');
 
   const { items } = useCart();
-  const { searchItems } = useItems();
+  const { searchItems , mapItemWithItemId } = useItems();
   const netinfo = useNetInfo();
 
   const onResult = snapShot => {
-    let items = [];
-    snapShot.forEach(item => {
-      items.push({
-        id: item.id,
-        ...item.data(),
-      });
-    });
+    let items = mapItemWithItemId(snapShot)
     setItemList(items);
   };
 
@@ -43,7 +37,6 @@ const Menu = ({ navigation }) => {
         .collection('items')
         .orderBy('isAvailable', 'desc')
         .onSnapshot(onResult, onError);
-
       return itemCleanUp;
     } else {
       searchItems(query).then(snapShot => onResult(snapShot));
