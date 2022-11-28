@@ -84,11 +84,8 @@ export default function Cart({ navigation, route }) {
   }, [totalAmount]);
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      <CartHeader navigation={navigation} />
 
-      <OrderList items={e} />
-
+      <OrderList items={itm} />
       <Button style={styles.confirmbutton}
         textStyle={styles.confirmButtonText}>
         CONFIRM ORDER

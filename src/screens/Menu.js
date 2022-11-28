@@ -30,7 +30,8 @@ const Menu = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (query !== '') {
+    console.log(query)
+    if (!query) {
       const itemCleanUp = firestore()
         .collection('items')
         .orderBy('isAvailable', 'desc')

@@ -8,7 +8,7 @@ export default function SearchBar({ setter, placeholderText }) {
                 placeholder={placeholderText}
                 style={styles.textInput}
                 placeholderTextColor="#3C3C4399"
-                onChangeText={term => setter(term)}
+                onChangeText={setter}
             />
         </View>
     );
