@@ -48,35 +48,54 @@ const OrderList = ({ items }) => (
   </View>
 );
 
+
+
+
+
 export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
-  const { getItemList } = useItems();
-  // console.log(totalAmount);
+  const { getItemList, mapItemWithItemId } = useItems()
 
   useEffect(() => {
     async function x() {
+
+      // I'll clean this later, works for now
       try {
-        let itemIdList = items.map(item => item.id);
-        console.log(itemIdList);
-        let e = await getItemList(itemIdList);
-        console.log(e);
+        let itemIdList = items.map(item => item.id)
+        let e = await getItemList(itemIdList)
+        e = mapItemWithItemId(e)
+        e.forEach((p, ind) => {
+          let { quantity } = items.find(item => item.id === p.id)
+          e[ind] = {
+            ...p,
+            price: quantity * p.price
+          }
+        })
+        setItm(e)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     }
-    x();
-  }, []);
+    x()
+
+    // I'll clean this later (function), works for now
+
+  }, [totalAmount]);
   return (
     <>
-      <OrderList items={itm} />
+      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
+      <CartHeader navigation={navigation} />
 
-      <Button style={styles.confirmbutton} textStyle={styles.confirmButtonText}>
+      <OrderList items={e} />
+
+      <Button style={styles.confirmbutton}
+        textStyle={styles.confirmButtonText}>
         CONFIRM ORDER
       </Button>
     </>
   );
-}
+};
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
@@ -184,21 +203,6 @@ const styles = StyleSheet.create({
   },
 
   confirmButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '700',
-  },
+    color: 'white', fontSize: 18, fontWeight: '700'
+  }
 });
-
-// import { View, Text } from 'react-native';
-// import React from 'react';
-
-// const Cart = () => {
-//   return (
-//     <View>
-//       <Text style={{ color: 'black' }}>Cart</Text>
-//     </View>
-//   );
-// };
-
-// export default Cart;

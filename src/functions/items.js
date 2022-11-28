@@ -1,8 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 
 
-
-
 async function getItemList(itemIdList) {
     let itemPromiseList = [];
     itemIdList.forEach((itemId) => {
