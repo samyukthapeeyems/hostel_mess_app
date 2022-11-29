@@ -10,112 +10,68 @@ import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
 import { LeftArrow } from '../../assets/icons';
 import React from 'react';
+import Listheader from '../components/Listheader';
+import { FlatList } from 'react-native-gesture-handler';
 
-const OrderDetailsHeader = ({ route, navigation }) => {
-  // const { Itemid } = route.params;
-  console.log(route);
+
+const Orderstack = [
+  {
+    id : 1,
+    title : 'Porotta',
+    qty : 1,
+    price : 10
+  },
+  {
+    id : 2,
+    title : 'Chiken Curry',
+    qty : 1,
+    price : 8
+  },
+  {
+    id :3,
+    title : 'Tea',
+    qty : 1,
+    price : 9
+  }, 
+  {
+    id : 4,
+    title : 'Veg Curry',
+    qty : 1,
+    price : 8
+  }
+];
+
+const renderseperator = () => {
+  return <View style={styles.renderseperatorview} />;
+};
+const OrderDetailsContent = ({item}) => {
+  let {item : element} =item ;
   return (
-    <View style={styles.orderDetailscontainer}>
-      <View style={styles.orderDetailsbackbutton}>
-        {
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text>
-              <LeftArrow />
-            </Text>
-          </TouchableOpacity>
-        }
+  <View>
+  <View style={styles.ODCouterView}>
+      <View style ={styles.ODCtitleView}>
+        <Text style ={{color : COLORS.black,fontWeight : '700'}}>{element.title}</Text>
       </View>
-      <View style={styles.orderDetailscartheaderview}>
-        <Text style={styles.orderDetailscartheadertext}>Order Id</Text>
+      <View style ={{flex : 1, paddingVertical: 5,alignItems : 'center'}}>
+        <Text style ={{color : COLORS.black,fontWeight : '700'}}>{element.qty}</Text>
+      </View>
+      <View style ={{flex : 1, paddingVertical: 5,alignItems : 'flex-end',paddingRight : 15} }>
+        <Text style ={{color :COLORS.black,fontWeight : '700'}}>₹{element.price}</Text>
       </View>
     </View>
+  </View>
   );
 };
 
-const OrderDetailsContent = () => {
+const Total =() => {
   return (
-    <View style={{ backgroundColor: 'white', padding: 10 }}>
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: 'black',
-          // borderStyle: "dashed",
-          paddingBottom: 5,
-        }}>
-        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-            }}>
-            <Text style={{ color: COLORS.black }}>Porotta & Beef</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{ color: COLORS.black }}>₹60</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-            }}>
-            <Text style={{ color: COLORS.black }}>Biriyani Rice</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{ color: COLORS.black }}>₹60</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-            }}>
-            <Text style={{ color: COLORS.black }}>Tea</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-            }}>
-            <Text style={{ color: COLORS.black }}>₹10</Text>
-          </View>
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            paddingTop: 10,
-          }}>
-          <Text style={{ color: COLORS.black }}>Total</Text>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'flex-end',
-            justifyContent: 'flex-end',
-          }}>
-          <Text style={{ color: COLORS.black }}>₹130</Text>
-        </View>
-      </View>
+    <View style={{flex :1, flexDirection :'row'}}>
+    <View style ={{flex : 1, alignItems :'flex-start',paddingHorizontal : 15, paddingTop : 5}}>
+      <Text style ={{color : COLORS.black, fontWeight : '700',opacity : 0.5, fontSize:16}}>Total</Text>
+    </View>
+    <View style ={{flex : 1, alignItems : 'flex-end', paddingHorizontal : 10}}>
+      <Text style ={{color : COLORS.green, fontSize : 24, fontWeight: '700'}}>₹10</Text>
+    </View>
     </View>
   );
 };
@@ -142,10 +98,20 @@ const OrderDetails = ({ navigation }) => {
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <View style={styles.container}>
+        <View style={{ flex: 1}}>
+          <View>
             <Text style={styles.containerText}>BILL DETAILS</Text>
-            <OrderDetailsContent />
+            <View>
+            <FlatList
+              data={Orderstack}
+              keyExtractor ={item => item.id}
+              renderItem ={item => <OrderDetailsContent item={item} />}
+              ListHeaderComponent ={<Listheader/>}
+              ItemSeparatorComponent={renderseperator}
+              ListFooterComponent={<Total/>}
+              
+            />
+            </View>
           </View>
         </View>
         <View
@@ -164,33 +130,13 @@ export default OrderDetails;
 
 const styles = StyleSheet.create({
   containerText: {
-    padding: 10,
+    paddingTop: 20,
+    paddingHorizontal : 10,
     fontWeight: '400',
     fontSize: 12,
     color: COLORS.black,
   },
-  deatialsView: {},
-  orderDetailscontainer: {
-    flexDirection: 'row',
-    height: 75,
-    backgroundColor: '#3358F9',
-  },
-  orderDetailsbackbutton: {
-    backgroundColor: '#3358F9',
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingLeft: 10,
-  },
-  orderDetailscartheaderview: {
-    backgroundColor: '#3358F9',
-    flex: 8,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  orderDetailscartheadertext: {
-    fontSize: SIZES.large * 2,
-    color: 'white',
-    fontWeight: 'bold',
-  },
+  renderseperatorview : { backgroundColor: '#d9d9d9', height: 1 },
+  ODCouterView : {flexDirection : 'row'},
+  ODCtitleView : {flex :3, paddingLeft : 14, paddingVertical : 5},
 });
