@@ -55,7 +55,7 @@ const OrderList = ({ items }) => (
 export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
-  const { getItemList, mapItemWithItemId } = useItems()
+  const { getItemList, mapItemWithDocId } = useItems()
 
   useEffect(() => {
     async function x() {
@@ -64,7 +64,7 @@ export default function Cart({ navigation, route }) {
       try {
         let itemIdList = items.map(item => item.id)
         let e = await getItemList(itemIdList)
-        e = mapItemWithItemId(e)
+        e = mapItemWithDocId(e)
         e.forEach((p, ind) => {
           let { quantity } = items.find(item => item.id === p.id)
           e[ind] = {

@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
-
+import useStorage from './storage'
 
 async function getItemList(itemIdList) {
     let itemPromiseList = [];
@@ -10,7 +10,6 @@ async function getItemList(itemIdList) {
     });
 
     try {
-        let itemList = [];
         let resultSnapShot = await Promise.all(itemPromiseList);
         return resultSnapShot;
     }
@@ -21,7 +20,7 @@ async function getItemList(itemIdList) {
 }
 
 
-export function mapItemWithItemId(itemSnapShot) {
+export function mapItemWithDocId(itemSnapShot) {
     let items = [];
     itemSnapShot.forEach(item => {
         items.push({
@@ -31,6 +30,24 @@ export function mapItemWithItemId(itemSnapShot) {
     });
     return items
 }
+
+// exp
+// export async function mapItemWithImageURL(itemList) {
+
+//     const { getURL } = useStorage()
+//     let urlPromiseList = itemList.map(item => getURL(item.image));
+//     let result = await Promise.all(urlPromiseList)
+
+//     itemList.forEach((item, index) => {
+
+//         let { quantity } = items.find(item => item.id === p.id)
+//         e[ind] = {
+//           ...p,
+//           price: quantity * p.price
+//         }
+//       })
+
+// }
 
 export async function searchItems(name) {
     try {
@@ -54,6 +71,6 @@ export const useItems = () => {
     return {
         getItemList,
         searchItems,
-        mapItemWithItemId
+        mapItemWithDocId
     }
 }

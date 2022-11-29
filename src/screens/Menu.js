@@ -17,11 +17,11 @@ const Menu = ({ navigation }) => {
   const [query, setQuery] = useState('');
 
   const { items } = useCart();
-  const { searchItems, mapItemWithItemId } = useItems();
+  const { searchItems, mapItemWithDocId } = useItems();
   const netinfo = useNetInfo();
 
   const onResult = snapShot => {
-    let items = mapItemWithItemId(snapShot);
+    let items = mapItemWithDocId(snapShot);
     setItemList(items);
   };
 
