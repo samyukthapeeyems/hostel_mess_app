@@ -15,56 +15,56 @@ const OrderMenu = [
     title: '4 item',
     foodtime: 'Breakfast',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 05:40',
+    foodlist: 'Porotta,Chicken Curry, Tea',
   },
   {
     id: 213,
     title: '3 item',
     foodtime: 'Lunch',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 04:30',
+    foodlist: 'Porotta,Chicken Curry, Tea',
   },
   {
     id: 214,
     title: '2 item',
     foodtime: 'Dinner',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 02:30',
+    foodlist: 'Porotta,Chicken Curry, Tea ',
   },
   {
     id: 216,
     title: '4 item',
     foodtime: 'Breakfast',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 12:30',
+    foodlist: 'Porotta,Chicken Curry, Tea',
   },
   {
     id: 217,
     title: '4 item',
     foodtime: 'Breakfast',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 01:30',
+    foodlist: 'Porotta,Chicken Curry, Tea',
   },
   {
     id: 218,
     title: '4 item',
     foodtime: 'Breakfast',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 10:30',
+    foodlist: 'Porotta,Chicken Curry, Tea ',
   },
   {
     id: 219,
     title: '4 item',
     foodtime: 'Breakfast',
     cost: 30,
-    time: '28-10-2022',
-    foodlist: 'Porotta,Chicken Curry, Tea ....',
+    time: '28-10-2022 9:30',
+    foodlist: 'Porotta,Chicken Curry, Tea',
   },
 ];
 const OrderCard = ({ item, navigate }) => {
@@ -72,10 +72,10 @@ const OrderCard = ({ item, navigate }) => {
   return (
     <View style={styles.container1}>
       <View style={styles.container2}>
-        <Text style={styles.ordertitle}>{element.title}</Text>
         <Text style={styles.ordertext}>Order ID : {element.id}</Text>
-        <Text style={styles.ordertext}>{element.foodlist}</Text>
-      </View>
+        <Text style={styles.ordertitle} numberOfLines = {1}>{element.foodlist}</Text>
+        <Text style={styles.ordertext}>{element.title}</Text>
+      </View> 
       <View style={styles.container3}>
         <Text style={styles.ordertime}>{element.time}</Text>
         <Text style={styles.ordercost}>₹{element.cost}</Text>
@@ -115,7 +115,7 @@ export default Orders;
 const styles = StyleSheet.create({
   container1: { flexDirection: 'row', padding: 5 },
   container2: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column',
     backgroundColor: 'white',
     padding: 10,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   ordertitle: {
     fontWeight: '700',
-    fontSize: 30,
+    fontSize: 15,
     color: 'black',
     marginBottom: 5,
   },

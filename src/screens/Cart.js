@@ -12,7 +12,7 @@ import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
 import CartItem from '../components/CartItem';
 import { useItems } from '../functions/items';
-
+import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
@@ -43,6 +43,7 @@ const OrderList = ({ items }) => (
       data={items}
       renderItem={({ item }) => <CartItem item={item} />}
       keyExtractor={item => item.id}
+      ListHeaderComponent ={<Listheader/>}
     />
     {/* <CartItem item={item} /> */}
   </View>
