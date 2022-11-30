@@ -1,5 +1,5 @@
 import Svg, { SvgProps, Rect, Path, G, Defs, ClipPath } from 'react-native-svg';
-import React from 'react';
+import * as React from 'react';
 
 const MenuIcon = () => (
   <Svg width={27} height={35} viewBox="0 0 27 35">
@@ -207,6 +207,30 @@ const GoogleLogo = () => (
   </Svg>
 );
 
+const WalletCard = () => (
+  <Svg width={358} height={150} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <G clipPath="url(#a)">
+      <Rect width={358} height={150} rx={20} fill="#F5B80D" />
+      <G opacity={0.15} strokeWidth={22}>
+        <Path
+          d="M13.68 196.75C72.53 119.725 220.337-5.41 362.884 69.707"
+          stroke="#fff"
+          strokeOpacity={0.7}
+        />
+        <Path
+          d="M13.68 196.75C72.53 119.725 224.99-14.966 364.043 62.468"
+          stroke="#CDB900"
+        />
+      </G>
+    </G>
+    <Defs>
+      <ClipPath id="a">
+        <Rect width={358} height={150} rx={20} fill="#fff" />
+      </ClipPath>
+    </Defs>
+  </Svg>
+);
+
 export {
   MenuIcon,
   OrdersIcon,
@@ -219,4 +243,5 @@ export {
   DinnerIcon,
   LeftArrow,
   GoogleLogo,
+  WalletCard,
 };

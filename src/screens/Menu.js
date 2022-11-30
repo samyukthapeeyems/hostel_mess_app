@@ -30,7 +30,7 @@ const Menu = ({ navigation }) => {
   }
 
   useEffect(() => {
-    console.log(query)
+    console.log(query);
     if (!query) {
       const itemCleanUp = firestore()
         .collection('items')

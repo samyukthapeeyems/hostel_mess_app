@@ -18,33 +18,6 @@ export const SIZES = {
   extraLarge: 24,
 };
 
-export const BUTTON = StyleSheet.create({
-  green: {
-    backgroundColor: 'green',
-    borderRadius: 10,
-    paddingVertical: 16,
-    paddingHorizontal: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  yellow: {
-    backgroundColor: 'yellow',
-    borderRadius: 10,
-    paddingVertical: 16,
-    paddingHorizontal: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  red: {
-    backgroundColor: 'red',
-    borderRadius: 10,
-    paddingVertical: 16,
-    paddingHorizontal: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
 export const SHADOWS = {
   light: {
     shadowColor: COLORS.gray,
