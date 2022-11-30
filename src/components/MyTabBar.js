@@ -1,5 +1,5 @@
 import { MenuIcon, OrdersIcon, ProfileIcon } from '../../assets/icons';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View,TouchableOpacity } from 'react-native';
 import React from 'react';
 function MyTabBar({ state, descriptors, navigation }) {
   return (

@@ -15,7 +15,6 @@ import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
-
 const OrderList = ({ items }) => (
   <View style={{ backgroundColor: 'white', flex: 1 }}>
     <FlatList

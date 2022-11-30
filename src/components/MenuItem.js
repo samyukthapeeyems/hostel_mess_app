@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // backgroundColor: 'red',
   },
   leftSection: {
     justifyContent: 'center',

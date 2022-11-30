@@ -1,14 +1,10 @@
 import {
-  SafeAreaView,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import MyStatusBar from '../components/StatusBar';
-import { COLORS, SIZES } from '../constants/theme';
-import { LeftArrow } from '../../assets/icons';
 
 function CountDownTimer(props) {
   const [time, setTime] = React.useState(props.initialValue || 30);
