@@ -1,10 +1,7 @@
 import {
   Text,
   View,
-  Button,
-  SafeAreaView,
   TouchableOpacity,
-  Image,
   ImageBackground,
   StyleSheet,
 } from 'react-native';
@@ -33,40 +30,23 @@ const Auth = () => {
           </ImageBackground>
         </View>
 
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <View style={{ marginHorizontal: 16, marginVertical: 15 }}>
-            <View style={{ marginBottom: 50 }}>
-              <Text style={{ fontSize: 24, fontWeight: '700', color: 'black' }}>
+        <View style={styles.container1}>
+          <View style={styles.container2}>
+            <View style={styles.lgsview}>
+              <Text style={styles.lgstext}>
                 Let’s Get Started
               </Text>
               <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: '400',
-                  color: 'black',
-                  opacity: 0.5,
-                }}>
+                style={styles.logintext}>
                 Login/Signup with your Google Account
               </Text>
             </View>
             <TouchableOpacity
-              style={{
-                backgroundColor: 'blue',
-                paddingVertical: 15,
-                borderRadius: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row',
-              }}
+              style={styles.logintouchable}
               onPress={async () => await signIn()}>
               <GoogleLogo />
               <Text
-                style={{
-                  color: 'white',
-                  fontSize: 18,
-                  fontWeight: '700',
-                  marginLeft: 10,
-                }}>
+                style={styles.googletext}>
                 Login With Google
               </Text>
             </TouchableOpacity>
@@ -101,6 +81,32 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  container1 : { flex: 1, backgroundColor: 'white' },
+  container2 : { marginHorizontal: 16, marginVertical: 15 },
+  lgsview : { marginBottom: 50 },
+  lgstext : { fontSize: 24, fontWeight: '700', color: 'black' },
+  logintext : {
+    fontSize: 14,
+    fontWeight: '400',
+    color: 'black',
+    opacity: 0.5,
+  },
+  logintouchable : {
+    backgroundColor: 'blue',
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  googletext : {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: 10,
+  },
+  
+
 });
 
 export default Auth;

@@ -5,10 +5,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { SIZES } from '../constants/theme';
-import MyStatusBar from '../components/StatusBar';
 import { COLORS } from '../constants/theme';
-import { LeftArrow } from '../../assets/icons';
 import React from 'react';
 import Listheader from '../components/Listheader';
 import { FlatList } from 'react-native-gesture-handler';
@@ -50,13 +47,13 @@ const OrderDetailsContent = ({item}) => {
   <View>
   <View style={styles.ODCouterView}>
       <View style ={styles.ODCtitleView}>
-        <Text style ={{color : COLORS.black,fontWeight : '700'}}>{element.title}</Text>
+        <Text style ={styles.ODCtitletext}>{element.title}</Text>
       </View>
-      <View style ={{flex : 1, paddingVertical: 5,alignItems : 'center'}}>
-        <Text style ={{color : COLORS.black,fontWeight : '700'}}>{element.qty}</Text>
+      <View style ={styles.ODCqtyview}>
+        <Text style ={styles.ODCqtytext}>{element.qty}</Text>
       </View>
-      <View style ={{flex : 1, paddingVertical: 5,alignItems : 'flex-end',paddingRight : 15} }>
-        <Text style ={{color :COLORS.black,fontWeight : '700'}}>₹{element.price}</Text>
+      <View style ={styles.ODCpriceview }>
+        <Text style ={styles.ODCpricetext}>₹{element.price}</Text>
       </View>
     </View>
   </View>
@@ -65,12 +62,12 @@ const OrderDetailsContent = ({item}) => {
 
 const Total =() => {
   return (
-    <View style={{flex :1, flexDirection :'row'}}>
-    <View style ={{flex : 1, alignItems :'flex-start',paddingHorizontal : 15, paddingTop : 5}}>
-      <Text style ={{color : COLORS.black, fontWeight : '700',opacity : 0.5, fontSize:16}}>Total</Text>
+    <View style={styles.Touterview}>
+    <View style ={styles.Ttotalview}>
+      <Text style ={styles.Ttotaltext}>Total</Text>
     </View>
-    <View style ={{flex : 1, alignItems : 'flex-end', paddingHorizontal : 10}}>
-      <Text style ={{color : COLORS.green, fontSize : 24, fontWeight: '700'}}>₹10</Text>
+    <View style ={styles.Trsview}>
+      <Text style ={styles.Trstext}>₹10</Text>
     </View>
     </View>
   );
@@ -78,17 +75,9 @@ const Total =() => {
 const GenerateToken = ({ navigation }) => {
   return (
     <TouchableOpacity
-      style={{
-        backgroundColor: '#32BA7C',
-        paddingVertical: 15,
-        marginVertical: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: 16,
-      }}
+      style={styles.GTtouchble}
       onPress={() => navigation.navigate('Token')}>
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
+      <Text style={styles.GTtext}>
         Generate Token
       </Text>
     </TouchableOpacity>
@@ -97,10 +86,10 @@ const GenerateToken = ({ navigation }) => {
 const OrderDetails = ({ navigation }) => {
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1}}>
+      <SafeAreaView style={styles.ODouterview}>
+        <View style={styles.ODbillview}>
           <View>
-            <Text style={styles.containerText}>BILL DETAILS</Text>
+            <Text style={styles.ODbilltext}>BILL DETAILS</Text>
             <View>
             <FlatList
               data={Orderstack}
@@ -115,10 +104,7 @@ const OrderDetails = ({ navigation }) => {
           </View>
         </View>
         <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}>
+          style={styles.lastview}>
           <GenerateToken navigation={navigation} />
         </View>
       </SafeAreaView>
@@ -129,14 +115,41 @@ const OrderDetails = ({ navigation }) => {
 export default OrderDetails;
 
 const styles = StyleSheet.create({
-  containerText: {
+  renderseperatorview : { backgroundColor: '#d9d9d9', height: 1 },
+  ODCouterView : {flexDirection : 'row'},
+  ODCtitleView : {flex :3, paddingLeft : 14, paddingVertical : 5},
+  ODCtitletext : {color : COLORS.black,fontWeight : '700'},
+  ODCqtyview : {flex : 1, paddingVertical: 5,alignItems : 'center'},
+  ODCqtytext : {color :COLORS.black,fontWeight : '700'},
+  ODCpriceview : {flex : 1, paddingVertical: 5,alignItems : 'flex-end',paddingRight : 15},
+  ODCpricetext : {color :COLORS.black,fontWeight : '700'},
+  Touterview : {flex :1, flexDirection :'row'},
+  Ttotalview : {flex : 1, alignItems :'flex-start',paddingHorizontal : 15, paddingTop : 5},
+  Ttotaltext : {color : COLORS.black, fontWeight : '700',opacity : 0.5, fontSize:16},
+  Trsview : {flex : 1, alignItems : 'flex-end', paddingHorizontal : 10},
+  Trstext : {color : COLORS.green, fontSize : 24, fontWeight: '700'},
+  GTtouchble : {
+    backgroundColor: '#32BA7C',
+    paddingVertical: 15,
+    marginVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 16,
+  },
+  GTtext : { color: 'white', fontSize: 18, fontWeight: '700' },
+  ODouterview : { flex: 1 },
+  ODbillview : { flex: 1},
+  ODbilltext : {
     paddingTop: 20,
     paddingHorizontal : 10,
     fontWeight: '400',
     fontSize: 12,
     color: COLORS.black,
-  },
-  renderseperatorview : { backgroundColor: '#d9d9d9', height: 1 },
-  ODCouterView : {flexDirection : 'row'},
-  ODCtitleView : {flex :3, paddingLeft : 14, paddingVertical : 5},
+  }, 
+  lastview : {
+    flex: 1,
+    justifyContent: 'flex-end',
+  }
+
 });

@@ -1,5 +1,5 @@
 import { MenuIcon, OrdersIcon, ProfileIcon } from '../../assets/icons';
-import { View, Text, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 function MyTabBar({ state, descriptors, navigation }) {
   return (
@@ -11,12 +11,7 @@ function MyTabBar({ state, descriptors, navigation }) {
       }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        // const label =
-        //   options.tabBarLabel !== undefined
-        //     ? options.tabBarLabel
-        //     : options.title !== undefined
-        //     ? options.title
-        //     : route.name;
+
         let icon = '';
         if (route.name === 'Menu') {
           icon = <MenuIcon />;
@@ -38,14 +33,6 @@ function MyTabBar({ state, descriptors, navigation }) {
             navigation.navigate(route.name);
           }
         };
-
-        // const onLongPress = () => {
-        //   navigation.emit({
-        //     type: 'tabLongPress',
-        //     target: route.key,
-        //   });
-        // };
-
         return (
           <TouchableOpacity
             accessibilityRole="button"
