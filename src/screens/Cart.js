@@ -2,11 +2,9 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   FlatList,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { LeftArrow } from '../../assets/icons';
 import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
 import CartItem from '../components/CartItem';
