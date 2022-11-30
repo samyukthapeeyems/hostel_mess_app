@@ -15,6 +15,19 @@ import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
+const Total =() => {
+  return (
+    <View style={styles.Touterview}>
+    <View style ={styles.Ttotalview}>
+      <Text style ={styles.Ttotaltext}>Total</Text>
+    </View>
+    <View style ={styles.Trsview}>
+      <Text style ={styles.Trstext}>₹10</Text>
+    </View>
+    </View>
+  );
+};
+
 const OrderList = ({ items }) => (
   <View style={{ backgroundColor: 'white', flex: 1 }}>
     <FlatList
@@ -22,6 +35,7 @@ const OrderList = ({ items }) => (
       renderItem={({ item }) => <CartItem item={item} />}
       keyExtractor={item => item.id}
       ListHeaderComponent={<Listheader />}
+      ListFooterComponent={<Total/>}
     />
     {/* <CartItem item={item} /> */}
   </View>
@@ -85,4 +99,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
+  Touterview : {flex :1, flexDirection :'row'},
+  Ttotalview : {flex : 1, alignItems :'flex-start',paddingHorizontal : 15, paddingTop : 5},
+  Ttotaltext : {color : COLORS.black, fontWeight : '700',opacity : 0.5, fontSize:16},
+  Trsview : {flex : 1, alignItems : 'flex-end', paddingHorizontal : 10},
+  Trstext : {color : COLORS.green, fontSize : 24, fontWeight: '700'},
+  
 });
