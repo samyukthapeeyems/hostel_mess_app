@@ -74,7 +74,7 @@ const UserInfoCard = ({ signOut, user }) => {
           <Text style={styles.email}>
             {user.email.length < 35
               ? `${user.email}`
-              : `${user.email.substring(0, 14)}...`}
+              : `${user.email.substring(0, 28)}...`}
           </Text>
         </View>
       </View>
@@ -120,17 +120,15 @@ const TransactionCard = ({ item }) => {
 const seperator = () => <View style={styles.seperator} />;
 const TransactionDetails = () => {
   return (
-    <>
-      <FlatList
-        data={Transactions}
-        renderItem={({ item }) => <TransactionCard item={item} />}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={seperator}
-        ListHeaderComponent={<TransactionHeader />}
-        style={styles.flatList}
-        showsVerticalScrollIndicator={false}
-      />
-    </>
+    <FlatList
+      data={Transactions}
+      renderItem={({ item }) => <TransactionCard item={item} />}
+      keyExtractor={item => item.id}
+      ItemSeparatorComponent={seperator}
+      ListHeaderComponent={<TransactionHeader />}
+      style={styles.flatList}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 const WalletCardSection = () => {
@@ -180,6 +178,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     marginLeft: 15,
+    flexWrap: 'wrap',
   },
   rightContainer: {
     flex: 1,
@@ -192,16 +191,17 @@ const styles = StyleSheet.create({
   },
   name: {
     color: COLORS.black,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '700',
   },
   buttonContainer: {
-    backgroundColor: 'red',
+    backgroundColor: COLORS.red,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12.5,
   },
   email: {
+    color: COLORS.black,
     fontSize: 12,
     fontWeight: '400',
     opacity: 0.5,

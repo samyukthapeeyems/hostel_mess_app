@@ -7,6 +7,7 @@ import Token from './Token';
 import Wallet from './Wallet';
 import AddPayment from './AddPayment';
 import Auth from './Auth';
+import Payment from './Payment';
 
 export {
   Cart,
@@ -18,4 +19,5 @@ export {
   Wallet,
   AddPayment,
   Auth,
+  Payment,
 };

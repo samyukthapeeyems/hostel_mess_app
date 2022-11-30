@@ -45,7 +45,7 @@ const Menu = ({ navigation }) => {
   return (
     <>
       <View style={styles.menuPageContent}>
-        <FlatList
+        {/* <FlatList
           data={itemList}
           renderItem={({ item }) => <MenuItem item={item} />}
           keyExtractor={item => item.id}
@@ -57,7 +57,7 @@ const Menu = ({ navigation }) => {
             />
           }
           showsVerticalScrollIndicator={false}
-        />
+        /> */}
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}

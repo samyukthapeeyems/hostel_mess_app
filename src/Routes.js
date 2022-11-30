@@ -18,6 +18,7 @@ import {
   Wallet,
   AddPayment,
   Auth,
+  Payment,
 } from './screens';
 
 import { COLORS } from './constants/theme';
@@ -147,6 +148,19 @@ const RootStackScreen = () => {
             header: ({ navigation }) => (
               <PageHeader
                 title="Add Payment"
+                navigation={navigation}
+                iconShow={true}
+              />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="Payment"
+          component={Payment}
+          options={{
+            header: ({ navigation }) => (
+              <PageHeader
+                title="Payment"
                 navigation={navigation}
                 iconShow={true}
               />

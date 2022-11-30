@@ -10,6 +10,38 @@ import MyStatusBar from '../components/StatusBar';
 import { COLORS, SIZES } from '../constants/theme';
 import { LeftArrow } from '../../assets/icons';
 
+function CountDownTimer(props) {
+  const [time, setTime] = React.useState(props.initialValue || 30);
+  const timerRef = React.useRef(time);
+
+  React.useEffect(() => {
+    const timerId = setInterval(() => {
+      timerRef.current -= 1;
+      if (timerRef.current < 0) {
+        clearInterval(timerId);
+      } else {
+        setTime(timerRef.current);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
+
+  return (
+    <View style={{ justifyContent: 'center' }}>
+      <Text
+        style={{
+          color: 'black',
+          fontSize: 14,
+          fontWeight: '500',
+          opacity: 0.5,
+        }}>
+        00 : {time}{' '}
+      </Text>
+    </View>
+  );
+}
 const TokenHeader = ({ route, navigation }) => {
   // const { Itemid } = route.params;
   console.log(route);
@@ -34,14 +66,12 @@ const TokenHeader = ({ route, navigation }) => {
 const Token = ({ navigation }) => {
   return (
     <>
-      {/* <MyStatusBar backgroundColor={COLORS.green} barStyle="light-content" /> */}
       <View
         style={{
           flex: 1,
           flexDirection: 'column',
           backgroundColor: '#32BA7C',
         }}>
-        {/* <View style={{flex:1, }} /> */}
         <View
           style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
           <View
@@ -56,6 +86,7 @@ const Token = ({ navigation }) => {
             <Text style={{ color: '#32BA7C', fontSize: 72, fontWeight: '700' }}>
               $130
             </Text>
+            <CountDownTimer />
           </View>
         </View>
         <View style={{ flex: 1 }}>
