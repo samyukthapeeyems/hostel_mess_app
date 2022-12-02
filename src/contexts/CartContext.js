@@ -18,6 +18,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (id, price) => {
+
+    if (state.items.length === 10 && state.items.findIndex(item => item.id === id) === -1)
+      throw new Error("Cart can only have upto a maximum of 10 items")
+
     dispatch({
       type: 'ADD_TO_CART',
       payload: {

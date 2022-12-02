@@ -39,16 +39,14 @@ export default function MenuItem({ item }) {
         <View style={styles.rightSection}>
           {count === 0 ? (
             <TouchableOpacity
-              onPress={async () => await addToCart(item.id, item.price)}>
+              onPress={async () => await addToCart(item.id, item.price).catch(e => console.log(e))}>
               <GreenButton />
             </TouchableOpacity>
           ) : (
             <ItemCounter
               count={count}
               handleAddItems={async () => await addToCart(item.id, item.price)}
-              handleRemoveItems={async () =>
-                await removeFromCart(item.id, item.price)
-              }
+              handleRemoveItems={async () => await removeFromCart(item.id, item.price)}
             />
           )}
         </View>

@@ -1,20 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ItemCounter from './ItemCounter';
 import { COLORS } from '../constants/theme';
-import { useState ,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
 const CartItem = ({ item }) => {
-  console.log(item.price);
-  const { items, addToCart, removeFromCart, totalAmount } = useCart();
-  const [count, setCount] = useState();
+  const { items ,addToCart, removeFromCart , totalAmount } = useCart();
 
-  useEffect(() => {
-    let _item = items.find(element => element.id == item.id);
-    if (_item?.quantity) setCount(_item.quantity);
-    else setCount(0);
-  }, [totalAmount]);
+  // const [count , setCount] = useState()
+
+  // useEffect(() => {
+  //   let _item = items.find(element => element.id == item.id);
+  //   if (_item?.quantity) setCount(_item.quantity);
+  //   else setCount(0);
+  // }, [totalAmount]);
 
 
   return (
@@ -24,7 +24,8 @@ const CartItem = ({ item }) => {
       </View>
       <View style={styles.buttonview}>
         <ItemCounter
-          count={count}
+          count={item.quantity}
+          // count={count}
           handleAddItems={async () => await addToCart(item.id, item.price)}
           handleRemoveItems={async () => await removeFromCart(item.id, item.price)}
         />

@@ -2,15 +2,13 @@ import firestore from '@react-native-firebase/firestore';
 import useStorage from './storage'
 
 async function getItemList(itemIdList) {
-    let itemPromiseList = [];
-    itemIdList.forEach((itemId) => {
-        itemPromiseList.push(
-            firestore().collection('items').doc(itemId).get()
-        );
-    });
-
+    if (itemIdList.length > 10)
+        throw new Error("Maximum number of items cannot be more than 10")
     try {
-        let resultSnapShot = await Promise.all(itemPromiseList);
+        let resultSnapShot = await firestore()
+            .collection('items')
+            .where(firestore.FieldPath.documentId(), 'in', itemIdList)
+            .get()
         return resultSnapShot;
     }
     catch (error) {

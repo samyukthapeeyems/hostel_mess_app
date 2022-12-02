@@ -27,8 +27,8 @@ import MyTabBar from './components/MyTabBar';
 import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
 
-const PageHeader = ({ navigation, iconShow, title }) => (
-  <HeaderSkeleton>
+const PageHeader = ({ navigation, iconShow, title }) => {
+  return < HeaderSkeleton >
     <View style={styles.content}>
       {iconShow ? (
         <View style={styles.icon}>
@@ -40,8 +40,10 @@ const PageHeader = ({ navigation, iconShow, title }) => (
 
       <Text style={styles.title}>{title}</Text>
     </View>
-  </HeaderSkeleton>
-);
+  </HeaderSkeleton >
+}
+
+  ;
 const TabsScreen = () => {
   const Tabs = createBottomTabNavigator();
 
@@ -60,7 +62,7 @@ const TabsScreen = () => {
         component={Orders}
         options={{
           header: ({ navigation }) => (
-            <PageHeader title="Orders" iconShow={false} />
+            <PageHeader title="Orders" iconShow={false} navigation={navigation} />
           ),
         }}
       />
@@ -69,7 +71,7 @@ const TabsScreen = () => {
         component={Profile}
         options={{
           header: ({ navigation }) => (
-            <PageHeader title="My Profile" iconShow={false} />
+            <PageHeader title="My Profile" iconShow={false} navigation={navigation} />
           ),
         }}
       />
@@ -118,13 +120,7 @@ const RootStackScreen = () => {
           name="Token"
           component={Token}
           options={{
-            header: ({ navigation }) => (
-              <PageHeader
-                title="Token"
-                navigation={navigation}
-                iconShow={true}
-              />
-            ),
+            headerShown : false
           }}
         />
         <RootStack.Screen
