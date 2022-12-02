@@ -7,7 +7,7 @@ const Listheader = () => {
   return (
     <View style={styles.container}>
       <View style ={styles.itemnameView}>
-        <Text style ={styles.itemnameText}>Itemname</Text>
+        <Text style ={styles.itemnameText}>Item Name</Text>
       </View>
       <View style ={styles.qtyview}>
         <Text style ={styles.qtyText}>Qty</Text>

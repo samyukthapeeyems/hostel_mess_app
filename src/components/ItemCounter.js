@@ -8,27 +8,15 @@ const ItemCounter = ({ count, handleAddItems, handleRemoveItems }) => {
     <View style={styles.counterContainer}>
       <TouchableOpacity
         onPress={handleRemoveItems}
-        style={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        style={styles.touchableOpacity}>
         <GrayMinusIcon />
       </TouchableOpacity>
-      <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-        <Text style={{ color: COLORS.black }}>{count}</Text>
+      <View style={styles.countview}>
+        <Text style={styles.countext}>{count}</Text>
       </View>
       <TouchableOpacity
         onPress={handleAddItems}
-        style={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        style={styles.touchableOpacity}>
         <GreenAddIcon />
       </TouchableOpacity>
     </View>
@@ -44,6 +32,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 9,
   },
+  touchableOpacity : {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  countview : { justifyContent: 'center', alignItems: 'center', flex: 1 },
+  countext : { color: COLORS.black, fontSize : 15},
 });
 
 export default ItemCounter;

@@ -8,8 +8,6 @@ const MenuHeader = () => {
   const { user } = useAuth();
   const [greeting, setGreeting] = useState('');
 
-  //   const r = useRoute();
-
   useEffect(() => {
     let hrs = new Date().getHours();
     let message =

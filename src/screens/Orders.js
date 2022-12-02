@@ -5,8 +5,6 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import Header from '../components/HeaderSkeleton';
-import { COLORS } from '../constants/theme';
 import React from 'react';
 
 const OrderMenu = [
@@ -74,7 +72,7 @@ const OrderCard = ({ item, navigate }) => {
       <View style={styles.container2}>
         <Text style={styles.ordertext}>Order ID : {element.id}</Text>
         <Text style={styles.ordertitle} numberOfLines = {1}>{element.foodlist}</Text>
-        <Text style={styles.ordertext}>{element.title}</Text>
+        <Text style={styles.ordertext1}>{element.title}</Text>
       </View> 
       <View style={styles.container3}>
         <Text style={styles.ordertime}>{element.time}</Text>
@@ -122,7 +120,13 @@ const styles = StyleSheet.create({
   },
   ordertext: {
     fontWeight: '400',
-    fontSize: 10,
+    fontSize: 12,
+    color: 'black',
+    marginBottom: 5,
+  },
+  ordertext1: {
+    fontWeight: '400',
+    fontSize: 12,
     color: 'black',
     marginBottom: 5,
   },
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
   },
   ordertime: {
     fontWeight: '400',
-    fontSize: 10,
+    fontSize: 12,
     color: '#0C0F17',
     marginBottom: 5,
   },
@@ -148,7 +152,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 30,
     color: '#32BA7C',
-    marginTop: 5,
     marginBottom: 5,
   },
   touch: { borderRadius: 8, justifyContent: 'center' },

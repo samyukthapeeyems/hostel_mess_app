@@ -129,19 +129,6 @@ const RootStackScreen = () => {
           }}
         />
         <RootStack.Screen
-          name="Wallet"
-          component={Wallet}
-          options={{
-            header: ({ navigation }) => (
-              <PageHeader
-                title="Wallet"
-                navigation={navigation}
-                iconShow={true}
-              />
-            ),
-          }}
-        />
-        <RootStack.Screen
           name="AddPayment"
           component={AddPayment}
           options={{

@@ -16,49 +16,42 @@ import YellowWallet from '../../assets/images/YellowWallet.png';
 const Transactions = [
   {
     id: 212,
-    day: 'Tuesday',
+
     date: '01-01-2022',
     cost: 300,
   },
   {
     id: 252,
-    day: 'Monday',
     date: '31-12-2022',
     cost: 50,
   },
   {
     id: 272,
-    day: 'Monday',
     date: '31-12-2021',
     cost: 50,
   },
   {
     id: 292,
-    day: 'Friday',
     date: '01-01-2022',
     cost: 500,
   },
   {
     id: 152,
-    day: 'Monday',
     date: '31-12-2022',
     cost: 50,
   },
   {
     id: 472,
-    day: 'Monday',
     date: '31-12-2021',
     cost: 50,
   },
   {
     id: 792,
-    day: 'Friday',
     date: '01-01-2022',
     cost: 500,
   },
 ];
-const UserInfoCard = () => {
-  const { signOut, user } = useAuth();
+const UserInfoCard = ({ signOut, user }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftContainer}>
@@ -107,7 +100,6 @@ const TransactionCard = ({ item }) => {
         <Text>Icon</Text>
       </View>
       <View style={styles.transactionDate}>
-        <Text style={styles.day}>{item.day}, </Text>
         <Text style={styles.date}>{item.date}</Text>
       </View>
       <View style={styles.cost}>
@@ -137,34 +129,11 @@ const WalletCardSection = () => {
         <ImageBackground
           source={YellowWallet}
           resizeMode="cover"
-          style={styles.image}>
-          <View
-            style={{
-              flex: 1,
-              paddingLeft: 20,
-              paddingTop: 12,
-            }}>
-            <Text style={styles.text}>eCanteen Wallet</Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              paddingLeft: 20,
-              justifyContent: 'center',
-              paddingBottom: 12,
-            }}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 14,
-                fontWeight: '400',
-                opacity: 0.5,
-              }}>
-              Wallet Balance
-            </Text>
-            <Text style={{ color: 'white', fontSize: 40, fontWeight: '700' }}>
-              $1600
-            </Text>
+          style={styles.walletImg}>
+          <View style={styles.walletDetailsContainer}>
+            <Text style={styles.walletTitle}>eCanteen Wallet</Text>
+            <Text style={styles.walletTitle2}>Wallet Balance</Text>
+            <Text style={styles.walletBalance}>$1700</Text>
           </View>
         </ImageBackground>
       </View>
@@ -175,9 +144,11 @@ const WalletCardSection = () => {
   );
 };
 const Profile = () => {
+  const { signOut, user } = useAuth();
+
   return (
     <ScrollView>
-      <UserInfoCard />
+      <UserInfoCard user={user} signOut={signOut} />
       <WalletCardSection />
       <TransactionDetails />
     </ScrollView>
@@ -296,18 +267,26 @@ const styles = StyleSheet.create({
   day: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   date: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   image: {
-    // flex: 1,
-    width: 358,
-    height: 150,
-    // justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
-  text: {
-    color: 'white',
+  walletImg: { width: 358, height: 150 },
+  walletDetailsContainer: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+  },
+  walletTitle: {
+    marginBottom: 30,
     fontSize: 24,
     fontWeight: '700',
-    // lineHeight: 84,
-    // fontWeight: 'bold',
-    // textAlign: 'center',
-    // backgroundColor: '#000000c0',
+    color: 'white',
   },
+  walletTitle2: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: 'white',
+    opacity: 0.5,
+  },
+  walletBalance: { fontSize: 40, fontWeight: '700', color: 'white' },
 });
