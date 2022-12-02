@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import useCart from '../contexts/CartContext';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { COLORS } from '../constants/theme';
+import useCart from '../contexts/CartContext';
 
-import { GreenButton } from '../../assets/icons';
+import { COLORS } from '../constants/theme';
+import { GreenButton, NonvegIcon, VegIcon } from '../../assets/icons';
+
 import ItemCounter from './ItemCounter';
 import Image from './Image';
 
@@ -20,21 +21,19 @@ export default function MenuItem({ item }) {
 
   return (
     <View style={styles.menuItemContainer}>
-      {/* left item  */}
       <View style={styles.leftSection}>
         <Image path={item.image} />
       </View>
-      {/* center item  */}
       <View style={styles.centerSection}>
-        <Text style={styles.itemTitle}>{item.name}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {item.isVeg ? <VegIcon /> : <NonvegIcon />}
+          <Text style={styles.itemTitle}>{item.name}</Text>
+        </View>
         <Text style={styles.detailsText} numberOfLines={1}>
           {item.description}
         </Text>
         <Text style={styles.costText}>₹{item.price}</Text>
       </View>
-
-      {/* right item  */}
-
       {item.isAvailable && (
         <View style={styles.rightSection}>
           {count === 0 ? (
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // backgroundColor: 'red',
   },
   leftSection: {
     justifyContent: 'center',
@@ -87,5 +85,10 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'gray',
   },
-  itemTitle: { fontSize: 18, fontWeight: '700', color: COLORS.black },
+  itemTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.black,
+    marginLeft: 6,
+  },
 });

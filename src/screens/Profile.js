@@ -5,53 +5,51 @@ import {
   View,
   ScrollView,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
+
 import { COLORS } from '../constants/theme';
-import { WalletCard } from '../../assets/icons';
-import Button from '../components/Button';
+import YellowWallet from '../../assets/images/YellowWallet.png';
+
 import useAuth from '../contexts/AuthContext';
+
+import Button from '../components/Button';
 
 const Transactions = [
   {
     id: 212,
-    day: 'Tuesday',
+
     date: '01-01-2022',
     cost: 300,
   },
   {
     id: 252,
-    day: 'Monday',
     date: '31-12-2022',
     cost: 50,
   },
   {
     id: 272,
-    day: 'Monday',
     date: '31-12-2021',
     cost: 50,
   },
   {
     id: 292,
-    day: 'Friday',
     date: '01-01-2022',
     cost: 500,
   },
   {
     id: 152,
-    day: 'Monday',
     date: '31-12-2022',
     cost: 50,
   },
   {
     id: 472,
-    day: 'Monday',
     date: '31-12-2021',
     cost: 50,
   },
   {
     id: 792,
-    day: 'Friday',
     date: '01-01-2022',
     cost: 500,
   },
@@ -74,14 +72,11 @@ const UserInfoCard = ({ signOut, user }) => {
           <Text style={styles.email}>
             {user.email.length < 35
               ? `${user.email}`
-              : `${user.email.substring(0, 14)}...`}
+              : `${user.email.substring(0, 28)}...`}
           </Text>
         </View>
       </View>
       <View style={styles.rightContainer}>
-        {/* <View style={styles.buttonContainer}>
-          <Text>LOG OUT</Text>
-        </View> */}
         <Button
           style={styles.buttonContainer}
           onPress={async () => await signOut()}
@@ -94,10 +89,8 @@ const UserInfoCard = ({ signOut, user }) => {
 };
 const TransactionHeader = () => {
   return (
-    <View style={{ paddingVertical: 15 }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', color: COLORS.black }}>
-        Recent Transactions
-      </Text>
+    <View style={styles.transactionHeaderContainer}>
+      <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
     </View>
   );
 };
@@ -108,7 +101,6 @@ const TransactionCard = ({ item }) => {
         <Text>Icon</Text>
       </View>
       <View style={styles.transactionDate}>
-        <Text style={styles.day}>{item.day}, </Text>
         <Text style={styles.date}>{item.date}</Text>
       </View>
       <View style={styles.cost}>
@@ -120,24 +112,31 @@ const TransactionCard = ({ item }) => {
 const seperator = () => <View style={styles.seperator} />;
 const TransactionDetails = () => {
   return (
-    <>
-      <FlatList
-        data={Transactions}
-        renderItem={({ item }) => <TransactionCard item={item} />}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={seperator}
-        ListHeaderComponent={<TransactionHeader />}
-        style={styles.flatList}
-        showsVerticalScrollIndicator={false}
-      />
-    </>
+    <FlatList
+      data={Transactions}
+      renderItem={({ item }) => <TransactionCard item={item} />}
+      keyExtractor={item => item.id}
+      ItemSeparatorComponent={seperator}
+      ListHeaderComponent={<TransactionHeader />}
+      style={styles.flatList}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 const WalletCardSection = () => {
   return (
     <View style={styles.walletSectionContainer}>
       <View style={styles.walletCardContainer}>
-        <WalletCard />
+        <ImageBackground
+          source={YellowWallet}
+          resizeMode="cover"
+          style={styles.walletImg}>
+          <View style={styles.walletDetailsContainer}>
+            <Text style={styles.walletTitle}>eCanteen Wallet</Text>
+            <Text style={styles.walletTitle2}>Wallet Balance</Text>
+            <Text style={styles.walletBalance}>$1700</Text>
+          </View>
+        </ImageBackground>
       </View>
       <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
         + Add Money
@@ -149,8 +148,8 @@ const Profile = () => {
   const { signOut, user } = useAuth();
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <UserInfoCard signOut={signOut} user={user} />
+    <ScrollView>
+      <UserInfoCard user={user} signOut={signOut} />
       <WalletCardSection />
       <TransactionDetails />
     </ScrollView>
@@ -161,7 +160,6 @@ export default Profile;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // backgroundColor: 'green',
     backgroundColor: 'white',
     paddingHorizontal: 16,
     paddingVertical: 30,
@@ -180,6 +178,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     marginLeft: 15,
+    flexWrap: 'wrap',
   },
   rightContainer: {
     flex: 1,
@@ -192,16 +191,17 @@ const styles = StyleSheet.create({
   },
   name: {
     color: COLORS.black,
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '700',
   },
   buttonContainer: {
-    backgroundColor: 'red',
+    backgroundColor: COLORS.red,
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12.5,
   },
   email: {
+    color: COLORS.black,
     fontSize: 12,
     fontWeight: '400',
     opacity: 0.5,
@@ -249,6 +249,12 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: 'green'
   },
+  transactionHeaderContainer: { paddingVertical: 15 },
+  transactionHeaderText: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: COLORS.black,
+  },
   seperator: {
     backgroundColor: '#d9d9d9',
     height: 1,
@@ -266,4 +272,27 @@ const styles = StyleSheet.create({
   costText: { fontSize: 20, fontWeight: '700', color: COLORS.green },
   day: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   date: { fontSize: 18, fontWeight: '700', color: COLORS.black },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  walletImg: { width: 358, height: 150 },
+  walletDetailsContainer: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+  },
+  walletTitle: {
+    marginBottom: 30,
+    fontSize: 24,
+    fontWeight: '700',
+    color: 'white',
+  },
+  walletTitle2: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: 'white',
+    opacity: 0.5,
+  },
+  walletBalance: { fontSize: 40, fontWeight: '700', color: 'white' },
 });

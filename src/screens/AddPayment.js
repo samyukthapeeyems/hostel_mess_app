@@ -1,59 +1,22 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import MyStatusBar from '../components/StatusBar';
-import { COLORS } from '../constants/theme';
-import { LeftArrow } from '../../assets/icons';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-
-const AddPaymentHeader = ({ route, navigation }) => {
-  // const { Itemid } = route.params;
-  console.log(route);
-  return (
-    <View style={styles.orderDetailscontainer}>
-      <View style={styles.orderDetailsbackbutton}>
-        {
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <LeftArrow />
-          </TouchableOpacity>
-        }
-      </View>
-      <View style={styles.orderDetailscartheaderview}>
-        <Text style={styles.orderDetailscartheadertext}>Add Payment</Text>
-      </View>
-    </View>
-  );
-};
 
 const PayNow = () => {
   return (
-    <View
-      style={{
-        padding: 10,
-        backgroundColor: '#32BA7C',
-        marginBottom: 35,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginHorizontal: 20,
-      }}>
-      <Text style={{ color: 'white', fontSize: 18, fontWeight: '700' }}>
-        Pay Now
-      </Text>
+    <View style={styles.pnview}>
+      <Text style={styles.pntext}>Pay Now</Text>
     </View>
   );
 };
 
 const PaymentContent = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 2 }}></View>
+    <View style={styles.pccontainer1}>
+      <View style={styles.pccontainer2}></View>
 
-      <View style={{ flex: 3, alignItems: 'center' }}>
-        <Text style={{ color: '#0C0F17', opacity: 0.5, fontSize: 14 }}>
-          You’re Paying
-        </Text>
-        <Text style={{ color: 'black', fontSize: 48, fontWeight: '700' }}>
-          ₹12,000
-        </Text>
+      <View style={styles.pcpayview}>
+        <Text style={styles.pcpaytext}>You’re Paying</Text>
+        <Text style={styles.pcpaytext2}>₹12,000</Text>
       </View>
 
       <PayNow />
@@ -70,29 +33,21 @@ const AddPayment = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  orderDetailscontainer: {
-    flexDirection: 'row',
-    height: 75,
-    backgroundColor: '#3358F9',
-  },
-  orderDetailsbackbutton: {
-    backgroundColor: '#3358F9',
-    flex: 1,
-    alignItems: 'flex-start',
+  pccontainer1: { flex: 1 },
+  pccontainer2: { flex: 2 },
+  pcpayview: { flex: 3, alignItems: 'center' },
+  pcpaytext: { color: '#0C0F17', opacity: 0.5, fontSize: 14 },
+  pcpaytext2: { color: 'black', fontSize: 48, fontWeight: '700' },
+  pnview: {
+    padding: 10,
+    backgroundColor: '#32BA7C',
+    marginBottom: 35,
+    borderRadius: 10,
+    alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 10,
+    marginHorizontal: 20,
   },
-  orderDetailscartheaderview: {
-    backgroundColor: '#3358F9',
-    flex: 10,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  orderDetailscartheadertext: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: '700',
-  },
+  pntext: { color: 'white', fontSize: 18, fontWeight: '700' },
 });
 
 export default AddPayment;

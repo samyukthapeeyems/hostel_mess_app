@@ -5,8 +5,6 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import Header from '../components/HeaderSkeleton';
-import { COLORS } from '../constants/theme';
 import React from 'react';
 
 const OrderMenu = [
@@ -73,9 +71,11 @@ const OrderCard = ({ item, navigate }) => {
     <View style={styles.container1}>
       <View style={styles.container2}>
         <Text style={styles.ordertext}>Order ID : {element.id}</Text>
-        <Text style={styles.ordertitle} numberOfLines = {1}>{element.foodlist}</Text>
-        <Text style={styles.ordertext}>{element.title}</Text>
-      </View> 
+        <Text style={styles.ordertitle} numberOfLines={1}>
+          {element.foodlist}
+        </Text>
+        <Text style={styles.ordertext1}>{element.title}</Text>
+      </View>
       <View style={styles.container3}>
         <Text style={styles.ordertime}>{element.time}</Text>
         <Text style={styles.ordercost}>₹{element.cost}</Text>
@@ -90,23 +90,17 @@ const OrderCard = ({ item, navigate }) => {
   );
 };
 
-const renderseperator = () => {
-  return <View style={{ backgroundColor: '#d9d9d9', height: 2 }} />;
-};
-
 const Orders = ({ navigation }) => {
   let { navigate } = navigation;
   return (
-    <>
-      <FlatList
-        data={OrderMenu}
-        keyExtractor={item => item.id}
-        renderItem={item => <OrderCard navigate={navigate} item={item} />}
-        style={styles.flatList}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={renderseperator}
-      />
-    </>
+    <FlatList
+      data={OrderMenu}
+      keyExtractor={item => item.id}
+      renderItem={item => <OrderCard navigate={navigate} item={item} />}
+      style={styles.flatList}
+      showsVerticalScrollIndicator={false}
+      ItemSeparatorComponent={<View style={styles.seperator} />}
+    />
   );
 };
 
@@ -122,7 +116,13 @@ const styles = StyleSheet.create({
   },
   ordertext: {
     fontWeight: '400',
-    fontSize: 10,
+    fontSize: 12,
+    color: 'black',
+    marginBottom: 5,
+  },
+  ordertext1: {
+    fontWeight: '400',
+    fontSize: 12,
     color: 'black',
     marginBottom: 5,
   },
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   ordertime: {
     fontWeight: '400',
-    fontSize: 10,
+    fontSize: 12,
     color: '#0C0F17',
     marginBottom: 5,
   },
@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 30,
     color: '#32BA7C',
-    marginTop: 5,
     marginBottom: 5,
   },
   touch: { borderRadius: 8, justifyContent: 'center' },
@@ -163,4 +162,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
   },
+  seperator: { backgroundColor: '#d9d9d9', height: 2 },
 });

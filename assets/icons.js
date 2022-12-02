@@ -1,4 +1,4 @@
-import Svg, { SvgProps, Rect, Path, G, Defs, ClipPath } from 'react-native-svg';
+import Svg, { Rect, Path, G, Defs, ClipPath, Circle } from 'react-native-svg';
 import * as React from 'react';
 
 const MenuIcon = () => (
@@ -138,46 +138,6 @@ const GrayMinusIcon = () => (
   </Svg>
 );
 
-const BreakfastIcon = () => (
-  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <Path
-      d="M9.25 6a3.25 3.25 0 1 0-6.5 0M2.495 2.495 2.43 2.43m7.075.065.065-.065-.065.065ZM6 1.04V1v.04ZM1.04 6H1h.04ZM11 6h-.04.04Z"
-      stroke="#0C0F17"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <Path
-      d="M2 7.5h8M3 9h6M4.5 10.5h3"
-      stroke="#0C0F17"
-      strokeMiterlimit={10}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const LunchIcon = () => (
-  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <Path
-      d="M6 9.25a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5ZM9.57 9.57l-.065-.065m0-7.01.065-.065-.065.065ZM2.43 9.57l.065-.065-.065.065ZM6 1.04V1v.04ZM6 11v-.04.04ZM1.04 6H1h.04ZM11 6h-.04.04ZM2.495 2.495 2.43 2.43l.065.065Z"
-      stroke="#0C0F17"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
-const DinnerIcon = () => (
-  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <Path
-      d="M1.015 6.21c.18 2.575 2.365 4.67 4.98 4.785A5.255 5.255 0 0 0 10.48 8.86c.41-.555.19-.925-.495-.8-.335.06-.68.085-1.04.07C6.5 8.03 4.5 5.985 4.49 3.57c-.005-.65.13-1.265.375-1.825.27-.62-.055-.915-.68-.65-1.98.835-3.335 2.83-3.17 5.115Z"
-      stroke="#0C0F17"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-);
-
 const LeftArrow = () => (
   <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
@@ -206,28 +166,25 @@ const GoogleLogo = () => (
     </Defs>
   </Svg>
 );
-
-const WalletCard = () => (
-  <Svg width={358} height={150} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <G clipPath="url(#a)">
-      <Rect width={358} height={150} rx={20} fill="#F5B80D" />
-      <G opacity={0.15} strokeWidth={22}>
-        <Path
-          d="M13.68 196.75C72.53 119.725 220.337-5.41 362.884 69.707"
-          stroke="#fff"
-          strokeOpacity={0.7}
-        />
-        <Path
-          d="M13.68 196.75C72.53 119.725 224.99-14.966 364.043 62.468"
-          stroke="#CDB900"
-        />
-      </G>
-    </G>
-    <Defs>
-      <ClipPath id="a">
-        <Rect width={358} height={150} rx={20} fill="#fff" />
-      </ClipPath>
-    </Defs>
+const SearchIcon = () => (
+  <Svg width={16} height={16} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Path
+      d="M6.383 12.877a6.363 6.363 0 0 0 3.71-1.196l3.935 3.935a.947.947 0 0 0 .681.274c.54 0 .921-.415.921-.946a.901.901 0 0 0-.265-.665l-3.91-3.917a6.358 6.358 0 0 0 1.312-3.869c0-3.51-2.872-6.383-6.384-6.383C2.88.11 0 2.974 0 6.493c0 3.512 2.872 6.384 6.383 6.384Zm0-1.378c-2.739 0-5.005-2.266-5.005-5.006 0-2.739 2.266-5.005 5.005-5.005 2.74 0 5.006 2.266 5.006 5.005 0 2.74-2.266 5.006-5.006 5.006Z"
+      fill="#3C3C43"
+      fillOpacity={0.6}
+    />
+  </Svg>
+);
+const VegIcon = () => (
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Circle cx={6} cy={6} r={2.88} fill="#09B859" />
+    <Path stroke="#09B859" d="M.5.5h11v11H.5z" />
+  </Svg>
+);
+const NonvegIcon = () => (
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Circle cx={6} cy={6} r={2.88} fill="#F41611" />
+    <Path stroke="#F41611" d="M.5.5h11v11H.5z" />
   </Svg>
 );
 
@@ -238,10 +195,9 @@ export {
   GreenButton,
   GreenAddIcon,
   GrayMinusIcon,
-  BreakfastIcon,
-  LunchIcon,
-  DinnerIcon,
   LeftArrow,
   GoogleLogo,
-  WalletCard,
+  SearchIcon,
+  VegIcon,
+  NonvegIcon,
 };
