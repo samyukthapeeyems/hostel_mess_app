@@ -1,6 +1,8 @@
 import { TextInput, View, StyleSheet } from 'react-native';
 import React from 'react';
+
 import { SearchIcon } from '../../assets/icons';
+import { COLORS } from '../constants/theme';
 
 export default function SearchBar({ setter, placeholderText }) {
   return (
@@ -9,8 +11,8 @@ export default function SearchBar({ setter, placeholderText }) {
       <TextInput
         autoCapitalize="true"
         placeholder={placeholderText}
-        // style={styles.textInput}
         placeholderTextColor="#3C3C4399"
+        style={styles.text}
         onChangeText={setter}
       />
     </View>
@@ -27,8 +29,5 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     alignItems: 'center',
   },
-  textInput: {
-    fontSize: 18,
-    backgroundColor: '#7676801F',
-  },
+  text: { color: COLORS.black },
 });

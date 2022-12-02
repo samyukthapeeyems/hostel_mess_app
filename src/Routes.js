@@ -15,13 +15,11 @@ import {
   OrderDetails,
   Cart,
   Token,
-  Wallet,
   AddPayment,
   Auth,
   Payment,
 } from './screens';
 
-import { COLORS } from './constants/theme';
 import { LeftArrow } from '../assets/icons';
 
 import MyTabBar from './components/MyTabBar';
@@ -43,9 +41,9 @@ const PageHeader = ({ navigation, iconShow, title }) => (
     </View>
   </HeaderSkeleton>
 );
+
 const TabsScreen = () => {
   const Tabs = createBottomTabNavigator();
-
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
@@ -60,18 +58,14 @@ const TabsScreen = () => {
         name="Orders"
         component={Orders}
         options={{
-          header: ({ navigation }) => (
-            <PageHeader title="Orders" iconShow={false} />
-          ),
+          header: () => <PageHeader title="Orders" iconShow={false} />,
         }}
       />
       <Tabs.Screen
         name="Profile"
         component={Profile}
         options={{
-          header: ({ navigation }) => (
-            <PageHeader title="My Profile" iconShow={false} />
-          ),
+          header: () => <PageHeader title="My Profile" iconShow={false} />,
         }}
       />
     </Tabs.Navigator>
@@ -179,42 +173,7 @@ export default function Routes() {
 }
 
 const styles = StyleSheet.create({
-  textContainer: {
-    // flex: 1,
-    width: '100%',
-    backgroundColor: 'brown',
-  },
-  imgContainer: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  greeting: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-    opacity: 0.5,
-  },
-  name: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: '700',
-  },
-  img: {
-    width: 42,
-    height: 42,
-    borderRadius: 50,
-    borderWidth: 2,
-    borderColor: COLORS.yellow,
-  },
-  headerContainer: {
-    backgroundColor: COLORS.blue,
-    paddingVertical: 18,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-  },
   content: {
-    // backgroundColor: 'green',
     flexDirection: 'row',
     alignItems: 'center',
   },

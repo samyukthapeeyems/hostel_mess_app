@@ -1,4 +1,12 @@
-import Svg, { SvgProps, Rect, Path, G, Defs, ClipPath } from 'react-native-svg';
+import Svg, {
+  SvgProps,
+  Rect,
+  Path,
+  G,
+  Defs,
+  ClipPath,
+  Circle,
+} from 'react-native-svg';
 import * as React from 'react';
 
 const MenuIcon = () => (
@@ -175,6 +183,18 @@ const SearchIcon = () => (
     />
   </Svg>
 );
+const VegIcon = () => (
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Circle cx={6} cy={6} r={2.88} fill="#09B859" />
+    <Path stroke="#09B859" d="M.5.5h11v11H.5z" />
+  </Svg>
+);
+const NonvegIcon = () => (
+  <Svg width={12} height={12} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Circle cx={6} cy={6} r={2.88} fill="#F41611" />
+    <Path stroke="#F41611" d="M.5.5h11v11H.5z" />
+  </Svg>
+);
 
 export {
   MenuIcon,
@@ -186,4 +206,6 @@ export {
   LeftArrow,
   GoogleLogo,
   SearchIcon,
+  VegIcon,
+  NonvegIcon,
 };
