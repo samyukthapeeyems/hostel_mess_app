@@ -51,10 +51,7 @@ const Menu = ({ navigation }) => {
           keyExtractor={item => item.id}
           ItemSeparatorComponent={<View style={styles.seperator} />}
           ListHeaderComponent={
-            <SearchBar
-              setter={setQuery}
-              placeholderText={'🔍 Porotta Dosa ...'}
-            />
+            <SearchBar setter={setQuery} placeholderText={'Porotta Dosa ...'} />
           }
           showsVerticalScrollIndicator={false}
         />

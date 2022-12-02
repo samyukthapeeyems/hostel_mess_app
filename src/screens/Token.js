@@ -1,13 +1,8 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 
-function CountDownTimer(props) {
-  const [time, setTime] = React.useState(props.initialValue || 30);
+function CountDownTimer({ navigation, initialValue }) {
+  const [time, setTime] = React.useState(initialValue || 10);
   const timerRef = React.useRef(time);
 
   React.useEffect(() => {
@@ -23,6 +18,9 @@ function CountDownTimer(props) {
       clearInterval(timerId);
     };
   }, []);
+  if (time === 0) {
+    navigation.navigate('TabsScreen');
+  }
 
   return (
     <View style={{ justifyContent: 'center' }}>
@@ -61,7 +59,7 @@ const Token = ({ navigation }) => {
             <Text style={{ color: '#32BA7C', fontSize: 72, fontWeight: '700' }}>
               $130
             </Text>
-            <CountDownTimer />
+            <CountDownTimer navigation={navigation} />
           </View>
         </View>
         <View style={{ flex: 1 }}>
@@ -88,6 +86,4 @@ const Token = ({ navigation }) => {
 
 export default Token;
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});

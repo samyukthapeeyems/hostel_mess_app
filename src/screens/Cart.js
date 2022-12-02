@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { COLORS } from '../constants/theme';
 import useCart from '../contexts/CartContext';
@@ -13,15 +8,15 @@ import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
-const Total =() => {
+const Total = () => {
   return (
     <View style={styles.Touterview}>
-    <View style ={styles.Ttotalview}>
-      <Text style ={styles.Ttotaltext}>Total</Text>
-    </View>
-    <View style ={styles.Trsview}>
-      <Text style ={styles.Trstext}>₹10</Text>
-    </View>
+      <View style={styles.Ttotalview}>
+        <Text style={styles.Ttotaltext}>Total</Text>
+      </View>
+      <View style={styles.Trsview}>
+        <Text style={styles.Trstext}>₹10</Text>
+      </View>
     </View>
   );
 };
@@ -33,7 +28,7 @@ const OrderList = ({ items }) => (
       renderItem={({ item }) => <CartItem item={item} />}
       keyExtractor={item => item.id}
       ListHeaderComponent={<Listheader />}
-      ListFooterComponent={<Total/>}
+      ListFooterComponent={<Total />}
     />
     {/* <CartItem item={item} /> */}
   </View>
@@ -43,7 +38,7 @@ export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
   const { getItemList, mapItemWithItemId } = useItems();
-
+  // console.log('Total is ' + totalAmount);
   useEffect(() => {
     async function x() {
       // I'll clean this later, works for now
@@ -64,7 +59,6 @@ export default function Cart({ navigation, route }) {
       }
     }
     x();
-
     // I'll clean this later (function), works for now
   }, [totalAmount]);
   return (
@@ -97,10 +91,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
   },
-  Touterview : {flex :1, flexDirection :'row'},
-  Ttotalview : {flex : 1, alignItems :'flex-start',paddingHorizontal : 15, paddingTop : 5},
-  Ttotaltext : {color : COLORS.black, fontWeight : '700',opacity : 0.5, fontSize:16},
-  Trsview : {flex : 1, alignItems : 'flex-end', paddingHorizontal : 10},
-  Trstext : {color : COLORS.green, fontSize : 24, fontWeight: '700'},
-  
+  Touterview: { flex: 1, flexDirection: 'row' },
+  Ttotalview: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingHorizontal: 15,
+    paddingTop: 5,
+  },
+  Ttotaltext: {
+    color: COLORS.black,
+    fontWeight: '700',
+    opacity: 0.5,
+    fontSize: 16,
+  },
+  Trsview: { flex: 1, alignItems: 'flex-end', paddingHorizontal: 10 },
+  Trstext: { color: COLORS.green, fontSize: 24, fontWeight: '700' },
 });
