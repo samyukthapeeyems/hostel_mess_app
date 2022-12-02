@@ -3,46 +3,33 @@ import React, { useState } from 'react';
 
 import Button from '../components/Button';
 import { COLORS } from '../constants/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel,
+} from 'react-native-simple-radio-button';
 
-function RadioButton(props) {
-  const [selected, setSelected] = useState(false);
-  return (
-    <TouchableOpacity
-      style={{ height: 24, width: 24 }}
-      onPress={() => setSelected(selected => !selected)}>
-      <View
-        style={[
-          {
-            height: 24,
-            width: 24,
-            borderRadius: 12,
-            borderWidth: 2,
-            borderColor: COLORS.green,
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          props.style,
-        ]}>
-        {selected ? (
-          <View
-            style={{
-              height: 12,
-              width: 12,
-              borderRadius: 6,
-              backgroundColor: COLORS.green,
-            }}
-          />
-        ) : null}
-      </View>
-    </TouchableOpacity>
-  );
-}
 const Payment = ({ navigation }) => {
+  var radio_props = [
+    { label: 'Wallet', value: 0 },
+    { label: 'UPI', value: 1 },
+  ];
+  const onPress = () => console.log('hi');
+  const [value, setValue] = useState(0);
+  const [value3Index, setvalue3Index] = useState('#2196f3');
   return (
     <View>
       <Text>Payment</Text>
-      <RadioButton selected={true} />
+      <RadioForm
+        radio_props={radio_props}
+        // initial={0}
+        formHorizontal={false}
+        labelHorizontal={true}
+        buttonColor={COLORS.green}
+        animation={true}
+        onPress={() => setValue(value)}
+      />
+
       <View style={{ backgroundColor: 'white' }}>
         <Button
           style={styles.confirmbutton}

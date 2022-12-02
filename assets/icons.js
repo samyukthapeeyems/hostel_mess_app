@@ -1,12 +1,4 @@
-import Svg, {
-  SvgProps,
-  Rect,
-  Path,
-  G,
-  Defs,
-  ClipPath,
-  Circle,
-} from 'react-native-svg';
+import Svg, { Rect, Path, G, Defs, ClipPath, Circle } from 'react-native-svg';
 import * as React from 'react';
 
 const MenuIcon = () => (

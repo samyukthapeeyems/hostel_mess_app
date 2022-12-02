@@ -5,22 +5,22 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
-import useAuth from '../contexts/AuthContext';
 import React from 'react';
-import MyStatusBar from '../components/StatusBar';
+
+import useAuth from '../contexts/AuthContext';
+
 import { COLORS } from '../constants/theme';
 import LoginImg from '../../assets/images/LoginImg.png';
 import { GoogleLogo } from '../../assets/icons';
+
+import MyStatusBar from '../components/StatusBar';
 
 const Auth = () => {
   const { signIn } = useAuth();
   return (
     <>
-      <MyStatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
-      {/* <Button title="Google Sign-In" onPress={async () => await signIn()} /> */}
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          {/* <Image source={LoginImg} resizeMode="cover" /> */}
           <ImageBackground
             source={LoginImg}
             resizeMode="cover"
@@ -33,11 +33,8 @@ const Auth = () => {
         <View style={styles.container1}>
           <View style={styles.container2}>
             <View style={styles.lgsview}>
-              <Text style={styles.lgstext}>
-                Let’s Get Started
-              </Text>
-              <Text
-                style={styles.logintext}>
+              <Text style={styles.lgstext}>Let’s Get Started</Text>
+              <Text style={styles.logintext}>
                 Login/Signup with your Google Account
               </Text>
             </View>
@@ -45,10 +42,7 @@ const Auth = () => {
               style={styles.logintouchable}
               onPress={async () => await signIn()}>
               <GoogleLogo />
-              <Text
-                style={styles.googletext}>
-                Login With Google
-              </Text>
+              <Text style={styles.googletext}>Login With Google</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -81,17 +75,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  container1 : { flex: 1, backgroundColor: 'white' },
-  container2 : { marginHorizontal: 16, marginVertical: 15 },
-  lgsview : { marginBottom: 50 },
-  lgstext : { fontSize: 24, fontWeight: '700', color: 'black' },
-  logintext : {
+  container1: { flex: 1, backgroundColor: 'white' },
+  container2: { marginHorizontal: 16, marginVertical: 15 },
+  lgsview: { marginBottom: 50 },
+  lgstext: { fontSize: 24, fontWeight: '700', color: 'black' },
+  logintext: {
     fontSize: 14,
     fontWeight: '400',
     color: 'black',
     opacity: 0.5,
   },
-  logintouchable : {
+  logintouchable: {
     backgroundColor: 'blue',
     paddingVertical: 15,
     borderRadius: 10,
@@ -99,14 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  googletext : {
+  googletext: {
     color: 'white',
     fontSize: 18,
     fontWeight: '700',
     marginLeft: 10,
   },
-  
-
 });
 
 export default Auth;

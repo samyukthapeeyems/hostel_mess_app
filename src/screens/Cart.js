@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { COLORS } from '../constants/theme';
+
 import useCart from '../contexts/CartContext';
-import CartItem from '../components/CartItem';
 import { useItems } from '../functions/items';
+
+import { COLORS } from '../constants/theme';
+
+import CartItem from '../components/CartItem';
 import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
@@ -30,7 +33,6 @@ const OrderList = ({ items }) => (
       ListHeaderComponent={<Listheader />}
       ListFooterComponent={<Total />}
     />
-    {/* <CartItem item={item} /> */}
   </View>
 );
 
@@ -38,7 +40,6 @@ export default function Cart({ navigation, route }) {
   const [itm, setItm] = useState();
   const { items, totalAmount } = useCart();
   const { getItemList, mapItemWithItemId } = useItems();
-  // console.log('Total is ' + totalAmount);
   useEffect(() => {
     async function x() {
       // I'll clean this later, works for now

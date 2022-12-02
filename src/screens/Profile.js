@@ -8,10 +8,13 @@ import {
   ImageBackground,
 } from 'react-native';
 import React from 'react';
+
 import { COLORS } from '../constants/theme';
-import Button from '../components/Button';
-import useAuth from '../contexts/AuthContext';
 import YellowWallet from '../../assets/images/YellowWallet.png';
+
+import useAuth from '../contexts/AuthContext';
+
+import Button from '../components/Button';
 
 const Transactions = [
   {
@@ -86,10 +89,8 @@ const UserInfoCard = ({ signOut, user }) => {
 };
 const TransactionHeader = () => {
   return (
-    <View style={{ paddingVertical: 15 }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', color: COLORS.black }}>
-        Recent Transactions
-      </Text>
+    <View style={styles.transactionHeaderContainer}>
+      <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
     </View>
   );
 };
@@ -159,7 +160,6 @@ export default Profile;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // backgroundColor: 'green',
     backgroundColor: 'white',
     paddingHorizontal: 16,
     paddingVertical: 30,
@@ -248,6 +248,12 @@ const styles = StyleSheet.create({
   cost: {
     flex: 1,
     // backgroundColor: 'green'
+  },
+  transactionHeaderContainer: { paddingVertical: 15 },
+  transactionHeaderText: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: COLORS.black,
   },
   seperator: {
     backgroundColor: '#d9d9d9',
