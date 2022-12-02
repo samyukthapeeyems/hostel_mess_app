@@ -5,12 +5,13 @@ import {
   View,
   ScrollView,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import { COLORS } from '../constants/theme';
-import { WalletCard } from '../../assets/icons';
 import Button from '../components/Button';
 import useAuth from '../contexts/AuthContext';
+import YellowWallet from '../../assets/images/YellowWallet.png';
 
 const Transactions = [
   {
@@ -56,7 +57,8 @@ const Transactions = [
     cost: 500,
   },
 ];
-const UserInfoCard = ({ signOut, user }) => {
+const UserInfoCard = () => {
+  const { signOut, user } = useAuth();
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftContainer}>
@@ -79,9 +81,6 @@ const UserInfoCard = ({ signOut, user }) => {
         </View>
       </View>
       <View style={styles.rightContainer}>
-        {/* <View style={styles.buttonContainer}>
-          <Text>LOG OUT</Text>
-        </View> */}
         <Button
           style={styles.buttonContainer}
           onPress={async () => await signOut()}
@@ -135,7 +134,39 @@ const WalletCardSection = () => {
   return (
     <View style={styles.walletSectionContainer}>
       <View style={styles.walletCardContainer}>
-        <WalletCard />
+        <ImageBackground
+          source={YellowWallet}
+          resizeMode="cover"
+          style={styles.image}>
+          <View
+            style={{
+              flex: 1,
+              paddingLeft: 20,
+              paddingTop: 12,
+            }}>
+            <Text style={styles.text}>eCanteen Wallet</Text>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              paddingLeft: 20,
+              justifyContent: 'center',
+              paddingBottom: 12,
+            }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 14,
+                fontWeight: '400',
+                opacity: 0.5,
+              }}>
+              Wallet Balance
+            </Text>
+            <Text style={{ color: 'white', fontSize: 40, fontWeight: '700' }}>
+              $1600
+            </Text>
+          </View>
+        </ImageBackground>
       </View>
       <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
         + Add Money
@@ -144,11 +175,9 @@ const WalletCardSection = () => {
   );
 };
 const Profile = () => {
-  const { signOut, user } = useAuth();
-
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <UserInfoCard signOut={signOut} user={user} />
+    <ScrollView>
+      <UserInfoCard />
       <WalletCardSection />
       <TransactionDetails />
     </ScrollView>
@@ -266,4 +295,19 @@ const styles = StyleSheet.create({
   costText: { fontSize: 20, fontWeight: '700', color: COLORS.green },
   day: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   date: { fontSize: 18, fontWeight: '700', color: COLORS.black },
+  image: {
+    // flex: 1,
+    width: 358,
+    height: 150,
+    // justifyContent: 'center',
+  },
+  text: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: '700',
+    // lineHeight: 84,
+    // fontWeight: 'bold',
+    // textAlign: 'center',
+    // backgroundColor: '#000000c0',
+  },
 });

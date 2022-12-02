@@ -17,6 +17,21 @@ export default function MenuItem({ item }) {
     if (_item?.quantity) setCount(_item.quantity);
     else setCount(0);
   }, [totalAmount]);
+  if (!item.isAvailable) {
+    styles.menuItemContainer = {
+      marginVertical: 5,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      opacity: 0.2,
+    };
+  } else {
+    styles.menuItemContainer = {
+      marginVertical: 5,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      opacity: 1,
+    };
+  }
 
   return (
     <View style={styles.menuItemContainer}>
@@ -63,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     // backgroundColor: 'red',
+    // opacity: item.isAvailable ? 1 : 0.2,
   },
   leftSection: {
     justifyContent: 'center',
