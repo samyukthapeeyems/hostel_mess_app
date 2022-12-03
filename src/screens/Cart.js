@@ -3,9 +3,6 @@ import useCart from '../contexts/CartContext';
 import { useItems } from '../functions/items';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-import useCart from '../contexts/CartContext';
-import { useItems } from '../functions/items';
-
 import { COLORS } from '../constants/theme';
 
 import CartItem from '../components/CartItem';
