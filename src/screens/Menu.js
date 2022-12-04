@@ -12,10 +12,13 @@ import MenuItem from '../components/MenuItem';
 import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
 import Banner from '../components/Banner';
+import ItemCounter from '../components/ItemCounter';
 
 const Menu = ({ navigation }) => {
   const [itemList, setItemList] = useState([]);
   const [query, setQuery] = useState('');
+
+  const [count, setCount] = useState(0)
 
   const { items } = useCart();
   const { searchItems, mapItemWithDocId } = useItems();
@@ -56,11 +59,16 @@ const Menu = ({ navigation }) => {
           }
           showsVerticalScrollIndicator={false}
         />
+
+        {/* <ItemCounter count={count} handleAddItems={()=>setCount(count+1)}
+        handleRemoveItems={()=>setCount(count-1)}></ItemCounter> */}
+
+
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}
-      {items.length > 0 && (
-        <CartBanner navigation={navigation} count={items.length} />
+      {Object.keys(items).length > 0 && (
+        <CartBanner navigation={navigation} count={Object.keys(items).length} />
       )}
     </>
   );

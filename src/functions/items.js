@@ -9,6 +9,7 @@ async function getItemList(itemIdList) {
             .collection('items')
             .where(firestore.FieldPath.documentId(), 'in', itemIdList)
             .get()
+
         return resultSnapShot;
     }
     catch (error) {

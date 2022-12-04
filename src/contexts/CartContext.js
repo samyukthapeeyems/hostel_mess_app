@@ -8,13 +8,13 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CartReducer, initialState);
 
   const syncCartStorage = async state => {
-    try {
-      const jsonValue = JSON.stringify(state);
-      await AsyncStorage.setItem('@cart', jsonValue);
-    } catch (e) {
-      console.log(e);
-      throw new Error('unable to sync cart with async storage');
-    }
+    // try {
+    //   const jsonValue = JSON.stringify(state);
+    //   await AsyncStorage.setItem('@cart', jsonValue);
+    // } catch (e) {
+    //   console.log(e);
+    //   throw new Error('unable to sync cart with async storage');
+    // }
   };
 
   const addToCart = async (id, price) => {

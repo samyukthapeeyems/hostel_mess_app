@@ -32,7 +32,7 @@ const CartItem = ({ item }) => {
       </View>
 
       <View style={styles.rupee}>
-        <Text style={{ color: COLORS.black }}>₹{item.price}</Text>
+        <Text style={{ color: COLORS.black }}>₹{item.totalPrice}</Text>
       </View>
     </View>
   );

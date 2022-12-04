@@ -14,9 +14,13 @@ export default function MenuItem({ item }) {
   const [count, setCount] = useState();
 
   useEffect(() => {
-    let _item = items.find(element => element.id == item.id);
-    if (_item?.quantity) setCount(_item.quantity);
-    else setCount(0);
+    // let _item = items.find(element => element.id == item.id);
+    // if (_item?.quantity) setCount(_item.quantity);
+    // else setCount(0);
+
+    if (items[item.id])
+      setCount(items[item.id].quantity)
+    else setCount(0)
   }, [totalAmount]);
 
   return (
