@@ -112,15 +112,17 @@ const TransactionCard = ({ item }) => {
 const seperator = () => <View style={styles.seperator} />;
 const TransactionDetails = () => {
   return (
-    <FlatList
-      data={Transactions}
-      renderItem={({ item }) => <TransactionCard item={item} />}
-      keyExtractor={item => item.id}
-      ItemSeparatorComponent={seperator}
-      ListHeaderComponent={<TransactionHeader />}
-      style={styles.flatList}
-      showsVerticalScrollIndicator={false}
-    />
+    <View>
+      <FlatList
+        data={Transactions}
+        renderItem={({ item }) => <TransactionCard item={item} />}
+        keyExtractor={item => item.id}
+        ItemSeparatorComponent={seperator}
+        ListHeaderComponent={<TransactionHeader />}
+        style={styles.flatList}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   );
 };
 const WalletCardSection = () => {
@@ -214,7 +216,6 @@ const styles = StyleSheet.create({
   },
   walletCardContainer: {
     alignItems: 'center',
-    // justifyContent: 'center'
   },
   addMoneyButton: {
     backgroundColor: COLORS.green,
@@ -231,23 +232,18 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   transactionContainer: {
-    // backgroundColor: 'red',
     flexDirection: 'row',
     paddingVertical: 10,
   },
   transactionIcon: {
     flex: 1,
-    // backgroundColor: 'blue',
-    // justifyContent: 'flex-start',
   },
   transactionDate: {
     flex: 3,
-    // backgroundColor: 'cyan',
     flexDirection: 'row',
   },
   cost: {
     flex: 1,
-    // backgroundColor: 'green'
   },
   transactionHeaderContainer: { paddingVertical: 15 },
   transactionHeaderText: {
