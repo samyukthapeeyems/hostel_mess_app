@@ -72,6 +72,7 @@ export default function Cart() {
   useEffect(() => {
     cartData().then(x => setItm(x))
   }, [totalAmount]);
+  
   return (
     <>
       <View style={styles.container}>

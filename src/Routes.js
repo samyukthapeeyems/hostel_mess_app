@@ -1,28 +1,15 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
-
-import {
-  Menu,
-  Orders,
-  Profile,
-  OrderDetails,
-  Cart,
-  Token,
-  AddPayment,
-  Auth,
-  Payment,
-} from './screens';
+import { Menu, Orders, Profile, OrderDetails, Cart, Token, AddPayment, Auth, Payment, } from './screens';
 
 import { LeftArrow } from '../assets/icons';
 
-import MyTabBar from './components/MyTabBar';
+import TabBar from './components/TabBar';
 import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
 
@@ -48,7 +35,7 @@ const TabsScreen = () => {
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
-      tabBar={props => <MyTabBar {...props} />}>
+      tabBar={props => <TabBar {...props} />}>
       <Tabs.Screen
         name="Menu"
         component={Menu}
@@ -83,14 +70,8 @@ const RootStackScreen = () => {
   return (
     <CartProvider>
       <RootStack.Navigator>
-        <RootStack.Screen
-          name="TabsScreen"
-          component={TabsScreen}
-          options={{ headerShown: false }}
-        />
-        <RootStack.Screen
-          name="Cart"
-          component={Cart}
+        <RootStack.Screen name="TabsScreen" component={TabsScreen} options={{ headerShown: false }} />
+        <RootStack.Screen name="Cart" component={Cart}
           options={{
             header: ({ navigation }) => (
               <PageHeader
@@ -101,9 +82,7 @@ const RootStackScreen = () => {
             ),
           }}
         />
-        <RootStack.Screen
-          name="OrderDetails"
-          component={OrderDetails}
+        <RootStack.Screen name="OrderDetails" component={OrderDetails}
           options={{
             header: ({ navigation }) => (
               <PageHeader
@@ -114,13 +93,7 @@ const RootStackScreen = () => {
             ),
           }}
         />
-        <RootStack.Screen
-          name="Token"
-          component={Token}
-          options={{
-            headerShown : false
-          }}
-        />
+        <RootStack.Screen name="Token" component={Token} options={{ headerShown : false }}/>
         <RootStack.Screen
           name="AddPayment"
           component={AddPayment}

@@ -145,6 +145,7 @@ const WalletCardSection = () => {
   );
 };
 const Profile = () => {
+  
   const { signOut, user } = useAuth();
 
   return (
