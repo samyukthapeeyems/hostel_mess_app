@@ -1,6 +1,8 @@
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 
+import useCart from '../contexts/CartContext';
+
 function CountDownTimer({ navigation, initialValue }) {
   const [time, setTime] = React.useState(initialValue || 10);
   const timerRef = React.useRef(time);
@@ -37,6 +39,8 @@ function CountDownTimer({ navigation, initialValue }) {
   );
 }
 const Token = ({ navigation }) => {
+  const { totalAmount } = useCart();
+
   return (
     <>
       <View
@@ -57,7 +61,7 @@ const Token = ({ navigation }) => {
               justifyContent: 'center',
             }}>
             <Text style={{ color: '#32BA7C', fontSize: 72, fontWeight: '700' }}>
-              $130
+              ₹{totalAmount}
             </Text>
             <CountDownTimer navigation={navigation} />
           </View>

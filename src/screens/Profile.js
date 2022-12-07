@@ -104,7 +104,7 @@ const TransactionCard = ({ item }) => {
         <Text style={styles.date}>{item.date}</Text>
       </View>
       <View style={styles.cost}>
-        <Text style={styles.costText}>${item.cost}</Text>
+        <Text style={styles.costText}>₹{item.cost}</Text>
       </View>
     </View>
   );
@@ -112,17 +112,15 @@ const TransactionCard = ({ item }) => {
 const seperator = () => <View style={styles.seperator} />;
 const TransactionDetails = () => {
   return (
-    <View>
-      <FlatList
-        data={Transactions}
-        renderItem={({ item }) => <TransactionCard item={item} />}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={seperator}
-        ListHeaderComponent={<TransactionHeader />}
-        style={styles.flatList}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+    <FlatList
+      data={Transactions}
+      renderItem={({ item }) => <TransactionCard item={item} />}
+      keyExtractor={item => item.id}
+      ItemSeparatorComponent={seperator}
+      ListHeaderComponent={<TransactionHeader />}
+      style={styles.flatList}
+      showsVerticalScrollIndicator={false}
+    />
   );
 };
 const WalletCardSection = () => {
@@ -136,7 +134,7 @@ const WalletCardSection = () => {
           <View style={styles.walletDetailsContainer}>
             <Text style={styles.walletTitle}>eCanteen Wallet</Text>
             <Text style={styles.walletTitle2}>Wallet Balance</Text>
-            <Text style={styles.walletBalance}>$1700</Text>
+            <Text style={styles.walletBalance}>₹4000</Text>
           </View>
         </ImageBackground>
       </View>
@@ -150,11 +148,11 @@ const Profile = () => {
   const { signOut, user } = useAuth();
 
   return (
-    <ScrollView>
+    <>
       <UserInfoCard user={user} signOut={signOut} />
       <WalletCardSection />
       <TransactionDetails />
-    </ScrollView>
+    </>
   );
 };
 
