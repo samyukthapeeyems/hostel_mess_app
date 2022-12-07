@@ -50,7 +50,9 @@ export default function Cart({ navigation }) {
 
       // console.log(cartData, "\nended")
 
-      console.log('perf ', performance.now() - i);
+      // console.log('perf ', performance.now() - i);
+
+      
       return cartData;
     } catch (err) {
       console.log(err);

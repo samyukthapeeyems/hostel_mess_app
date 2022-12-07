@@ -9,7 +9,7 @@ import { Menu, Orders, Profile, OrderDetails, Cart, Token, AddPayment, Auth, Pay
 
 import { LeftArrow } from '../assets/icons';
 
-import TabBar from './components/TabBar';
+import ITabBar from './components/TabBar';
 import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
 
@@ -35,7 +35,9 @@ const TabsScreen = () => {
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
-      tabBar={props => <TabBar {...props} />}>
+      tabBar={props => <ITabBar {...props} />}
+      
+      >
       <Tabs.Screen
         name="Menu"
         component={Menu}

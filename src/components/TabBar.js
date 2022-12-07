@@ -26,11 +26,11 @@ export default function TabBar({ state, descriptors, navigation }) {
           return (
             <TouchableOpacity
               accessibilityRole="button"
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
+              // accessibilityLabel={options.tabBarAccessibilityLabel}
+              // testID={options.tabBarTestID}
               onPress={onPress}
               key={index}
-              style={styles.tabButton}>
+              style={{...styles.tabButton, opacity: isFocused ? 1 : 0.4 }}>
               <View>{icon}</View>
             </TouchableOpacity>
           );
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     flex: 1,
-    opacity: isFocused ? 1 : 0.4,
+    // opacity: isFocused ? 1 : 0.4,
     alignItems: 'center',
     justifyContent: 'center',
   }
