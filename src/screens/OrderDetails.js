@@ -11,6 +11,7 @@ import React from 'react';
 import { COLORS } from '../constants/theme';
 
 import Listheader from '../components/Listheader';
+import useCart from '../contexts/CartContext';
 
 const Orderstack = [
   {
@@ -61,14 +62,14 @@ const OrderDetailsContent = ({ item }) => {
   );
 };
 
-const Total = () => {
+const Total = ({ totalAmount }) => {
   return (
     <View style={styles.Touterview}>
       <View style={styles.Ttotalview}>
         <Text style={styles.Ttotaltext}>Total</Text>
       </View>
       <View style={styles.Trsview}>
-        <Text style={styles.Trstext}>₹10</Text>
+        <Text style={styles.Trstext}>₹{totalAmount}</Text>
       </View>
     </View>
   );
@@ -83,6 +84,8 @@ const GenerateToken = ({ navigation }) => {
   );
 };
 const OrderDetails = ({ navigation }) => {
+  const { totalAmount } = useCart();
+
   return (
     <SafeAreaView style={styles.ODouterview}>
       <View style={styles.ODbillview}>
@@ -95,7 +98,7 @@ const OrderDetails = ({ navigation }) => {
               renderItem={item => <OrderDetailsContent item={item} />}
               ListHeaderComponent={<Listheader />}
               ItemSeparatorComponent={renderseperator}
-              ListFooterComponent={<Total />}
+              ListFooterComponent={<Total totalAmount={totalAmount} />}
             />
           </View>
         </View>

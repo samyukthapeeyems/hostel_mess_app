@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text } from 'react-native';
-import { COLORS } from '../constants/theme';
 import React from 'react';
+
+import { COLORS } from '../constants/theme';
 
 export default function Banner({ children }) {
   return (
