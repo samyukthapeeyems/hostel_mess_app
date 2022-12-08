@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import { useItems } from '../functions/items';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import functions , {firebase} from '@react-native-firebase/functions';
 
+
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useItems } from '../functions/items';
 import useCart from '../contexts/CartContext';
 
 import { COLORS } from '../constants/theme';
@@ -52,7 +54,7 @@ export default function Cart({ navigation }) {
 
       // console.log('perf ', performance.now() - i);
 
-      
+
       return cartData;
     } catch (err) {
       console.log(err);
@@ -60,10 +62,31 @@ export default function Cart({ navigation }) {
   };
   // }, [totalAmount])
 
+
+  async function createOrder() {
+
+    const defaultApp = firebase.app();
+    const _functions = defaultApp.functions('asia-south1');
+    
+    const itemList = Object.entries(items).map((e) => ({ id: e[0], quantity: e[1].quantity }))
+
+    console.log(itemList)
+    const createOrder = _functions.httpsCallable('createOrder')
+    try {
+      let response = await createOrder({itemList})
+      console.log("response", response)
+      console.log("res data ",response.data)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
   useEffect(() => {
     cartData().then(x => setItm(x));
   }, [totalAmount]);
-  
+
   return (
     <>
       <View style={styles.container}>
@@ -87,7 +110,7 @@ export default function Cart({ navigation }) {
       <Button
         style={styles.confirmbutton}
         textStyle={styles.confirmButtonText}
-        onPress={() => navigation.navigate('Payment')}>
+        onPress={async () => await createOrder()}>
         CONFIRM ORDER
       </Button>
     </>
