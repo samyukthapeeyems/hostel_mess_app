@@ -5,76 +5,50 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import firestore from '@react-native-firebase/firestore';
 
-const OrderMenu = [
-  {
-    id: 212,
-    title: '4 item',
-    foodtime: 'Breakfast',
-    cost: 30,
-    time: '28-10-2022 05:40',
-    foodlist: 'Porotta,Chicken Curry, Tea',
-  },
-  {
-    id: 213,
-    title: '3 item',
-    foodtime: 'Lunch',
-    cost: 30,
-    time: '28-10-2022 04:30',
-    foodlist: 'Porotta,Chicken Curry, Tea',
-  },
-  {
-    id: 214,
-    title: '2 item',
-    foodtime: 'Dinner',
-    cost: 30,
-    time: '28-10-2022 02:30',
-    foodlist: 'Porotta,Chicken Curry, Tea ',
-  },
-  {
-    id: 216,
-    title: '4 item',
-    foodtime: 'Breakfast',
-    cost: 30,
-    time: '28-10-2022 12:30',
-    foodlist: 'Porotta,Chicken Curry, Tea',
-  },
-  {
-    id: 217,
-    title: '4 item',
-    foodtime: 'Breakfast',
-    cost: 30,
-    time: '28-10-2022 01:30',
-    foodlist: 'Porotta,Chicken Curry, Tea',
-  },
-  {
-    id: 218,
-    title: '4 item',
-    foodtime: 'Breakfast',
-    cost: 30,
-    time: '28-10-2022 10:30',
-    foodlist: 'Porotta,Chicken Curry, Tea ',
-  },
-  {
-    id: 219,
-    title: '4 item',
-    foodtime: 'Breakfast',
-    cost: 30,
-    time: '28-10-2022 9:30',
-    foodlist: 'Porotta,Chicken Curry, Tea',
-  },
-];
+// const OrderMenu = [
+//   {
+//     id: 212,
+//     title: '4 item',
+//     foodtime: 'Breakfast',
+//     cost: 30,
+//     time: '28-10-2022',
+//   },
+//   {
+//     id: 213,
+//     title: '3 item',
+//     foodtime: 'Lunch',
+//     cost: 30,
+//     time: '28-10-2022',
+//   },
+//   {
+//     id: 214,
+//     title: '2 item',
+//     foodtime: 'Dinner',
+//     cost: 30,
+//     time: '28-10-2022',
+//   },
+//   {
+//     id: 216,
+//     title: '4 item',
+//     foodtime: 'Breakfast',
+//     cost: 30,
+//     time: '28-10-2022 ',
+//   },
+
+// ];
 const OrderCard = ({ item, navigate }) => {
   let { item: element } = item;
   return (
+    <View style= {styles.containertop}>
     <View style={styles.container1}>
       <View style={styles.container2}>
         <Text style={styles.ordertext}>Order ID : {element.id}</Text>
         <Text style={styles.ordertitle} numberOfLines={1}>
-          {element.foodlist}
+          {element.title}
         </Text>
-        <Text style={styles.ordertext1}>{element.title}</Text>
       </View>
       <View style={styles.container3}>
         <Text style={styles.ordertime}>{element.time}</Text>
@@ -87,14 +61,23 @@ const OrderCard = ({ item, navigate }) => {
         </TouchableOpacity>
       </View>
     </View>
+    </View>
   );
 };
 
 const Orders = ({ navigation }) => {
   let { navigate } = navigation;
+  const [orders, setOrders]=useState ([])
+  useEffect( () => {
+    firestore()
+    .collection ('orders')
+    .orderBy('placed_at', 'desc').get().then(data => console.log(data)) 
+  }
+
+  )
   return (
     <FlatList
-      data={OrderMenu}
+      data={orders}
       keyExtractor={item => item.id}
       renderItem={item => <OrderCard navigate={navigate} item={item} />}
       style={styles.flatList}
@@ -107,6 +90,7 @@ const Orders = ({ navigation }) => {
 export default Orders;
 
 const styles = StyleSheet.create({
+  containertop : {flexDirection : 'column', },
   container1: { flexDirection: 'row', padding: 5 },
   container2: {
     flex: 2,
@@ -120,15 +104,10 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 5,
   },
-  ordertext1: {
-    fontWeight: '400',
-    fontSize: 12,
-    color: 'black',
-    marginBottom: 5,
-  },
+
   ordertitle: {
     fontWeight: '700',
-    fontSize: 15,
+    fontSize: 20,
     color: 'black',
     marginBottom: 5,
   },
