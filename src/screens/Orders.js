@@ -1,80 +1,27 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import useAuth from '../contexts/AuthContext'
+import EmojiPlaceHolder from '../components/EmojiPlaceholder';
 
-// const OrderMenu = [
-//   {
-//     id: 212,
-//     title: '4 item',
-//     foodtime: 'Breakfast',
-//     cost: 30,
-//     time: '28-10-2022',
-//   },
-//   {
-//     id: 213,
-//     title: '3 item',
-//     foodtime: 'Lunch',
-//     cost: 30,
-//     time: '28-10-2022',
-//   },
-//   {
-//     id: 214,
-//     title: '2 item',
-//     foodtime: 'Dinner',
-//     cost: 30,
-//     time: '28-10-2022',
-//   },
-//   {
-//     id: 216,
-//     title: '4 item',
-//     foodtime: 'Breakfast',
-//     cost: 30,
-//     time: '28-10-2022 ',
-//   },
-
-// ];
-const OrderCard = ({ item, navigate }) => {
-  let { item: element } = item;
-  return (
-    <View style= {styles.containertop}>
-    <View style={styles.container1}>
-      <View style={styles.container2}>
-        <Text style={styles.ordertext}>Order ID : {element.id}</Text>
-        <Text style={styles.ordertitle} numberOfLines={1}>
-          {element.title}
-        </Text>
-      </View>
-      <View style={styles.container3}>
-        <Text style={styles.ordertime}>{element.time}</Text>
-        <Text style={styles.ordercost}>₹{element.cost}</Text>
-
-        <TouchableOpacity
-          style={styles.touch}
-          onPress={() => navigate('OrderDetails', { Itemid: element.id })}>
-          <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-    </View>
-  );
-};
-
-const Orders = ({ navigation }) => {
+export default function Orders({ navigation }) {
   let { navigate } = navigation;
-  const [orders, setOrders]=useState ([])
-  useEffect( () => {
-    firestore()
-    .collection ('orders')
-    .orderBy('placed_at', 'desc').get().then(data => console.log(data)) 
-  }
+  const { user } = useAuth()
+  const [orders, setOrders] = useState([])
 
-  )
+  useEffect(() => {
+    firestore().collection('orders').where("user", '==', user.uid).orderBy('placed_at', 'desc').get()
+      .then(result => {
+        let orders = []
+        result.docs.forEach((order) => {
+          orders.push({
+            id: order.id,
+            ...order.data()
+          })
+        })
+        setOrders(orders)
+      })
+  }, [])
   return (
     <FlatList
       data={orders}
@@ -84,13 +31,40 @@ const Orders = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={<View style={styles.seperator} />}
     />
+
   );
+
+
+  function OrderCard({ item, navigate }) {
+    let { item: element } = item
+    return (
+      <View style={styles.containertop}>
+        <View style={styles.container1}>
+          <EmojiPlaceHolder />
+          <View style={styles.container2}>
+            <Text style={styles.ordertext}>Order ID : {element.id}</Text>
+            <Text style={styles.ordertitle}>
+              {element.items.length} Items
+            </Text>
+          </View>
+          <View style={styles.container3}>
+            <Text style={styles.ordertime}>{element.placed_at.toDate().toDateString()}</Text>
+            <Text style={styles.ordercost}>₹{element.total_amount}</Text>
+            <TouchableOpacity
+              style={styles.touch}
+              onPress={() => navigate('OrderDetails', { itemId: element.id })}>
+              <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
 };
 
-export default Orders;
 
 const styles = StyleSheet.create({
-  containertop : {flexDirection : 'column', },
+  containertop: { flexDirection: 'column', },
   container1: { flexDirection: 'row', padding: 5 },
   container2: {
     flex: 2,
@@ -141,5 +115,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
   },
-  seperator: { backgroundColor: '#d9d9d9', height: 2 },
+  seperator: { backgroundColor: '#d9d9d9', height: 1 },
 });
