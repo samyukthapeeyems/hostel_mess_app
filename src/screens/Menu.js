@@ -1,27 +1,20 @@
 import { View, StyleSheet, FlatList } from 'react-native';
-import React, { useEffect, useState } from 'react';
-
-import firestore from '@react-native-firebase/firestore';
+import { useEffect, useState } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
-
 import useCart from '../contexts/CartContext';
-
 import { useItems } from '../functions/items';
 
 import MenuItem from '../components/MenuItem';
 import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
 import Banner from '../components/Banner';
-import ItemCounter from '../components/ItemCounter';
 
-const Menu = ({ navigation }) => {
+export default function Menu({ navigation }) {
   const [itemList, setItemList] = useState([]);
+  const [loading, setloading] = useState(false);
   const [query, setQuery] = useState('');
-
-  const [count, setCount] = useState(0)
-
   const { items } = useCart();
-  const { searchItems, mapItemWithDocId } = useItems();
+  const { searchItems, mapItemWithDocId, loadItemBundle, getAllItems } = useItems();
   const netinfo = useNetInfo();
 
   const onResult = snapShot => {
@@ -33,16 +26,24 @@ const Menu = ({ navigation }) => {
     console.error(error);
   }
 
+
+  async function loadData(cachePolicy) {
+    setloading(true)
+    try {
+      await loadItemBundle(cachePolicy)
+      let snapShot = await getAllItems();
+      onResult(snapShot)
+    } catch (e) {
+      onError(e)
+    }
+    setloading(false)
+  }
+
   useEffect(() => {
-    console.log(query);
     if (!query) {
-      const itemCleanUp = firestore()
-        .collection('items')
-        .orderBy('isAvailable', 'desc')
-        .onSnapshot(onResult, onError);
-      return itemCleanUp;
+      loadData()
     } else {
-      searchItems(query).then(snapShot => onResult(snapShot));
+      searchItems(query).then(snapShot =>  onResult(snapShot));
     }
   }, [query]);
 
@@ -58,11 +59,9 @@ const Menu = ({ navigation }) => {
             <SearchBar setter={setQuery} placeholderText={'Porotta Dosa ...'} />
           }
           showsVerticalScrollIndicator={false}
+          refreshing={loading} // Added pull to refesh state
+          onRefresh={() => loadData("reload")} // Added pull to refresh control
         />
-
-        {/* <ItemCounter count={count} handleAddItems={()=>setCount(count+1)}
-        handleRemoveItems={()=>setCount(count-1)}></ItemCounter> */}
-
 
       </View>
 
@@ -74,7 +73,6 @@ const Menu = ({ navigation }) => {
   );
 };
 
-export default Menu;
 
 const styles = StyleSheet.create({
   menuPageContent: {

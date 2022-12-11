@@ -1,14 +1,23 @@
 import firestore from '@react-native-firebase/firestore';
 import useStorage from './storage'
 
+
+async function loadItemBundle(cachePolicy = "default") {
+    // console.log("cache", cachePolicy)
+    let resp = await fetch("https://hostel-mess-5d9a7.web.app/bundle", {cache: "no-cache"});
+    let bundle = await resp.text()
+    await firestore().loadBundle(bundle);
+}
+
+
 async function getItemList(itemIdList) {
     if (itemIdList.length > 10)
         throw new Error("Maximum number of items cannot be more than 10")
     try {
         let resultSnapShot = await firestore()
-            .collection('items')
+            .namedQuery('itemsBundle')
             .where(firestore.FieldPath.documentId(), 'in', itemIdList)
-            .get()
+            .get({ source: 'cache' })
 
         return resultSnapShot;
     }
@@ -19,7 +28,7 @@ async function getItemList(itemIdList) {
 }
 
 
-export function mapItemWithDocId(itemSnapShot) {
+function mapItemWithDocId(itemSnapShot) {
     let items = [];
     itemSnapShot.forEach(item => {
         items.push({
@@ -30,35 +39,15 @@ export function mapItemWithDocId(itemSnapShot) {
     return items
 }
 
-// exp
-// export async function mapItemWithImageURL(itemList) {
-
-//     const { getURL } = useStorage()
-//     let urlPromiseList = itemList.map(item => getURL(item.image));
-//     let result = await Promise.all(urlPromiseList)
-
-//     itemList.forEach((item, index) => {
-
-//         let { quantity } = items.find(item => item.id === p.id)
-//         e[ind] = {
-//           ...p,
-//           price: quantity * p.price
-//         }
-//       })
-
-// }
-
-export async function searchItems(name) {
+async function searchItems(name) {
     try {
-
-        let snapShotList = await firestore().collection('items')
+        return await firestore()
+            .namedQuery('itemBundle')
             .where('name', '>=', name)
             .where('name', '<=', name + '\uf8ff')
             .orderBy('name', 'asc')
             .orderBy('isAvailable', 'desc')
-            .get();
-
-        return snapShotList;
+            .get({ source: 'cache' });
     }
     catch (error) {
         console.log(error)
@@ -66,10 +55,25 @@ export async function searchItems(name) {
     }
 }
 
+async function getAllItems() {
+    try {
+        return await firestore().namedQuery('itemBundle')
+            .orderBy('isAvailable', 'desc')
+            .get({ source: 'cache' })
+    }
+    catch (error) {
+        console.log(error)
+        throw error;
+    }
+}
+
+
 export const useItems = () => {
     return {
         getItemList,
         searchItems,
-        mapItemWithDocId
+        mapItemWithDocId,
+        loadItemBundle,
+        getAllItems
     }
 }

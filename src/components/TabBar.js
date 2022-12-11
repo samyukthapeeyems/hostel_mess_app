@@ -30,7 +30,7 @@ export default function TabBar({ state, descriptors, navigation }) {
               // testID={options.tabBarTestID}
               onPress={onPress}
               key={index}
-              style={{...styles.tabButton, opacity: isFocused ? 1 : 0.4 }}>
+              style={{ ...styles.tabButton, opacity: isFocused ? 1 : 0.4 }}>
               <View>{icon}</View>
             </TouchableOpacity>
           );
@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     height: 75,
+    shadowOffset : {
+      width : 10,
+      height : 50
+    }
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 20,
+    // },
   },
   tabButton: {
     flex: 1,

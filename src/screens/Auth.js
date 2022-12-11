@@ -1,19 +1,7 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-  StyleSheet,
-} from 'react-native';
-import React from 'react';
-
+import { Text, View, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import useAuth from '../contexts/AuthContext';
-
-import { COLORS } from '../constants/theme';
 import LoginImg from '../../assets/images/LoginImg.png';
 import { GoogleLogo } from '../../assets/icons';
-
-import MyStatusBar from '../components/StatusBar';
 
 const Auth = () => {
   const { signIn } = useAuth();

@@ -6,12 +6,15 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { COLORS } from '../constants/theme';
 
 import Listheader from '../components/Listheader';
 import useCart from '../contexts/CartContext';
+import { FirebaseStorageTypes } from '@react-native-firebase/storage';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { useItems } from '../functions/items';
 
 const Orderstack = [
   {
@@ -83,8 +86,22 @@ const GenerateToken = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
-const OrderDetails = ({ navigation }) => {
+const OrderDetails = ({ navigation, route }) => {
   const { totalAmount } = useCart();
+  const [itemDetails, setItemDetails] = useState([]);
+
+  let item = route.params.item;
+  console.log(item)
+
+  useEffect(() => {
+
+    // let itemIdList = item.items.map( element => element.itemId)
+
+    // getItemList(itemIdList).then(res => {
+    //   console.log(res.docs)
+    //   setItemDetails(res.docs)
+    // })
+  })
 
   return (
     <SafeAreaView style={styles.ODouterview}>
