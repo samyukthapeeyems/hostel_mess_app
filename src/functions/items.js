@@ -4,26 +4,25 @@ import useStorage from './storage'
 
 async function loadItemBundle(cachePolicy = "default") {
     // console.log("cache", cachePolicy)
-    let resp = await fetch("https://hostel-mess-5d9a7.web.app/bundle", {cache: "no-cache"});
+    let resp = await fetch("https://hostel-mess-5d9a7.web.app/bundle", { cache: "no-cache" });
     let bundle = await resp.text()
     await firestore().loadBundle(bundle);
 }
-
 
 async function getItemList(itemIdList) {
     if (itemIdList.length > 10)
         throw new Error("Maximum number of items cannot be more than 10")
     try {
         let resultSnapShot = await firestore()
-            .namedQuery('itemsBundle')
+            .namedQuery('itemBundle')
             .where(firestore.FieldPath.documentId(), 'in', itemIdList)
             .get({ source: 'cache' })
-
+            
         return resultSnapShot;
     }
     catch (error) {
         console.log(error)
-        throw e;
+        throw error;
     }
 }
 
