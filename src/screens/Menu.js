@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import firestore from '@react-native-firebase/firestore';
@@ -11,6 +11,7 @@ import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
 import Banner from '../components/Banner';
 import ItemCounter from '../components/ItemCounter';
+import { COLORS } from '../constants/theme';
 
 export default function Menu({ navigation }) {
   const [itemList, setItemList] = useState([]);

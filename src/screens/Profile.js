@@ -63,18 +63,18 @@ const TransactionCard = ({ item }) => {
 const WalletCardSection = () => {
   return (
     <View style={styles.walletSectionContainer}>
-      <View style={styles.walletCardContainer}>
-        <ImageBackground
-          source={YellowWallet}
-          resizeMode="cover"
-          style={styles.walletImg}>
-          <View style={styles.walletDetailsContainer}>
-            <Text style={styles.walletTitle}>eCanteen Wallet</Text>
-            <Text style={styles.walletTitle2}>Wallet Balance</Text>
-            <Text style={styles.walletBalance}>₹4000</Text>
-          </View>
-        </ImageBackground>
-      </View>
+      <View>
+        <Image source={YellowWallet} style={styles.walletcardimage} />
+        <Text style={styles.ewalletext}>eCanteen Wallet</Text>
+        <Text
+          style={styles.walletBalancetitle}>
+          Wallet Balance
+        </Text>
+        <Text
+          style={styles.walletBalance}>
+          ₹0
+        </Text>
+        </View>
       <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
         + Add Money
       </Button>
@@ -183,12 +183,37 @@ const styles = StyleSheet.create({
   walletSectionContainer: {
     backgroundColor: 'white',
     paddingHorizontal: 16,
-    paddingVertical: 15,
+    paddingVertical: 16,
     marginTop: 15,
   },
-  walletCardContainer: {
-    alignItems: 'center',
+  walletcardimage: {
+    width: '100%',
+    borderRadius: 20,
   },
+  ewalletext: {
+    position: 'absolute',
+    fontSize: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    color: COLORS.white,
+    fontWeight: '700',
+  },
+  walletBalancetitle: {
+    position: 'absolute',
+    fontSize: 14,
+    paddingHorizontal: 20,
+    paddingVertical: 73,
+    color: COLORS.white,
+    fontWeight: '400',
+  },
+  walletBalance: { 
+    position: 'absolute',
+    fontSize: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 86,
+    color: COLORS.white,
+    fontWeight: '700',
+   },
   addMoneyButton: {
     backgroundColor: COLORS.green,
     paddingVertical: 15,
@@ -196,7 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 16,
+    paddingHorizontal: 10,
   },
   addMoneyText: {
     color: 'white',
@@ -240,27 +265,4 @@ const styles = StyleSheet.create({
   costText: { fontSize: 20, fontWeight: '700', color: COLORS.green },
   day: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   date: { fontSize: 18, fontWeight: '700', color: COLORS.black },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  walletImg: { width: 358, height: 150 },
-  walletDetailsContainer: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  walletTitle: {
-    marginBottom: 30,
-    fontSize: 24,
-    fontWeight: '700',
-    color: 'white',
-  },
-  walletTitle2: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: 'white',
-    opacity: 0.5,
-  },
-  walletBalance: { fontSize: 40, fontWeight: '700', color: 'white' },
 });
