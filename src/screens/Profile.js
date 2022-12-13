@@ -3,6 +3,7 @@ import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
 import useAuth from '../contexts/AuthContext';
 import Button from '../components/Button';
+import { Transactiongreen } from '../../assets/icons';
 
 const Transactions = [
   {
@@ -48,7 +49,7 @@ const TransactionCard = ({ item }) => {
   return (
     <View style={styles.transactionContainer}>
       <View style={styles.transactionIcon}>
-        <Text>Icon</Text>
+        <Transactiongreen/>
       </View>
       <View style={styles.transactionDate}>
         <Text style={styles.date}>{item.date}</Text>
@@ -236,11 +237,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   transactionDate: {
-    flex: 3,
+    flex: 6,
     flexDirection: 'row',
   },
   cost: {
-    flex: 1,
+    flex: 2,
+    alignItems : 'flex-end'
   },
   transactionHeaderContainer: { paddingVertical: 15 },
   transactionHeaderText: {
