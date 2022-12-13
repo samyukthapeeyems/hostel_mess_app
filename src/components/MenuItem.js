@@ -18,18 +18,17 @@ export default function MenuItem({ item }) {
     // if (_item?.quantity) setCount(_item.quantity);
     // else setCount(0);
 
-    if (items[item.id])
-      setCount(items[item.id].quantity)
-    else setCount(0)
+    if (items[item.id]) setCount(items[item.id].quantity);
+    else setCount(0);
   }, [totalAmount]);
 
-  return (
+  return item.isAvailable ? (
     <View style={styles.menuItemContainer}>
       <View style={styles.leftSection}>
         <Image path={item.image} />
       </View>
       <View style={styles.centerSection}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={styles.iconContainer}>
           {item.isVeg ? <VegIcon /> : <NonvegIcon />}
           <Text style={styles.itemTitle}>{item.name}</Text>
         </View>
@@ -38,29 +37,31 @@ export default function MenuItem({ item }) {
         </Text>
         <Text style={styles.costText}>₹{item.price}</Text>
       </View>
-      {item.isAvailable && (
-        <View style={styles.rightSection}>
-          {count === 0 ? (
-            <TouchableOpacity
-              onPress={async () => await addToCart(item.id, item.price).catch(e => console.log(e))}>
-              <GreenButton />
-            </TouchableOpacity>
-          ) : (
-            <ItemCounter
-              count={count}
-              handleAddItems={async () => await addToCart(item.id, item.price)}
-              handleRemoveItems={async () => await removeFromCart(item.id, item.price)}
-            />
-          )}
-        </View>
-      )}
+      <View style={styles.rightSection}>
+        {count === 0 ? (
+          <TouchableOpacity
+            onPress={async () =>
+              await addToCart(item.id, item.price).catch(e => console.log(e))
+            }>
+            <GreenButton />
+          </TouchableOpacity>
+        ) : (
+          <ItemCounter
+            count={count}
+            handleAddItems={async () => await addToCart(item.id, item.price)}
+            handleRemoveItems={async () =>
+              await removeFromCart(item.id, item.price)
+            }
+          />
+        )}
+      </View>
     </View>
-  );
+  ) : null;
 }
 
 const styles = StyleSheet.create({
   menuItemContainer: {
-    marginVertical: 5,
+    marginVertical: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -95,4 +96,5 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     marginLeft: 6,
   },
+  iconContainer: { flexDirection: 'row', alignItems: 'center' },
 });

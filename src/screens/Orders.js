@@ -1,27 +1,38 @@
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import useAuth from '../contexts/AuthContext'
+import useAuth from '../contexts/AuthContext';
 import EmojiPlaceHolder from '../components/EmojiPlaceholder';
 
 export default function Orders({ navigation }) {
   let { navigate } = navigation;
-  const { user } = useAuth()
-  const [orders, setOrders] = useState([])
+  const { user } = useAuth();
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    firestore().collection('orders').where("user", '==', user.uid).orderBy('placed_at', 'desc').get()
+    firestore()
+      .collection('orders')
+      .where('user', '==', user.uid)
+      .orderBy('placed_at', 'desc')
+      .get()
       .then(result => {
-        let orders = []
-        result.docs.forEach((order) => {
+        let orders = [];
+        result.docs.forEach(order => {
           orders.push({
             id: order.id,
-            ...order.data()
-          })
-        })
-        setOrders(orders)
-      })
-  }, [])
+            ...order.data(),
+          });
+        });
+        setOrders(orders);
+      });
+  }, []);
   return (
     <FlatList
       data={orders}
@@ -31,24 +42,22 @@ export default function Orders({ navigation }) {
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={<View style={styles.seperator} />}
     />
-
   );
 
-
   function OrderCard({ item, navigate }) {
-    let { item: element } = item
+    let { item: element } = item;
     return (
       <View style={styles.containertop}>
         <View style={styles.container1}>
           <EmojiPlaceHolder />
           <View style={styles.container2}>
             <Text style={styles.ordertext}>Order ID : {element.id}</Text>
-            <Text style={styles.ordertitle}>
-              {element.items.length} Items
-            </Text>
+            <Text style={styles.ordertitle}>{element.items.length} Items</Text>
           </View>
           <View style={styles.container3}>
-            <Text style={styles.ordertime}>{element.placed_at.toDate().toDateString()}</Text>
+            <Text style={styles.ordertime}>
+              {element.placed_at.toDate().toDateString()}
+            </Text>
             <Text style={styles.ordercost}>₹{element.total_amount}</Text>
             <TouchableOpacity
               style={styles.touch}
@@ -60,11 +69,10 @@ export default function Orders({ navigation }) {
       </View>
     );
   }
-};
-
+}
 
 const styles = StyleSheet.create({
-  containertop: { flexDirection: 'column', },
+  containertop: { flexDirection: 'column' },
   container1: { flexDirection: 'row', padding: 5 },
   container2: {
     flex: 2,
