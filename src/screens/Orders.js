@@ -44,7 +44,7 @@ export default function Orders({ navigation }) {
     />
   );
 
-  function OrderCard({ item, navigate }) {
+  function OrderCard({ item }) {
     let { item: element } = item;
     return (
       <View style={styles.containertop}>
@@ -63,7 +63,9 @@ export default function Orders({ navigation }) {
             <Text style={styles.ordercost}>₹{element.total_amount}</Text>
             <TouchableOpacity
               style={styles.touch}
-              onPress={() => navigate('OrderDetails', { item: element })}>
+              onPress={() =>
+                navigation.navigate('OrderDetails', { item: element })
+              }>
               <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
             </TouchableOpacity>
           </View>
