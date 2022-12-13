@@ -85,6 +85,7 @@ export default function OrderDetails({ route, navigation }) {
   let order = route.params.item;
   let items = order.items;
   let total = order.total_amount;
+
   return (
     <FlatList
       data={items}

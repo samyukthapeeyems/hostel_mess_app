@@ -1,4 +1,12 @@
-import { FlatList, StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
 import useAuth from '../contexts/AuthContext';
@@ -44,12 +52,11 @@ const Transactions = [
   },
 ];
 
-
 const TransactionCard = ({ item }) => {
   return (
     <View style={styles.transactionContainer}>
       <View style={styles.transactionIcon}>
-        <Transactiongreen/>
+        <Transactiongreen />
       </View>
       <View style={styles.transactionDate}>
         <Text style={styles.date}>{item.date}</Text>
@@ -67,15 +74,9 @@ const WalletCardSection = () => {
       <View>
         <Image source={YellowWallet} style={styles.walletcardimage} />
         <Text style={styles.ewalletext}>eCanteen Wallet</Text>
-        <Text
-          style={styles.walletBalancetitle}>
-          Wallet Balance
-        </Text>
-        <Text
-          style={styles.walletBalance}>
-          ₹0
-        </Text>
-        </View>
+        <Text style={styles.walletBalancetitle}>Wallet Balance</Text>
+        <Text style={styles.walletBalance}>₹0</Text>
+      </View>
       <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
         + Add Money
       </Button>
@@ -83,7 +84,6 @@ const WalletCardSection = () => {
   );
 };
 export default function Profile() {
-
   const { signOut, user } = useAuth();
 
   return (
@@ -98,8 +98,15 @@ export default function Profile() {
             />
           </View>
           <View style={styles.detailsContainer}>
-            <Text style={styles.name} numberOfLines={1}>{user.displayName}</Text>
-            <Text style={styles.email}> {user.email.length < 35 ? `${user.email}` : `${user.email.substring(0, 28)}...`}</Text>
+            <Text style={styles.name} numberOfLines={1}>
+              {user.displayName}
+            </Text>
+            <Text style={styles.email}>
+              {' '}
+              {user.email.length < 35
+                ? `${user.email}`
+                : `${user.email.substring(0, 28)}...`}
+            </Text>
           </View>
         </View>
         <View style={styles.rightContainer}>
@@ -112,9 +119,7 @@ export default function Profile() {
         </View>
       </View>
 
-
       <WalletCardSection />
-
 
       <FlatList
         data={Transactions}
@@ -123,7 +128,9 @@ export default function Profile() {
         ItemSeparatorComponent={<View style={styles.seperator} />}
         ListHeaderComponent={
           <View style={styles.transactionHeaderContainer}>
-            <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
+            <Text style={styles.transactionHeaderText}>
+              Recent Transactions
+            </Text>
           </View>
         }
         style={styles.flatList}
@@ -131,7 +138,7 @@ export default function Profile() {
       />
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -207,14 +214,14 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontWeight: '400',
   },
-  walletBalance: { 
+  walletBalance: {
     position: 'absolute',
     fontSize: 40,
     paddingHorizontal: 20,
     paddingVertical: 86,
     color: COLORS.white,
     fontWeight: '700',
-   },
+  },
   addMoneyButton: {
     backgroundColor: COLORS.green,
     paddingVertical: 15,
@@ -242,7 +249,7 @@ const styles = StyleSheet.create({
   },
   cost: {
     flex: 2,
-    alignItems : 'flex-end'
+    alignItems: 'flex-end',
   },
   transactionHeaderContainer: { paddingVertical: 15 },
   transactionHeaderText: {

@@ -188,12 +188,7 @@ const NonvegIcon = () => (
   </Svg>
 );
 const Transactiongreen = () => (
-  <Svg
-    width={24}
-    height={24}
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg">
     <Path
       d="M20.5 22h-17M19 3.5l-14 14M19 13.77V3.5H8.73"
       stroke="#32BA7C"
@@ -203,7 +198,7 @@ const Transactiongreen = () => (
       strokeLinejoin="round"
     />
   </Svg>
-)
+);
 
 export {
   MenuIcon,
@@ -217,5 +212,5 @@ export {
   SearchIcon,
   VegIcon,
   NonvegIcon,
-  Transactiongreen
+  Transactiongreen,
 };
