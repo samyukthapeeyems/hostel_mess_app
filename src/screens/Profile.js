@@ -1,19 +1,7 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  ImageBackground,
-} from 'react-native';
-import React from 'react';
-
+import { FlatList, StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
 import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
-
 import useAuth from '../contexts/AuthContext';
-
 import Button from '../components/Button';
 
 const Transactions = [
@@ -54,46 +42,8 @@ const Transactions = [
     cost: 500,
   },
 ];
-const UserInfoCard = ({ signOut, user }) => {
-  return (
-    <View style={styles.cardContainer}>
-      <View style={styles.leftContainer}>
-        <View style={styles.imgContainer}>
-          <Image
-            source={{ uri: user.photoURL }}
-            resizeMode="contain"
-            style={styles.img}
-          />
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.name} numberOfLines={1}>
-            {user.displayName}
-          </Text>
-          <Text style={styles.email}>
-            {user.email.length < 35
-              ? `${user.email}`
-              : `${user.email.substring(0, 28)}...`}
-          </Text>
-        </View>
-      </View>
-      <View style={styles.rightContainer}>
-        <Button
-          style={styles.buttonContainer}
-          onPress={async () => await signOut()}
-          textStyle={styles.logOutText}>
-          LOG OUT
-        </Button>
-      </View>
-    </View>
-  );
-};
-const TransactionHeader = () => {
-  return (
-    <View style={styles.transactionHeaderContainer}>
-      <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
-    </View>
-  );
-};
+
+
 const TransactionCard = ({ item }) => {
   return (
     <View style={styles.transactionContainer}>
@@ -109,20 +59,7 @@ const TransactionCard = ({ item }) => {
     </View>
   );
 };
-const seperator = () => <View style={styles.seperator} />;
-const TransactionDetails = () => {
-  return (
-    <FlatList
-      data={Transactions}
-      renderItem={({ item }) => <TransactionCard item={item} />}
-      keyExtractor={item => item.id}
-      ItemSeparatorComponent={seperator}
-      ListHeaderComponent={<TransactionHeader />}
-      style={styles.flatList}
-      showsVerticalScrollIndicator={false}
-    />
-  );
-};
+
 const WalletCardSection = () => {
   return (
     <View style={styles.walletSectionContainer}>
@@ -144,20 +81,56 @@ const WalletCardSection = () => {
     </View>
   );
 };
-const Profile = () => {
-  
+export default function Profile() {
+
   const { signOut, user } = useAuth();
 
   return (
     <>
-      <UserInfoCard user={user} signOut={signOut} />
+      <View style={styles.cardContainer}>
+        <View style={styles.leftContainer}>
+          <View style={styles.imgContainer}>
+            <Image
+              source={{ uri: user.photoURL }}
+              resizeMode="contain"
+              style={styles.img}
+            />
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.name} numberOfLines={1}>{user.displayName}</Text>
+            <Text style={styles.email}> {user.email.length < 35 ? `${user.email}` : `${user.email.substring(0, 28)}...`}</Text>
+          </View>
+        </View>
+        <View style={styles.rightContainer}>
+          <Button
+            style={styles.buttonContainer}
+            onPress={async () => await signOut()}
+            textStyle={styles.logOutText}>
+            LOG OUT
+          </Button>
+        </View>
+      </View>
+
+
       <WalletCardSection />
-      <TransactionDetails />
+
+
+      <FlatList
+        data={Transactions}
+        renderItem={({ item }) => <TransactionCard item={item} />}
+        keyExtractor={item => item.id}
+        ItemSeparatorComponent={<View style={styles.seperator} />}
+        ListHeaderComponent={
+          <View style={styles.transactionHeaderContainer}>
+            <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
+          </View>
+        }
+        style={styles.flatList}
+        showsVerticalScrollIndicator={false}
+      />
     </>
   );
 };
-
-export default Profile;
 
 const styles = StyleSheet.create({
   cardContainer: {

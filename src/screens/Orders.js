@@ -37,7 +37,7 @@ export default function Orders({ navigation }) {
     <FlatList
       data={orders}
       keyExtractor={item => item.id}
-      renderItem={item => <OrderCard navigate={navigate} item={item} />}
+      renderItem={item => <OrderCard item={item} />}
       style={styles.flatList}
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={<View style={styles.seperator} />}
@@ -49,7 +49,9 @@ export default function Orders({ navigation }) {
     return (
       <View style={styles.containertop}>
         <View style={styles.container1}>
-          <EmojiPlaceHolder />
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <EmojiPlaceHolder />
+          </View>
           <View style={styles.container2}>
             <Text style={styles.ordertext}>Order ID : {element.id}</Text>
             <Text style={styles.ordertitle}>{element.items.length} Items</Text>
@@ -61,7 +63,7 @@ export default function Orders({ navigation }) {
             <Text style={styles.ordercost}>₹{element.total_amount}</Text>
             <TouchableOpacity
               style={styles.touch}
-              onPress={() => navigate('OrderDetails', { itemId: element.id })}>
+              onPress={() => navigate('OrderDetails', { item: element })}>
               <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
             </TouchableOpacity>
           </View>
@@ -81,14 +83,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ordertext: {
-    fontWeight: '400',
+    fontWeight: '500',
     fontSize: 12,
     color: 'black',
     marginBottom: 5,
   },
 
   ordertitle: {
-    fontWeight: '700',
+    fontWeight: '600',
     fontSize: 20,
     color: 'black',
     marginBottom: 5,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   ordertime: {
     fontWeight: '400',
     fontSize: 12,
-    color: '#0C0F17',
+    color: 'grey',
     marginBottom: 5,
   },
   ordercost: {
@@ -110,10 +112,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#32BA7C',
     marginBottom: 5,
+    // alignSelf : 'flex-start'
   },
   touch: { borderRadius: 8, justifyContent: 'center' },
   textviewdetails: {
-    fontWeight: '400',
+    fontWeight: '700',
     fontSize: 10,
     color: '#3358F9',
     marginTop: 5,
