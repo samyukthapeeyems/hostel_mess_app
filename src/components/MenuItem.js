@@ -22,13 +22,13 @@ export default function MenuItem({ item }) {
     else setCount(0);
   }, [totalAmount]);
 
-  return item.isAvailable ? (
+  return(
     <View style={styles.menuItemContainer}>
       <View style={styles.leftSection}>
         <Image path={item.image} />
       </View>
       <View style={styles.centerSection}>
-        <View style={styles.iconContainer}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {item.isVeg ? <VegIcon /> : <NonvegIcon />}
           <Text style={styles.itemTitle}>{item.name}</Text>
         </View>
@@ -37,26 +37,24 @@ export default function MenuItem({ item }) {
         </Text>
         <Text style={styles.costText}>₹{item.price}</Text>
       </View>
-      <View style={styles.rightSection}>
-        {count === 0 ? (
-          <TouchableOpacity
-            onPress={async () =>
-              await addToCart(item.id, item.price).catch(e => console.log(e))
-            }>
-            <GreenButton />
-          </TouchableOpacity>
-        ) : (
-          <ItemCounter
-            count={count}
-            handleAddItems={async () => await addToCart(item.id, item.price)}
-            handleRemoveItems={async () =>
-              await removeFromCart(item.id, item.price)
-            }
-          />
-        )}
-      </View>
+      {item.isAvailable && (
+        <View style={styles.rightSection}>
+          {count === 0 ? (
+            <TouchableOpacity
+              onPress={async () => await addToCart(item.id, item.price).catch(e => console.log(e))}>
+              <GreenButton />
+            </TouchableOpacity>
+          ) : (
+            <ItemCounter
+              count={count}
+              handleAddItems={async () => await addToCart(item.id, item.price)}
+              handleRemoveItems={async () => await removeFromCart(item.id, item.price)}
+            />
+          )}
+        </View>
+      )}
     </View>
-  ) : null;
+  );
 }
 
 const styles = StyleSheet.create({
