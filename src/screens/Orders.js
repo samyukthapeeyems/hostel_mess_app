@@ -49,7 +49,7 @@ export default function Orders({ navigation }) {
     return (
       <View style={styles.containertop}>
         <View style={styles.container1}>
-          <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={{ flex: 1.06, justifyContent: 'center' }}>
             <EmojiPlaceHolder />
           </View>
           <View style={styles.container2}>
