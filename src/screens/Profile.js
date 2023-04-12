@@ -7,6 +7,7 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
+import React from 'react';
 import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
 import useAuth from '../contexts/AuthContext';

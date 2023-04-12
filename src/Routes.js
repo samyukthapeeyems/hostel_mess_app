@@ -1,10 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
+
 import {
   Menu,
   Orders,
@@ -17,11 +20,11 @@ import {
   Payment,
 } from './screens';
 
-import { LeftArrow } from '../assets/icons';
-
 import ITabBar from './components/TabBar';
 import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
+
+import { LeftArrow } from '../assets/icons';
 
 const PageHeader = ({ navigation, iconShow, title }) => {
   return (
@@ -179,6 +182,7 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginVertical: 18,
   },
   icon: {
     color: 'white',

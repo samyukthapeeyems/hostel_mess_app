@@ -7,7 +7,6 @@ export const COLORS = {
   black: '#000000',
 };
 
-
 export const SIZES = {
   base: 8,
   small: 12,

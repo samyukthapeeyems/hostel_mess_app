@@ -1,7 +1,6 @@
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-import firestore from '@react-native-firebase/firestore';
 import { useNetInfo } from '@react-native-community/netinfo';
 import useCart from '../contexts/CartContext';
 import { useItems } from '../functions/items';
@@ -11,6 +10,7 @@ import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
 import Banner from '../components/Banner';
 import ItemCounter from '../components/ItemCounter';
+
 import { COLORS } from '../constants/theme';
 
 export default function Menu({ navigation }) {
