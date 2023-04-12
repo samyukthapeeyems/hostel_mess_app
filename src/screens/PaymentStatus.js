@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
   redButtonText: {
     color: COLORS.red,
     fontSize: 18,
-    fontWeight: '700',
+    // fontWeight: '700',
   },
   paymentText: {
     fontSize: 24,
     color: 'white',
-    fontWeight: 700,
+    fontWeight: '700',
     marginBottom: 30,
   },
 });

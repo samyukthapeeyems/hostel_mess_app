@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
+
 import { COLORS } from '../constants/theme';
-// import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HeaderSkeleton = ({ children }) => {
   return (
@@ -16,16 +16,10 @@ export default HeaderSkeleton;
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: COLORS.blue,
-    // paddingVertical: 18,
-    // paddingHorizontal: 16,
-    // flexDirection: 'row',
   },
   content: {
-    // backgroundColor: 'green',
-    marginTop: 47,
+    marginVertical: 16,
     marginLeft: 15,
-    // flexDirection: 'row',
-    // alignItems: 'center',
   },
   icon: {
     color: 'white',

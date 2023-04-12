@@ -18,6 +18,7 @@ import {
   AddPayment,
   Auth,
   Payment,
+  PaymentStatus,
 } from './screens';
 
 import ITabBar from './components/TabBar';
@@ -37,7 +38,6 @@ const PageHeader = ({ navigation, iconShow, title }) => {
             </TouchableOpacity>
           </View>
         ) : null}
-
         <Text style={styles.title}>{title}</Text>
       </View>
     </HeaderSkeleton>
@@ -154,6 +154,13 @@ const RootStackScreen = () => {
             ),
           }}
         />
+        <RootStack.Screen
+          name="PaymentStatus"
+          component={PaymentStatus}
+          options={{
+            headerShown: false,
+          }}
+        />
       </RootStack.Navigator>
     </CartProvider>
   );
@@ -182,15 +189,22 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 18,
+  },
+  menuContent: {
+    marginVertical: 12,
   },
   icon: {
-    color: 'white',
     marginRight: 10,
   },
   title: {
-    color: 'white',
     fontSize: 24,
+    color: 'white',
     fontWeight: '700',
+  },
+  greeting: {
+    fontSize: 14,
+    color: 'white',
+    opacity: 0.5,
+    // fontWeight: 700,
   },
 });
