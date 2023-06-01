@@ -19,7 +19,6 @@ export default function useStorage() {
             //.setMaxOperationRetryTime(30)
             .ref(path)
             .getDownloadURL();
-            console.log(url)
             return url
         }
         catch(e){

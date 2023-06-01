@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
-import functions , {firebase} from '@react-native-firebase/functions';
+import functions, { firebase } from '@react-native-firebase/functions';
 
 
 import { View, Text, StyleSheet, FlatList } from 'react-native';
@@ -18,29 +18,15 @@ export default function Cart({ navigation }) {
 
   const [itm, setItm] = useState();
   const { getItemList, mapItemWithDocId } = useItems();
+  const [lastDocument, setLastDocument] = useState();
 
-  const cartData = async () => {
+
+  async function cartData() {
     try {
-      console.log('called cartData');
-
-      let i = performance.now();
-
-      // let itemIdList = items.map(item => item.id)
-      // let itemList = await getItemList(itemIdList)
-      // let itemListx = mapItemWithDocId(itemList)
 
       let itemIdList = Object.keys(items);
       let itemList = await getItemList(itemIdList);
       let itemListx = mapItemWithDocId(itemList);
-
-      // let cartData = itemListx.map((item) => {
-      //   let { quantity } = items.find(_item => _item.id === item.id)
-      //   return {
-      //     ...item,
-      //     price: quantity * item.price,
-      //     quantity: quantity
-      //   }
-      // })
 
       let cartData = itemListx.map(item => {
         return {
@@ -50,32 +36,27 @@ export default function Cart({ navigation }) {
         };
       });
 
-      // console.log(cartData, "\nended")
-
-      // console.log('perf ', performance.now() - i);
-
-
       return cartData;
+
     } catch (err) {
+
       console.log(err);
     }
   };
-  // }, [totalAmount])
-
 
   async function createOrder() {
 
     const defaultApp = firebase.app();
     const _functions = defaultApp.functions('asia-south1');
-    
+
     const itemList = Object.entries(items).map((e) => ({ id: e[0], quantity: e[1].quantity }))
 
     console.log(itemList)
     const createOrder = _functions.httpsCallable('createOrder')
     try {
-      let response = await createOrder({itemList})
+      let response = await createOrder({ itemList })
       console.log("response", response)
-      console.log("res data ",response.data)
+      console.log("res data ", response.data)
 
     } catch (error) {
       console.log(error)

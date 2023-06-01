@@ -40,11 +40,10 @@ export default function Menu({ navigation }) {
   }
 
   useEffect(() => {
-    if (!query) {
+    if (!query)
       loadData()
-    } else {
-      searchItems(query).then(snapShot =>  onResult(snapShot));
-    }
+    else
+      searchItems(query).then(snapShot => onResult(snapShot));
   }, [query]);
 
   return (

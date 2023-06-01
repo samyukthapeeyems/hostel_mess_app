@@ -1,42 +1,66 @@
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import useAuth from '../contexts/AuthContext'
+import useAuth from '../contexts/AuthContext';
 import EmojiPlaceHolder from '../components/EmojiPlaceholder';
 
 export default function Orders({ navigation }) {
   let { navigate } = navigation;
-  const { user } = useAuth()
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [lastDocument, setLastDocument] = useState();
+
+  const { user } = useAuth();
+
+  async function getOrders() {
+    console.log('LOAD DATA');
+    let query = firestore()
+      .collection('orders')
+      .where('user', '==', user.uid)
+      .orderBy('placed_at', 'desc');
+
+    if (lastDocument !== undefined) query = query.startAfter(lastDocument);
+
+    let snapShot = await query.limit(10).get();
+
+    setLastDocument(snapShot.docs.at(-1));
+
+    let _orders = [];
+
+    snapShot.forEach(order => {
+      _orders.push(order.data());
+    });
+
+    setOrders([...orders, ..._orders]);
+
+    console.log('lastDoc : ', lastDocument);
+  }
 
   useEffect(() => {
-    firestore().collection('orders').where("user", '==', user.uid).orderBy('placed_at', 'desc').get()
-      .then(result => {
-        let orders = []
-        result.docs.forEach((order) => {
-          orders.push({
-            id: order.id,
-            ...order.data()
-          })
-        })
-        setOrders(orders)
-      })
-  }, [])
+    getOrders();
+  }, []);
+
   return (
     <FlatList
       data={orders}
-      keyExtractor={item => item.id}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={item => <OrderCard item={item} />}
       style={styles.flatList}
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={<View style={styles.seperator} />}
+      onEndReachedThreshold={0.2}
+      onEndReached={getOrders}
     />
-
   );
 
-
   function OrderCard({ item }) {
-    let { item: element } = item
+    let { item: element } = item;
     return (
       <View style={styles.containertop}>
         <View style={styles.container1}>
@@ -48,7 +72,11 @@ export default function Orders({ navigation }) {
             <Text style={styles.ordertitle}>{element.items.length} Items</Text>
           </View>
           <View style={styles.container3}>
-            <Text style={styles.ordertime}>{element.placed_at.toDate().toLocaleDateString(undefined, { dateStyle: 'short' })}</Text>
+            <Text style={styles.ordertime}>
+              {element.placed_at
+                .toDate()
+                .toLocaleDateString(undefined, { dateStyle: 'short' })}
+            </Text>
             <Text style={styles.ordercost}>₹{element.total_amount}</Text>
             <TouchableOpacity
               style={styles.touch}
@@ -60,10 +88,10 @@ export default function Orders({ navigation }) {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
-  containertop: { flexDirection: 'column', },
+  containertop: { flexDirection: 'column' },
   container1: { flexDirection: 'row', padding: 5 },
   container2: {
     flex: 2,
