@@ -64,23 +64,23 @@ export default function Orders({ navigation }) {
     return (
       <View style={styles.containertop}>
         <View style={styles.container1}>
-          <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={{ flex: 1.06, justifyContent: 'center' }}>
             <EmojiPlaceHolder />
           </View>
           <View style={styles.container2}>
-            <Text style={styles.ordertext}>#{element.id}</Text>
+            <Text style={styles.ordertext}>Order ID : {element.id}</Text>
             <Text style={styles.ordertitle}>{element.items.length} Items</Text>
           </View>
           <View style={styles.container3}>
             <Text style={styles.ordertime}>
-              {element.placed_at
-                .toDate()
-                .toLocaleDateString(undefined, { dateStyle: 'short' })}
+              {element.placed_at.toDate().toDateString()}
             </Text>
             <Text style={styles.ordercost}>₹{element.total_amount}</Text>
             <TouchableOpacity
               style={styles.touch}
-              onPress={() => navigate('OrderDetails', { item: element })}>
+              onPress={() =>
+                navigation.navigate('OrderDetails', { item: element })
+              }>
               <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
             </TouchableOpacity>
           </View>

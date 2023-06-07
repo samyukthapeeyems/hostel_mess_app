@@ -29,5 +29,5 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     alignItems: 'center',
   },
-  text: { color: COLORS.black },
+  text: { color: COLORS.black, fontSize: 14 },
 });

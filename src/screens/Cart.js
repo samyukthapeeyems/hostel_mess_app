@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import functions, { firebase } from '@react-native-firebase/functions';
 
-
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useItems } from '../functions/items';
 import useCart from '../contexts/CartContext';
@@ -13,17 +12,22 @@ import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
+import RazorpayCheckout from 'react-native-razorpay';
+import useAuth from '../contexts/AuthContext';
+
+// import AllInOneSDKManager from 'paytm_allinone_react-native';
+///
+
 export default function Cart({ navigation }) {
   const { items, totalAmount } = useCart();
+  const { user } = useAuth();
 
   const [itm, setItm] = useState();
   const { getItemList, mapItemWithDocId } = useItems();
   const [lastDocument, setLastDocument] = useState();
 
-
   async function cartData() {
     try {
-
       let itemIdList = Object.keys(items);
       let itemList = await getItemList(itemIdList);
       let itemListx = mapItemWithDocId(itemList);
@@ -37,31 +41,68 @@ export default function Cart({ navigation }) {
       });
 
       return cartData;
-
     } catch (err) {
-
       console.log(err);
     }
-  };
+  }
 
   async function createOrder() {
-
     const defaultApp = firebase.app();
     const _functions = defaultApp.functions('asia-south1');
 
-    const itemList = Object.entries(items).map((e) => ({ id: e[0], quantity: e[1].quantity }))
+    const itemList = Object.entries(items).map(e => ({
+      id: e[0],
+      quantity: e[1].quantity,
+    }));
 
-    console.log(itemList)
-    const createOrder = _functions.httpsCallable('createOrder')
+    console.log(itemList);
+    const _createOrder = _functions.httpsCallable('createOrder');
     try {
-      let response = await createOrder({ itemList })
-      console.log("response", response)
-      console.log("res data ", response.data)
+      let response = await _createOrder({ itemList });
+      console.log('response', response);
+      console.log('res data ', response.data);
 
+      // AllInOneSDKManager.startTransaction(
+      //   response.data.order.orderId,
+      //   'xZhVnv93110728543806',
+      //   response.data.payment.body.txnToken,
+      //   response.data.order.totalPrice,
+      //   'callbackUrl',
+      //   (isStaging = false),
+      //   (restrictAppInvoke = true),
+      //   'urlScheme',
+      // )
+      //   .then(result => {
+      //     console.log(result);
+      //   })
+      //   .catch(err => {
+      //     handleError(err);
+      //   });
+
+      var options = {
+        currency: 'INR',
+        key: 'rzp_test_jMhBMG22u7fqUA',
+        amount: (totalAmount * 100).toString(),
+        name: 'E Canteen',
+        order_id: 'order_DslnoIgkIDL8Zt',
+        prefill: {
+          email: user.email,
+          contact: user.phone || 9876543210,
+          name: user.displayName,
+        },
+        theme: { color: '#3358F9' },
+      };
+      RazorpayCheckout.open(options)
+        .then(data => {
+          alert(`Success: ${data.razorpay_payment_id}`);
+        })
+        .catch(error => {
+          alert(`Error: ${error.code} | ${error.description}`);
+        });
+        
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   }
 
   useEffect(() => {
@@ -91,7 +132,10 @@ export default function Cart({ navigation }) {
       <Button
         style={styles.confirmbutton}
         textStyle={styles.confirmButtonText}
-        onPress={async () => await createOrder()}>
+        onPress={async () => {
+          await createOrder();
+          // navigation.navigate('Payment');
+        }}>
         CONFIRM ORDER
       </Button>
     </>

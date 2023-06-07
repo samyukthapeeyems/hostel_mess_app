@@ -1,4 +1,10 @@
-import { Text, View, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  StyleSheet,
+} from 'react-native';
 import useAuth from '../contexts/AuthContext';
 import LoginImg from '../../assets/images/LoginImg.png';
 import { GoogleLogo } from '../../assets/icons';

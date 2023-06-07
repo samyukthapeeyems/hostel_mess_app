@@ -1,8 +1,18 @@
-import { FlatList, StyleSheet, Text, View, ScrollView, Image, ImageBackground } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  ImageBackground,
+} from 'react-native';
+import React from 'react';
 import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
 import useAuth from '../contexts/AuthContext';
 import Button from '../components/Button';
+import { Transactiongreen } from '../../assets/icons';
 
 const Transactions = [
   {
@@ -43,12 +53,11 @@ const Transactions = [
   },
 ];
 
-
 const TransactionCard = ({ item }) => {
   return (
     <View style={styles.transactionContainer}>
       <View style={styles.transactionIcon}>
-        <Text>Icon</Text>
+        <Transactiongreen />
       </View>
       <View style={styles.transactionDate}>
         <Text style={styles.date}>{item.date}</Text>
@@ -63,17 +72,11 @@ const TransactionCard = ({ item }) => {
 const WalletCardSection = () => {
   return (
     <View style={styles.walletSectionContainer}>
-      <View style={styles.walletCardContainer}>
-        <ImageBackground
-          source={YellowWallet}
-          resizeMode="cover"
-          style={styles.walletImg}>
-          <View style={styles.walletDetailsContainer}>
-            <Text style={styles.walletTitle}>eCanteen Wallet</Text>
-            <Text style={styles.walletTitle2}>Wallet Balance</Text>
-            <Text style={styles.walletBalance}>₹4000</Text>
-          </View>
-        </ImageBackground>
+      <View>
+        <Image source={YellowWallet} style={styles.walletcardimage} />
+        <Text style={styles.ewalletext}>eCanteen Wallet</Text>
+        <Text style={styles.walletBalancetitle}>Wallet Balance</Text>
+        <Text style={styles.walletBalance}>₹0</Text>
       </View>
       <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
         + Add Money
@@ -82,7 +85,6 @@ const WalletCardSection = () => {
   );
 };
 export default function Profile() {
-
   const { signOut, user } = useAuth();
 
   return (
@@ -97,8 +99,15 @@ export default function Profile() {
             />
           </View>
           <View style={styles.detailsContainer}>
-            <Text style={styles.name} numberOfLines={1}>{user.displayName}</Text>
-            <Text style={styles.email}> {user.email.length < 35 ? `${user.email}` : `${user.email.substring(0, 28)}...`}</Text>
+            <Text style={styles.name} numberOfLines={1}>
+              {user.displayName}
+            </Text>
+            <Text style={styles.email}>
+              {' '}
+              {user.email.length < 35
+                ? `${user.email}`
+                : `${user.email.substring(0, 28)}...`}
+            </Text>
           </View>
         </View>
         <View style={styles.rightContainer}>
@@ -111,9 +120,7 @@ export default function Profile() {
         </View>
       </View>
 
-
       <WalletCardSection />
-
 
       <FlatList
         data={Transactions}
@@ -122,7 +129,9 @@ export default function Profile() {
         ItemSeparatorComponent={<View style={styles.seperator} />}
         ListHeaderComponent={
           <View style={styles.transactionHeaderContainer}>
-            <Text style={styles.transactionHeaderText}>Recent Transactions</Text>
+            <Text style={styles.transactionHeaderText}>
+              Recent Transactions
+            </Text>
           </View>
         }
         style={styles.flatList}
@@ -130,7 +139,7 @@ export default function Profile() {
       />
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -183,11 +192,36 @@ const styles = StyleSheet.create({
   walletSectionContainer: {
     backgroundColor: 'white',
     paddingHorizontal: 16,
-    paddingVertical: 15,
+    paddingVertical: 16,
     marginTop: 15,
   },
-  walletCardContainer: {
-    alignItems: 'center',
+  walletcardimage: {
+    width: '100%',
+    borderRadius: 20,
+  },
+  ewalletext: {
+    position: 'absolute',
+    fontSize: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    color: COLORS.white,
+    fontWeight: '700',
+  },
+  walletBalancetitle: {
+    position: 'absolute',
+    fontSize: 14,
+    paddingHorizontal: 20,
+    paddingVertical: 73,
+    color: COLORS.white,
+    fontWeight: '400',
+  },
+  walletBalance: {
+    position: 'absolute',
+    fontSize: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 86,
+    color: COLORS.white,
+    fontWeight: '700',
   },
   addMoneyButton: {
     backgroundColor: COLORS.green,
@@ -196,7 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 16,
+    paddingHorizontal: 10,
   },
   addMoneyText: {
     color: 'white',
@@ -211,11 +245,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   transactionDate: {
-    flex: 3,
+    flex: 6,
     flexDirection: 'row',
   },
   cost: {
-    flex: 1,
+    flex: 2,
+    alignItems: 'flex-end',
   },
   transactionHeaderContainer: { paddingVertical: 15 },
   transactionHeaderText: {
@@ -240,27 +275,4 @@ const styles = StyleSheet.create({
   costText: { fontSize: 20, fontWeight: '700', color: COLORS.green },
   day: { fontSize: 18, fontWeight: '700', color: COLORS.black },
   date: { fontSize: 18, fontWeight: '700', color: COLORS.black },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  walletImg: { width: 358, height: 150 },
-  walletDetailsContainer: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  walletTitle: {
-    marginBottom: 30,
-    fontSize: 24,
-    fontWeight: '700',
-    color: 'white',
-  },
-  walletTitle2: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: 'white',
-    opacity: 0.5,
-  },
-  walletBalance: { fontSize: 40, fontWeight: '700', color: 'white' },
 });

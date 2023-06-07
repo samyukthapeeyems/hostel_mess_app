@@ -18,12 +18,11 @@ export default function MenuItem({ item }) {
     // if (_item?.quantity) setCount(_item.quantity);
     // else setCount(0);
 
-    if (items[item.id])
-      setCount(items[item.id].quantity)
-    else setCount(0)
+    if (items[item.id]) setCount(items[item.id].quantity);
+    else setCount(0);
   }, [totalAmount]);
 
-  return (
+  return(
     <View style={styles.menuItemContainer}>
       <View style={styles.leftSection}>
         <Image path={item.image} />
@@ -60,7 +59,7 @@ export default function MenuItem({ item }) {
 
 const styles = StyleSheet.create({
   menuItemContainer: {
-    marginVertical: 5,
+    marginVertical: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -75,7 +74,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   rightSection: {
-    flex: 1,
+    flex: 1.2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -95,4 +94,5 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     marginLeft: 6,
   },
+  iconContainer: { flexDirection: 'row', alignItems: 'center' },
 });

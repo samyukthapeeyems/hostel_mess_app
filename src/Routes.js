@@ -1,43 +1,55 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import useAuth from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
-import { Menu, Orders, Profile, OrderDetails, Cart, Token, AddPayment, Auth, Payment, } from './screens';
 
-import { LeftArrow } from '../assets/icons';
+import {
+  Menu,
+  Orders,
+  Profile,
+  OrderDetails,
+  Cart,
+  Token,
+  AddPayment,
+  Auth,
+  Payment,
+  PaymentStatus,
+} from './screens';
 
 import ITabBar from './components/TabBar';
 import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
 
+import { LeftArrow } from '../assets/icons';
+
 const PageHeader = ({ navigation, iconShow, title }) => {
-  return < HeaderSkeleton >
-    <View style={styles.content}>
-      {iconShow ? (
-        <View style={styles.icon}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <LeftArrow />
-          </TouchableOpacity>
-        </View>
-      ) : null}
+  return (
+    <HeaderSkeleton>
+      <View style={styles.content}>
+        {iconShow ? (
+          <View style={styles.icon}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <LeftArrow />
+            </TouchableOpacity>
+          </View>
+        ) : null}
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </HeaderSkeleton>
+  );
+};
 
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  </HeaderSkeleton >
-}
-
-  ;
 const TabsScreen = () => {
   const Tabs = createBottomTabNavigator();
   return (
     <Tabs.Navigator
       initialRouteName="Menu"
-      tabBar={props => <ITabBar {...props} />}
-      
-      >
+      tabBar={props => <ITabBar {...props} />}>
       <Tabs.Screen
         name="Menu"
         component={Menu}
@@ -49,7 +61,11 @@ const TabsScreen = () => {
         component={Orders}
         options={{
           header: ({ navigation }) => (
-            <PageHeader title="Orders" iconShow={false} navigation={navigation} />
+            <PageHeader
+              title="Orders"
+              iconShow={false}
+              navigation={navigation}
+            />
           ),
         }}
       />
@@ -58,7 +74,11 @@ const TabsScreen = () => {
         component={Profile}
         options={{
           header: ({ navigation }) => (
-            <PageHeader title="My Profile" iconShow={false} navigation={navigation} />
+            <PageHeader
+              title="My Profile"
+              iconShow={false}
+              navigation={navigation}
+            />
           ),
         }}
       />
@@ -72,8 +92,14 @@ const RootStackScreen = () => {
   return (
     <CartProvider>
       <RootStack.Navigator>
-        <RootStack.Screen name="TabsScreen" component={TabsScreen} options={{ headerShown: false }} />
-        <RootStack.Screen name="Cart" component={Cart}
+        <RootStack.Screen
+          name="TabsScreen"
+          component={TabsScreen}
+          options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name="Cart"
+          component={Cart}
           options={{
             header: ({ navigation }) => (
               <PageHeader
@@ -84,7 +110,9 @@ const RootStackScreen = () => {
             ),
           }}
         />
-        <RootStack.Screen name="OrderDetails" component={OrderDetails}
+        <RootStack.Screen
+          name="OrderDetails"
+          component={OrderDetails}
           options={{
             header: ({ navigation }) => (
               <PageHeader
@@ -95,7 +123,11 @@ const RootStackScreen = () => {
             ),
           }}
         />
-        <RootStack.Screen name="Token" component={Token} options={{ headerShown : false }}/>
+        <RootStack.Screen
+          name="Token"
+          component={Token}
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen
           name="AddPayment"
           component={AddPayment}
@@ -120,6 +152,13 @@ const RootStackScreen = () => {
                 iconShow={true}
               />
             ),
+          }}
+        />
+        <RootStack.Screen
+          name="PaymentStatus"
+          component={PaymentStatus}
+          options={{
+            headerShown: false,
           }}
         />
       </RootStack.Navigator>
@@ -151,13 +190,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  menuContent: {
+    marginVertical: 12,
+  },
   icon: {
-    color: 'white',
     marginRight: 10,
   },
   title: {
-    color: 'white',
     fontSize: 24,
+    color: 'white',
     fontWeight: '700',
+  },
+  greeting: {
+    fontSize: 14,
+    color: 'white',
+    opacity: 0.5,
+    // fontWeight: 700,
   },
 });

@@ -1,5 +1,6 @@
-import { View, StyleSheet, FlatList } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+
 import { useNetInfo } from '@react-native-community/netinfo';
 import useCart from '../contexts/CartContext';
 import { useItems } from '../functions/items';
@@ -8,13 +9,20 @@ import MenuItem from '../components/MenuItem';
 import CartBanner from '../components/CartBanner';
 import SearchBar from '../components/SearchBar';
 import Banner from '../components/Banner';
+import ItemCounter from '../components/ItemCounter';
+
+import { COLORS } from '../constants/theme';
 
 export default function Menu({ navigation }) {
   const [itemList, setItemList] = useState([]);
   const [loading, setloading] = useState(false);
   const [query, setQuery] = useState('');
+
+  const [count, setCount] = useState(0);
+
   const { items } = useCart();
-  const { searchItems, mapItemWithDocId, loadItemBundle, getAllItems } = useItems();
+  const { searchItems, mapItemWithDocId, loadItemBundle, getAllItems } =
+    useItems();
   const netinfo = useNetInfo();
 
   const onResult = snapShot => {
@@ -26,26 +34,25 @@ export default function Menu({ navigation }) {
     console.error(error);
   }
 
-
   async function loadData(cachePolicy) {
-    setloading(true)
+    setloading(true);
     try {
-      await loadItemBundle(cachePolicy)
+      await loadItemBundle(cachePolicy);
       let snapShot = await getAllItems();
-      onResult(snapShot)
+      onResult(snapShot);
     } catch (e) {
-      onError(e)
+      onError(e);
     }
-    setloading(false)
+    setloading(false);
   }
 
   useEffect(() => {
-    if (!query)
-      loadData()
-    else
+    if (!query) {
+      loadData();
+    } else {
       searchItems(query).then(snapShot => onResult(snapShot));
+    }
   }, [query]);
-
   return (
     <>
       <View style={styles.menuPageContent}>
@@ -55,13 +62,21 @@ export default function Menu({ navigation }) {
           keyExtractor={item => item.id}
           ItemSeparatorComponent={<View style={styles.seperator} />}
           ListHeaderComponent={
-            <SearchBar setter={setQuery} placeholderText={'Porotta Dosa ...'} />
+            <>
+              <SearchBar
+                setter={setQuery}
+                placeholderText={'Porotta Dosa ...'}
+              />
+              <Text style={styles.orderText}>Order your food 🍛</Text>
+            </>
           }
           showsVerticalScrollIndicator={false}
           refreshing={loading} // Added pull to refesh state
-          onRefresh={() => loadData("reload")} // Added pull to refresh control
+          onRefresh={() => loadData('reload')} // Added pull to refresh control
         />
 
+        {/* <ItemCounter count={count} handleAddItems={()=>setCount(count+1)}
+        handleRemoveItems={()=>setCount(count-1)}></ItemCounter> */}
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}
@@ -70,17 +85,22 @@ export default function Menu({ navigation }) {
       )}
     </>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
   menuPageContent: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingHorizontal: 15,
   },
   seperator: {
     backgroundColor: '#d9d9d9',
     height: 0.5,
+  },
+  orderText: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: 'black',
+    marginBottom: 5,
   },
 });
