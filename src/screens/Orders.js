@@ -5,6 +5,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import useAuth from '../contexts/AuthContext';
@@ -12,50 +13,34 @@ import EmojiPlaceHolder from '../components/EmojiPlaceholder';
 
 export default function Orders({ navigation }) {
   let { navigate } = navigation;
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [lastDocument, setLastDocument] = useState();
-
   const { user } = useAuth();
-
-  async function getOrders() {
-    console.log('LOAD DATA');
-    let query = firestore()
-      .collection('orders')
-      .where('user', '==', user.uid)
-      .orderBy('placed_at', 'desc');
-
-    if (lastDocument !== undefined) query = query.startAfter(lastDocument);
-
-    let snapShot = await query.limit(10).get();
-
-    setLastDocument(snapShot.docs.at(-1));
-
-    let _orders = [];
-
-    snapShot.forEach(order => {
-      _orders.push(order.data());
-    });
-
-    setOrders([...orders, ..._orders]);
-
-    console.log('lastDoc : ', lastDocument);
-  }
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    getOrders();
+    firestore()
+      .collection('orders')
+      .where('user', '==', user.uid)
+      .orderBy('placed_at', 'desc')
+      .get()
+      .then(result => {
+        let orders = [];
+        result.docs.forEach(order => {
+          orders.push({
+            id: order.id,
+            ...order.data(),
+          });
+        });
+        setOrders(orders);
+      });
   }, []);
-
   return (
     <FlatList
       data={orders}
-      keyExtractor={(item, index) => index.toString()}
+      keyExtractor={item => item.id}
       renderItem={item => <OrderCard item={item} />}
       style={styles.flatList}
       showsVerticalScrollIndicator={false}
       ItemSeparatorComponent={<View style={styles.seperator} />}
-      onEndReachedThreshold={0.2}
-      onEndReached={getOrders}
     />
   );
 
