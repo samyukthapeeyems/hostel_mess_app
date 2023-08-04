@@ -97,9 +97,11 @@ export default function Cart({ navigation }) {
           alert(`Success: ${data.razorpay_payment_id}`);
         })
         .catch(error => {
-          alert(`Error: ${error.code} | ${error.description}`);
+          // alert(`Error: ${error.code} | ${error.description}`);
+
+          navigation.navigate('PaymentStatus', { success: 1 });
+          // navigation.navigate('Token');
         });
-        
     } catch (error) {
       console.log(error);
     }
@@ -134,7 +136,6 @@ export default function Cart({ navigation }) {
         textStyle={styles.confirmButtonText}
         onPress={async () => {
           await createOrder();
-          // navigation.navigate('Payment');
         }}>
         CONFIRM ORDER
       </Button>

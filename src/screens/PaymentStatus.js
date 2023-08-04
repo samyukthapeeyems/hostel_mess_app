@@ -23,9 +23,9 @@ const PaymentStatus = ({ navigation, route }) => {
           style={styles.whiteButton}
           textStyle={success ? styles.greenButtonText : styles.redButtonText}
           onPress={() => {
-            navigation.navigate('TabsScreen');
+            navigation.navigate('Token');
           }}>
-          BACK TO HOME
+          GENERATE TOKEN
         </Button>
       </View>
     </View>

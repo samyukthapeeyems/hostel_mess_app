@@ -4,7 +4,7 @@ import React from 'react';
 import useCart from '../contexts/CartContext';
 
 function CountDownTimer({ navigation, initialValue }) {
-  const [time, setTime] = React.useState(initialValue || 10);
+  const [time, setTime] = React.useState(initialValue || 30);
   const timerRef = React.useRef(time);
 
   React.useEffect(() => {
@@ -63,7 +63,7 @@ const Token = ({ navigation }) => {
             <Text style={{ color: '#32BA7C', fontSize: 72, fontWeight: '700' }}>
               ₹{totalAmount}
             </Text>
-            <CountDownTimer navigation={navigation} />
+            {/* <CountDownTimer navigation={navigation} /> */}
           </View>
         </View>
         <View style={{ flex: 1 }}>
