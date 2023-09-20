@@ -8,7 +8,8 @@ import PaymentFailed from '../../assets/images/PaymentFailed.png';
 import { COLORS } from '../constants/theme';
 
 const PaymentStatus = ({ navigation, route }) => {
-  let success = route.params.success;
+  let success = 'Succesfull';
+
   return (
     <View style={success ? styles.successPage : styles.failurePage}>
       <View style={styles.iconContainer}>
@@ -23,9 +24,11 @@ const PaymentStatus = ({ navigation, route }) => {
           style={styles.whiteButton}
           textStyle={success ? styles.greenButtonText : styles.redButtonText}
           onPress={() => {
-            navigation.navigate('Token');
+            navigation.navigate('OrderDetails1', {
+              orderList: route.params.orderList,
+            });
           }}>
-          GENERATE TOKEN
+          VIEW ORDER DETAILS
         </Button>
       </View>
     </View>
@@ -67,7 +70,6 @@ const styles = StyleSheet.create({
   redButtonText: {
     color: COLORS.red,
     fontSize: 18,
-    // fontWeight: '700',
   },
   paymentText: {
     fontSize: 24,

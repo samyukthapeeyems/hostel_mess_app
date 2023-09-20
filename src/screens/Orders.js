@@ -20,7 +20,8 @@ export default function Orders({ navigation }) {
     firestore()
       .collection('orders')
       .where('user', '==', user.uid)
-      .orderBy('placed_at', 'desc')
+      .where('status', '!=', 'Pending')
+      // .orderBy('placed_at', 'desc')
       .get()
       .then(result => {
         let orders = [];
