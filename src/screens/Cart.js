@@ -19,6 +19,7 @@ export default function Cart({ navigation }) {
 
   const [itm, setItm] = useState();
   const { getItemList, mapItemWithDocId } = useItems();
+  const [orderId, setOrderId] = useState();
 
   const orderList = itm?.map(item => {
     return {
@@ -72,7 +73,10 @@ export default function Cart({ navigation }) {
 
       // console.log('response', response);
       console.log('res data ', response.data);
+
+      // let id = response.data.order.orderId;
       console.log('res data order id  ', response.data.order.orderId);
+      setOrderId(response.data.order.orderId);
 
       let txnResp = await _initTxn({
         amount: response.data.order.totalPrice,
@@ -83,9 +87,7 @@ export default function Cart({ navigation }) {
       console.log('Transaction Response is: ');
       console.log(txnResp);
 
-      navigation.navigate('Payment', {
-        orderList: orderList,
-      });
+      navigation.navigate('Payment');
     } catch (error) {
       console.log(error);
     }

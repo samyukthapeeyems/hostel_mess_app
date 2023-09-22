@@ -1,8 +1,11 @@
-import Router from './src/Routes';
 import React, { useEffect } from 'react';
-import auth from '@react-native-firebase/auth';
-import useAuth from './src/contexts/AuthContext';
 import { View, StyleSheet } from 'react-native';
+
+import auth from '@react-native-firebase/auth';
+
+import useAuth from './src/contexts/AuthContext';
+
+import Router from './src/Routes';
 
 const App = () => {
   const { setUser } = useAuth();

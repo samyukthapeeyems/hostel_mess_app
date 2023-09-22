@@ -20,43 +20,43 @@ export default function Menu({ navigation }) {
 
   const [count, setCount] = useState(0);
 
-  // const { items } = useCart();
-  // const { searchItems, mapItemWithDocId, loadItemBundle, getAllItems } =
-  //   useItems();
+  const { items } = useCart();
+  const { searchItems, mapItemWithDocId, loadItemBundle, getAllItems } =
+    useItems();
   const netinfo = useNetInfo();
 
-  // const onResult = snapShot => {
-  //   let items = mapItemWithDocId(snapShot);
-  //   setItemList(items);
-  // };
+  const onResult = snapShot => {
+    let items = mapItemWithDocId(snapShot);
+    setItemList(items);
+  };
 
-  // function onError(error) {
-  //   console.error(error);
-  // }
+  function onError(error) {
+    console.error(error);
+  }
 
-  // async function loadData(cachePolicy) {
-  //   setloading(true);
-  //   try {
-  //     await loadItemBundle(cachePolicy);
-  //     let snapShot = await getAllItems();
-  //     onResult(snapShot);
-  //   } catch (e) {
-  //     onError(e);
-  //   }
-  //   setloading(false);
-  // }
+  async function loadData(cachePolicy) {
+    setloading(true);
+    try {
+      await loadItemBundle(cachePolicy);
+      let snapShot = await getAllItems();
+      onResult(snapShot);
+    } catch (e) {
+      onError(e);
+    }
+    setloading(false);
+  }
 
-  // useEffect(() => {
-  //   if (!query) {
-  //     loadData();
-  //   } else {
-  //     searchItems(query).then(snapShot => onResult(snapShot));
-  //   }
-  // }, [query]);
+  useEffect(() => {
+    if (!query) {
+      loadData();
+    } else {
+      searchItems(query).then(snapShot => onResult(snapShot));
+    }
+  }, [query]);
   return (
     <>
       <View style={styles.menuPageContent}>
-        {/* <FlatList
+        <FlatList
           data={itemList}
           renderItem={({ item }) => <MenuItem item={item} />}
           keyExtractor={item => item.id}
@@ -73,16 +73,18 @@ export default function Menu({ navigation }) {
           showsVerticalScrollIndicator={false}
           refreshing={loading} // Added pull to refesh state
           onRefresh={() => loadData('reload')} // Added pull to refresh control
-        /> */}
+        />
 
-        {/* <ItemCounter count={count} handleAddItems={()=>setCount(count+1)}
-        handleRemoveItems={()=>setCount(count-1)}></ItemCounter> */}
+        {/* <ItemCounter
+          count={count}
+          handleAddItems={() => setCount(count + 1)}
+          handleRemoveItems={() => setCount(count - 1)}></ItemCounter> */}
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}
-      {/* {Object.keys(items).length > 0 && (
+      {Object.keys(items).length > 0 && (
         <CartBanner navigation={navigation} count={Object.keys(items).length} />
-      )} */}
+      )}
     </>
   );
 }

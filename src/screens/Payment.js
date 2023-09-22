@@ -13,6 +13,8 @@ const Payment = ({ navigation, item, route }) => {
   const { orderList } = route.params;
   console.log('payment page orderlist: ', orderList);
 
+  const [orderId, setOrderId] = useState();
+
   const { items, totalAmount } = useCart();
   console.log('items in payment page', items);
   const radio_props = [
@@ -38,9 +40,11 @@ const Payment = ({ navigation, item, route }) => {
     try {
       let response = await _createOrder({ itemList });
 
-      console.log('response', response);
-      console.log('res data ', response.data);
+      // console.log('response', response);
+      // console.log('res data ', response.data);
       console.log('res data order id  ', response.data.order.orderId);
+      setOrderId(response.data.order.orderId);
+      console.log('order id is: ', orderId);
 
       let txnResp = await _initTxn({
         amount: response.data.order.totalPrice,
@@ -52,7 +56,7 @@ const Payment = ({ navigation, item, route }) => {
       console.log(txnResp);
 
       navigation.navigate('PaymentStatus', {
-        orderList: orderList,
+        orderId: orderId,
       });
     } catch (error) {
       console.log(error);

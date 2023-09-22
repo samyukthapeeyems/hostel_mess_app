@@ -5,7 +5,10 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
+import React from 'react';
+
 import useAuth from '../contexts/AuthContext';
+
 import LoginImg from '../../assets/images/LoginImg.png';
 import { GoogleLogo } from '../../assets/icons';
 
@@ -13,13 +16,13 @@ const Auth = () => {
   const { signIn } = useAuth();
   return (
     <>
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.container}>
           <ImageBackground
             source={LoginImg}
             resizeMode="cover"
             style={styles.image}>
-            <Text style={styles.text2}>e</Text>
+            <Text style={styles.text2}>E</Text>
             <Text style={styles.text}>Canteen</Text>
           </ImageBackground>
         </View>
@@ -29,7 +32,8 @@ const Auth = () => {
             <View style={styles.lgsview}>
               <Text style={styles.lgstext}>Let’s Get Started</Text>
               <Text style={styles.logintext}>
-                Login/Signup with your Google Account
+                {/* maybe change the below text?? */}
+                Login / Signup with your Google Account
               </Text>
             </View>
             <TouchableOpacity

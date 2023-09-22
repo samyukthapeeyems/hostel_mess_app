@@ -5,10 +5,12 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import firestore from '@react-native-firebase/firestore';
+
 import useAuth from '../contexts/AuthContext';
+
 import EmojiPlaceHolder from '../components/EmojiPlaceholder';
 
 export default function Orders({ navigation }) {

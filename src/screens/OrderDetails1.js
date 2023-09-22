@@ -57,25 +57,26 @@ export default function OrderDetails1({ route, navigation }) {
   // let orderList = route.params.orderList;
   // calculate total from the orderlist by mapping
   let total = orderList ? orderList.reduce((a, b) => a + b.totalPrice, 0) : 0;
-  console.log('orderList in order list page is: ', orderList);
+
+  console.log('order id in order details page:', route.params.orderId);
 
   // fetch the order list from the database using the order id
   useEffect(() => {
-    // firestore()
-    //   .collection('orders')
-    //   .doc('JFM0ORl6gbfJaNhEWEhE')
-    //   .get()
-    //   .then(result => {
-    //     let orderData = result.data();
-    //     console.log('orderData is: ', orderData);
-    //     setOrderList(orderData.orderList);
-    //   });
+    firestore()
+      .collection('orders')
+      .doc(route.params.orderId)
+      .get()
+      .then(result => {
+        let orderData = result.data();
+        console.log('orderData is: ', orderData);
+        setOrderList(orderData.orderList);
+        console.log('orderList is:', orderList);
+      });
     // fetch the item names from the database using the item id from the order list
   }, []);
 
   return (
     <View>
-      <Text>Order Details</Text>
       <FlatList
         data={orderList}
         keyExtractor={item => item.id}
@@ -84,24 +85,26 @@ export default function OrderDetails1({ route, navigation }) {
         ListFooterComponent={<Total total={total} />}
         style={styles.detailsContainer}
       />
+      <View style={styles.disclaimerBox}>
+        <InfoCard
+          emoji="❌"
+          info="Order Cancellation Not Allowed due to Canteen Policies"
+          color="#E24C4B26"
+          borderColor="#E24C4B"
+          fontColor="#E24C4B"
+        />
 
-      <InfoCard
-        emoji="❌"
-        info="Order Cancellation Not Allowed due to Canteen Policies"
-        color="#E24C4B26"
-        borderColor="#E24C4B"
-        fontColor="#E24C4B"
-      />
+        <InfoCard
+          emoji="🧾"
+          info="Only Generate the Token When You Reach the Counter"
+        />
 
-      <InfoCard
-        emoji="🧾"
-        info="Only Generate the Token When You Reach the Counter"
-      />
+        <InfoCard
+          emoji="⏱️"
+          info="The Token will Auto-Expire in 30s after Clicking Generate Token"
+        />
+      </View>
 
-      <InfoCard
-        emoji="⏱️"
-        info="The Token will Auto-Expire in 30s after Clicking Generate Token"
-      />
       <Button
         style={styles.confirmbutton}
         textStyle={styles.confirmButtonText}
@@ -191,5 +194,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: '700',
+  },
+  disclaimerBox: {
+    backgroundColor: COLORS.white,
+    paddingHorizontal: 16,
+    paddingVertical: 15,
+    marginBottom: 20,
   },
 });

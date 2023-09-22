@@ -9,6 +9,9 @@ import { COLORS } from '../constants/theme';
 
 const PaymentStatus = ({ navigation, route }) => {
   let success = 'Succesfull';
+  // const { orderId } = route.params.orderId;
+  let orderId = route.params.orderId;
+  console.log('order id in payment status page: ', orderId);
 
   return (
     <View style={success ? styles.successPage : styles.failurePage}>
@@ -25,7 +28,7 @@ const PaymentStatus = ({ navigation, route }) => {
           textStyle={success ? styles.greenButtonText : styles.redButtonText}
           onPress={() => {
             navigation.navigate('OrderDetails1', {
-              orderList: route.params.orderList,
+              orderId: orderId,
             });
           }}>
           VIEW ORDER DETAILS

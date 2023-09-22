@@ -15,7 +15,7 @@ const PaymentContent = () => {
       <View style={styles.pccontainer2}></View>
 
       <View style={styles.pcpayview}>
-        <Text style={styles.pcpaytext}>You’re Paying</Text>
+        <Text style={styles.pcpaytext}>You're Paying</Text>
         <Text style={styles.pcpaytext2}>₹12,000</Text>
       </View>
 
@@ -25,11 +25,7 @@ const PaymentContent = () => {
 };
 
 const AddPayment = ({ navigation }) => {
-  return (
-    <>
-      <PaymentContent />
-    </>
-  );
+  return <PaymentContent />;
 };
 
 const styles = StyleSheet.create({
