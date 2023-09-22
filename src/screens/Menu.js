@@ -73,10 +73,8 @@ export default function Menu({ navigation }) {
           showsVerticalScrollIndicator={false}
           refreshing={loading} // Added pull to refesh state
           onRefresh={() => loadData('reload')} // Added pull to refresh control
-        />
+        /> 
 
-        {/* <ItemCounter count={count} handleAddItems={()=>setCount(count+1)}
-        handleRemoveItems={()=>setCount(count-1)}></ItemCounter> */}
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}

@@ -1,12 +1,11 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
+import Button from '../components/Button';
 import { COLORS } from '../constants/theme';
 
-import useCart from '../contexts/CartContext';
-import { FirebaseStorageTypes } from '@react-native-firebase/storage';
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { useItems } from '../functions/items';
+import firestore from '@react-native-firebase/firestore';
+import InfoCard from '../components/InfoCard';
 
 const ListHeader = () => (
   <View style={styles.listHeaderContainer}>
@@ -21,22 +20,24 @@ const ListHeader = () => (
     </View>
   </View>
 );
+
 const DetailsCard = ({ item }) => {
   console.log(item);
   return (
     <View style={styles.listContainer}>
       <View style={styles.leftContainer}>
-        <Text style={styles.text}>{item.itemId}</Text>
+        <Text style={styles.text}>{item.name}</Text>
       </View>
       <View style={styles.centerContainer}>
         <Text style={styles.text}>{item.quantity}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Text style={styles.text}>₹56</Text>
+        <Text style={styles.text}>{item.totalPrice}</Text>
       </View>
     </View>
   );
 };
+
 const Total = ({ total }) => {
   return (
     <View style={styles.totalContainer}>
@@ -51,26 +52,65 @@ const Total = ({ total }) => {
   );
 };
 
-export default function OrderDetails({ route, navigation }) {
-  // const { totalAmount } = useCart();
-  const [itemDetails, setItemDetails] = useState([]);
+export default function OrderDetails1({ route, navigation }) {
+  const [orderList, setOrderList] = useState([]);
+  // let orderList = route.params.orderList;
+  // calculate total from the orderlist by mapping
+  let total = orderList ? orderList.reduce((a, b) => a + b.totalPrice, 0) : 0;
+  console.log('orderList in order list page is: ', orderList);
 
-  let order = route.params.item;
-  let items = order.items;
-  let total = order.total_amount;
-
-  console.log('order is:', order);
+  // fetch the order list from the database using the order id
+  useEffect(() => {
+    // firestore()
+    //   .collection('orders')
+    //   .doc('JFM0ORl6gbfJaNhEWEhE')
+    //   .get()
+    //   .then(result => {
+    //     let orderData = result.data();
+    //     console.log('orderData is: ', orderData);
+    //     setOrderList(orderData.orderList);
+    //   });
+    // fetch the item names from the database using the item id from the order list
+  }, []);
 
   return (
-    <FlatList
-      data={items}
-      keyExtractor={item => item.id}
-      renderItem={({ item }) => <DetailsCard item={item} />}
-      ListHeaderComponent={<ListHeader />}
-      ItemSeparatorComponent={() => <View style={styles.renderseperatorview} />}
-      ListFooterComponent={<Total total={total} />}
-      style={styles.detailsContainer}
-    />
+    <View>
+      <Text>Order Details</Text>
+      <FlatList
+        data={orderList}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <DetailsCard item={item} />}
+        ListHeaderComponent={<ListHeader />}
+        ListFooterComponent={<Total total={total} />}
+        style={styles.detailsContainer}
+      />
+
+      <InfoCard
+        emoji="❌"
+        info="Order Cancellation Not Allowed due to Canteen Policies"
+        color="#E24C4B26"
+        borderColor="#E24C4B"
+        fontColor="#E24C4B"
+      />
+
+      <InfoCard
+        emoji="🧾"
+        info="Only Generate the Token When You Reach the Counter"
+      />
+
+      <InfoCard
+        emoji="⏱️"
+        info="The Token will Auto-Expire in 30s after Clicking Generate Token"
+      />
+      <Button
+        style={styles.confirmbutton}
+        textStyle={styles.confirmButtonText}
+        onPress={async () => {
+          navigation.navigate('Token');
+        }}>
+        GENERATE TOKEN
+      </Button>
+    </View>
   );
 }
 
@@ -134,6 +174,22 @@ const styles = StyleSheet.create({
   totalCostText: {
     color: 'limegreen',
     fontSize: 24,
+    fontWeight: '700',
+  },
+
+  confirmbutton: {
+    backgroundColor: COLORS.green,
+    paddingVertical: 15,
+    marginVertical: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 16,
+  },
+
+  confirmButtonText: {
+    color: 'white',
+    fontSize: 18,
     fontWeight: '700',
   },
 });

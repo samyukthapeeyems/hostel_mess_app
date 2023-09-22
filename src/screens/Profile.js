@@ -1,91 +1,59 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  ImageBackground,
-} from 'react-native';
-import React from 'react';
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { COLORS } from '../constants/theme';
 import YellowWallet from '../../assets/images/YellowWallet.png';
 import useAuth from '../contexts/AuthContext';
 import Button from '../components/Button';
 import { Transactiongreen } from '../../assets/icons';
 
-const Transactions = [
-  {
-    id: 212,
+import firestore from '@react-native-firebase/firestore';
 
-    date: '01-01-2022',
-    cost: 300,
-  },
-  {
-    id: 252,
-    date: '31-12-2022',
-    cost: 50,
-  },
-  {
-    id: 272,
-    date: '31-12-2021',
-    cost: 50,
-  },
-  {
-    id: 292,
-    date: '01-01-2022',
-    cost: 500,
-  },
-  {
-    id: 152,
-    date: '31-12-2022',
-    cost: 50,
-  },
-  {
-    id: 472,
-    date: '31-12-2021',
-    cost: 50,
-  },
-  {
-    id: 792,
-    date: '01-01-2022',
-    cost: 500,
-  },
-];
+import QRCode from 'react-native-qrcode-svg';
+import InfoCard from '../components/InfoCard';
 
-const TransactionCard = ({ item }) => {
+const TransactionCard = ({ transaction }) => {
   return (
     <View style={styles.transactionContainer}>
       <View style={styles.transactionIcon}>
         <Transactiongreen />
       </View>
       <View style={styles.transactionDate}>
-        <Text style={styles.date}>{item.date}</Text>
+        <Text style={styles.date}>{transaction.transactionType}</Text>
       </View>
       <View style={styles.cost}>
-        <Text style={styles.costText}>₹{item.cost}</Text>
+        <Text style={styles.costText}>₹{transaction.amount}</Text>
       </View>
     </View>
   );
 };
 
-const WalletCardSection = () => {
-  return (
-    <View style={styles.walletSectionContainer}>
-      <View>
-        <Image source={YellowWallet} style={styles.walletcardimage} />
-        <Text style={styles.ewalletext}>eCanteen Wallet</Text>
-        <Text style={styles.walletBalancetitle}>Wallet Balance</Text>
-        <Text style={styles.walletBalance}>₹0</Text>
-      </View>
-      <Button style={styles.addMoneyButton} textStyle={styles.addMoneyText}>
-        + Add Money
-      </Button>
-    </View>
-  );
-};
 export default function Profile() {
   const { signOut, user } = useAuth();
+  const [wallet, setWallet] = useState({});
+  const [transactionList, setTransactionList] = useState([]);
+
+  // this entire useEffect is a mess, have to clean it up (sort of works for now)
+  useEffect(() => {
+    let txnList = [];
+
+    firestore().collection('wallet').where('userId', '==', user.uid).get().then(result => {
+      result = result.docs[0];
+      let walletData = {
+        balance: result.data().balance,
+        walletId: result.id,
+      };
+      setWallet(walletData);
+      firestore().collection('transaction').where('instrumentId', '==', walletData.walletId).get().then(result => {
+        if (result.docs.length === 0)
+          console.log("no txn")
+        else {
+          for (const txn of result.docs)
+            txnList.push(txn.data())
+          setTransactionList(txnList);
+        }
+      })
+    })
+  }, []);
 
   return (
     <>
@@ -120,11 +88,36 @@ export default function Profile() {
         </View>
       </View>
 
-      <WalletCardSection />
+      <View style={styles.walletSectionContainer}>
+        <View>
+          <Image source={YellowWallet} style={styles.walletcardimage} />
+          <Text style={styles.ewalletext}>eCanteen Wallet</Text>
+          <View
+            style={{
+              position: 'absolute',
+              alignSelf: 'flex-end',
+              padding: 20,
+            }}>
+            <QRCode
+              value={wallet.walletId}
+              size={100}
+              color={COLORS.white}
+              backgroundColor="transparent"
+              logoSize={30}
+            />
+          </View>
+          <Text style={styles.walletBalancetitle}>Wallet Balance</Text>
+          <Text style={styles.walletBalance}>
+            ₹{wallet.balance}
+          </Text>
+        </View>
+
+        <InfoCard emoji="🚀" info="Share the QR code to Add Money to your Wallet" />
+      </View>
 
       <FlatList
-        data={Transactions}
-        renderItem={({ item }) => <TransactionCard item={item} />}
+        data={transactionList}
+        renderItem={({ item }) => <TransactionCard transaction={item} />}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={<View style={styles.seperator} />}
         ListHeaderComponent={

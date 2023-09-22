@@ -26,6 +26,7 @@ import MenuHeader from './components/MenuHeader';
 import HeaderSkeleton from './components/HeaderSkeleton';
 
 import { LeftArrow } from '../assets/icons';
+import OrderDetails1 from './screens/OrderDetails1';
 
 const PageHeader = ({ navigation, iconShow, title }) => {
   return (
@@ -117,6 +118,19 @@ const RootStackScreen = () => {
             header: ({ navigation }) => (
               <PageHeader
                 title="Order Details"
+                navigation={navigation}
+                iconShow={true}
+              />
+            ),
+          }}
+        />
+        <RootStack.Screen
+          name="OrderDetails1"
+          component={OrderDetails1}
+          options={{
+            header: ({ navigation }) => (
+              <PageHeader
+                title="Order Details New"
                 navigation={navigation}
                 iconShow={true}
               />

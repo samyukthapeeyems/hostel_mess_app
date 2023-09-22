@@ -10,14 +10,12 @@ export default function Disclaimer() {
           ❌ Order Cancellation Not Allowed due to Canteen Policies
         </Text>
       </View>
-      <View
-        style={styles.alertview}>
+      <View style={styles.alertview}>
         <Text style={styles.alertext}>
           🧾 Only Generate the Token When You Reach the Counter
         </Text>
       </View>
-      <View
-        style={styles.alert1view}>
+      <View style={styles.alert1view}>
         <Text style={styles.alert1text}>
           ⏱️ The Token will Auto-Expire in 30s after Clicking Generate Token
         </Text>
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   cautiontext: { color: 'red', fontSize: 11, fontWeight: '700', opacity: 0.5 },
-  alertview :{
+  alertview: {
     flex: 1,
     paddingHorizontal: 10,
     marginBottom: 10,
@@ -56,8 +54,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 8,
   },
-  alertext : { fontSize: 11, fontWeight: '700', color: '#32BA7C' },
-  alert1view : {
+  alertext: { fontSize: 11, fontWeight: '700', color: '#32BA7C' },
+  alert1view: {
     flex: 1,
     paddingHorizontal: 10,
     marginBottom: 10,
@@ -68,5 +66,4 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   alert1text: { fontSize: 11, fontWeight: '700', color: '#32BA7C' },
-
 });
