@@ -15,7 +15,7 @@ import Button from '../components/Button';
 import RazorpayCheckout from 'react-native-razorpay';
 import useAuth from '../contexts/AuthContext';
 
-// import AllInOneSDKManager from 'paytm_allinone_react-native';
+import AllInOneSDKManager from 'paytm_allinone_react-native';
 ///
 
 export default function Cart({ navigation }) {
@@ -57,14 +57,25 @@ export default function Cart({ navigation }) {
 
     console.log(itemList);
     const _createOrder = _functions.httpsCallable('createOrder');
+    const _initTxn = _functions.httpsCallable('initWalletTxn');
+
     try {
       let response = await _createOrder({ itemList });
       console.log('response', response);
       console.log('res data ', response.data);
 
+
+      let txnResp = await _initTxn({
+        amount : response.data.order.totalPrice,
+        transactionType : "DEBIT"
+      });
+
+      console.log(txnResp)
+
+
       // AllInOneSDKManager.startTransaction(
       //   response.data.order.orderId,
-      //   'xZhVnv93110728543806',
+      //   'SDHMhx13268734456440',
       //   response.data.payment.body.txnToken,
       //   response.data.order.totalPrice,
       //   'callbackUrl',
@@ -79,29 +90,29 @@ export default function Cart({ navigation }) {
       //     handleError(err);
       //   });
 
-      var options = {
-        currency: 'INR',
-        key: 'rzp_test_jMhBMG22u7fqUA',
-        amount: (totalAmount * 100).toString(),
-        name: 'E Canteen',
-        order_id: 'order_DslnoIgkIDL8Zt',
-        prefill: {
-          email: user.email,
-          contact: user.phone || 9876543210,
-          name: user.displayName,
-        },
-        theme: { color: '#3358F9' },
-      };
-      RazorpayCheckout.open(options)
-        .then(data => {
-          alert(`Success: ${data.razorpay_payment_id}`);
-        })
-        .catch(error => {
-          // alert(`Error: ${error.code} | ${error.description}`);
+      // var options = {
+      //   currency: 'INR',
+      //   key: 'rzp_test_jMhBMG22u7fqUA',
+      //   amount: (totalAmount * 100).toString(),
+      //   name: 'E Canteen',
+      //   order_id: 'order_DslnoIgkIDL8Zt',
+      //   prefill: {
+      //     email: user.email,
+      //     contact: user.phone || 9876543210,
+      //     name: user.displayName,
+      //   },
+      //   theme: { color: '#3358F9' },
+      // };
+      // RazorpayCheckout.open(options)
+      //   .then(data => {
+      //     alert(`Success: ${data.razorpay_payment_id}`);
+      //   })
+      //   .catch(error => {
+      //     // alert(`Error: ${error.code} | ${error.description}`);
 
-          navigation.navigate('PaymentStatus', { success: 1 });
-          // navigation.navigate('Token');
-        });
+      //     navigation.navigate('PaymentStatus', { success: 1 });
+      //     // navigation.navigate('Token');
+      //   });
     } catch (error) {
       console.log(error);
     }
