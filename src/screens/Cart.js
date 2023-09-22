@@ -13,6 +13,9 @@ import { COLORS } from '../constants/theme';
 import CartItem from '../components/CartItem';
 import Listheader from '../components/Listheader';
 import Button from '../components/Button';
+// I'll clean this later (function), works for now
+
+///
 
 export default function Cart({ navigation }) {
   const { items, totalAmount } = useCart();
@@ -29,7 +32,7 @@ export default function Cart({ navigation }) {
       totalPrice: item.totalPrice,
     };
   });
-
+  //
   console.log('order list(cart page): ', orderList);
 
   async function cartData() {
@@ -125,7 +128,7 @@ export default function Cart({ navigation }) {
               orderList: orderList,
             });
           }}>
-          CONTINUE TO PAYMENT
+          Pay Now
         </Button>
       </View>
     </>

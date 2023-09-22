@@ -53,6 +53,7 @@ export default function Menu({ navigation }) {
       searchItems(query).then(snapShot => onResult(snapShot));
     }
   }, [query]);
+
   return (
     <>
       <View style={styles.menuPageContent}>
@@ -74,11 +75,6 @@ export default function Menu({ navigation }) {
           refreshing={loading} // Added pull to refesh state
           onRefresh={() => loadData('reload')} // Added pull to refresh control
         />
-
-        {/* <ItemCounter
-          count={count}
-          handleAddItems={() => setCount(count + 1)}
-          handleRemoveItems={() => setCount(count - 1)}></ItemCounter> */}
       </View>
 
       {!netinfo.isConnected && <Banner>🔌 Oops!!! Connection lost</Banner>}
