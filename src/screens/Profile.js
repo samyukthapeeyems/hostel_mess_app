@@ -23,17 +23,13 @@ const TransactionCard = ({ transaction }) => {
         <Text style={styles.date}>{transaction.transactionType}</Text>
       </View>
       <View style={styles.cost}>
-        <Text style={styles.costText}>₹{transaction.cost}</Text>
+        <Text style={styles.costText}>₹{transaction.amount}</Text>
       </View>
     </View>
   );
 };
 
 const WalletCardSection = ({ wallet }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const walletBalance = wallet.balance;
-
   return (
     <View style={styles.walletSection}>
       <View>
@@ -50,7 +46,7 @@ const WalletCardSection = ({ wallet }) => {
           />
         </View>
         <Text style={styles.balanceTitle}>Wallet Balance</Text>
-        <Text style={styles.balance}>₹{walletBalance ? walletBalance : 0}</Text>
+        <Text style={styles.balance}>₹{wallet.balance}</Text>
       </View>
 
       <InfoCard
@@ -105,61 +101,38 @@ export default function Profile() {
   const [transactionList, setTransactionList] = useState([]);
 
   useEffect(() => {
-    const fetchWalletData = async () => {
-      try {
-        firestore()
-          .collection('wallet')
-          .where('userId', '==', user.uid)
-          .get()
-          .then(result => {
-            result = result.docs[0];
-            let walletData = {
-              balance: result.data().balance,
-              walletId: result.id,
-            };
-            setWallet(walletData);
-            console.log('wallet data is: ', wallet);
+    let txnList = [];
 
-            fetchTransactionData(wallet.id);
-          });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    const fetchTransactionData = async walletId => {
-      try {
+    firestore()
+      .collection('wallet')
+      .where('userId', '==', user.uid)
+      .get()
+      .then(result => {
+        result = result.docs[0];
+        let walletData = {
+          balance: result.data().balance,
+          walletId: result.id,
+        };
+        setWallet(walletData);
         firestore()
           .collection('transaction')
-          .where('instrumentId', '==', '4pDDWvfcNz8Av5h9OgwB')
+          .where('instrumentId', '==', walletData.walletId)
           .get()
           .then(result => {
-            // let transactionList = [];
-
-            // change the forEach loop
-            result.forEach(doc => {
-              transactionList.push({
-                id: doc.id,
-                // add a timestamp here
-                cost: doc.data().amount,
-                transactionType: doc.data().transactionType,
-              });
-            });
-            setTransactionList(transactionList);
-            console.log(transactionList);
+            if (result.docs.length === 0) console.log('no txn');
+            else {
+              for (const txn of result.docs) txnList.push(txn.data());
+              setTransactionList(txnList);
+            }
           });
-      } catch (e) {
-        console.log(e);
-      }
-    };
+      });
 
-    fetchWalletData();
-  }, [wallet.balance, transactionList]);
+    console.log('transaction data is: ', transactionList);
+  }, []);
 
   return (
     <>
       <UserDetailsCard />
-      {/* send wallet balance to the wallet card section */}
       <WalletCardSection wallet={wallet} />
       <FlatList
         data={transactionList}

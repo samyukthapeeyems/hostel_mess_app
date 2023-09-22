@@ -7,6 +7,9 @@ import { COLORS } from '../constants/theme';
 import firestore from '@react-native-firebase/firestore';
 import InfoCard from '../components/InfoCard';
 
+import useCart from '../contexts/CartContext';
+import { useItems } from '../functions/items';
+
 const ListHeader = () => (
   <View style={styles.listHeaderContainer}>
     <View style={styles.leftContainer}>
@@ -54,11 +57,33 @@ const Total = ({ total }) => {
 
 export default function OrderDetails1({ route, navigation }) {
   const [orderList, setOrderList] = useState([]);
-  // let orderList = route.params.orderList;
-  // calculate total from the orderlist by mapping
+
+  const { items } = useCart();
+  const { getItemList, mapItemWithDocId } = useItems();
+
   let total = orderList ? orderList.reduce((a, b) => a + b.totalPrice, 0) : 0;
 
   console.log('order id in order details page:', route.params.orderId);
+
+  async function cartData() {
+    try {
+      let itemIdList = Object.keys(items);
+      let itemList = await getItemList(itemIdList);
+      let itemListx = mapItemWithDocId(itemList);
+
+      let cartData = itemListx.map(item => {
+        return {
+          ...item,
+          totalPrice: items[item.id].quantity * item.price,
+          quantity: items[item.id].quantity,
+        };
+      });
+
+      return cartData;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // fetch the order list from the database using the order id
   useEffect(() => {
@@ -67,12 +92,8 @@ export default function OrderDetails1({ route, navigation }) {
       .doc(route.params.orderId)
       .get()
       .then(result => {
-        let orderData = result.data();
-        console.log('orderData is: ', orderData);
-        setOrderList(orderData.orderList);
-        console.log('orderList is:', orderList);
+        cartData().then(res => setOrderList(res));
       });
-    // fetch the item names from the database using the item id from the order list
   }, []);
 
   return (
