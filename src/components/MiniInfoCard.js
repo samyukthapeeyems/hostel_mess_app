@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const InfoCard = ({ emoji, info, color, borderColor, fontColor }) => {
-  console.log(info);
+const MiniInfoCard = ({ info, color, borderColor, fontColor }) => {
   return (
     <View
       style={[
@@ -12,31 +11,27 @@ const InfoCard = ({ emoji, info, color, borderColor, fontColor }) => {
           borderColor: borderColor ? borderColor : '#32BA7C',
         },
       ]}>
-      <Text style={styles.emoji}>{emoji}</Text>
-      <View style={styles.textContainer}>
-        <Text
-          style={[styles.info, { color: fontColor ? fontColor : '#32BA7C' }]}>
-          {info}
-        </Text>
-      </View>
+      <Text style={[styles.info, { color: fontColor ? fontColor : '#32BA7C' }]}>
+        {info}
+      </Text>
     </View>
   );
 };
 
-export default InfoCard;
+export default MiniInfoCard;
 
 const styles = StyleSheet.create({
   infoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 5,
     // paddingHorizontal: 12,
+    paddingHorizontal: 6,
     backgroundColor: '#D7F4E7',
     borderColor: '#32BA7C',
     borderWidth: 1,
     borderRadius: 15,
     marginVertical: 4,
+    marginRight: 6,
   },
   emoji: {
     fontSize: 20,
@@ -47,12 +42,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     color: '#32BA7C',
-  },
-  textContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // alignItems: 'center',
-    // marginHorizontal: 10,
   },
 });

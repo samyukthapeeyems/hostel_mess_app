@@ -67,7 +67,10 @@ export default function Orders({ navigation }) {
             <TouchableOpacity
               style={styles.touch}
               onPress={() =>
-                navigation.navigate('OrderDetails', { item: element })
+                navigation.navigate('OrderDetails', {
+                  // item: element,
+                  orderId: element.id,
+                })
               }>
               <Text style={styles.textviewdetails}>VIEW DETAILS</Text>
             </TouchableOpacity>
