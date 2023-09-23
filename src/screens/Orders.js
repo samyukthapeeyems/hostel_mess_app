@@ -39,7 +39,7 @@ export default function Orders({ navigation }) {
   return (
     <FlatList
       data={orders}
-      keyExtractor={item => item.id}
+      keyExtractor={order => order.id}
       renderItem={item => <OrderCard item={item} />}
       style={styles.flatList}
       showsVerticalScrollIndicator={false}

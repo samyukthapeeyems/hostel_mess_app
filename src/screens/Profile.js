@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
   imgCard: {
     width: '100%',
     borderRadius: 20,
+    marginBottom: 15,
   },
   walletText: {
     position: 'absolute',

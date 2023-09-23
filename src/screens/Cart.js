@@ -6,7 +6,6 @@ import { firebase } from '@react-native-firebase/functions';
 import { useItems } from '../functions/items';
 
 import useCart from '../contexts/CartContext';
-import useAuth from '../contexts/AuthContext';
 
 import { COLORS } from '../constants/theme';
 
@@ -15,25 +14,11 @@ import Listheader from '../components/Listheader';
 import Button from '../components/Button';
 // I'll clean this later (function), works for now
 
-///
-
 export default function Cart({ navigation }) {
   const { items, totalAmount } = useCart();
 
   const [itm, setItm] = useState();
   const { getItemList, mapItemWithDocId } = useItems();
-  const [orderId, setOrderId] = useState();
-
-  const orderList = itm?.map(item => {
-    return {
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity,
-      totalPrice: item.totalPrice,
-    };
-  });
-  //
-  console.log('order list(cart page): ', orderList);
 
   async function cartData() {
     try {
@@ -48,8 +33,6 @@ export default function Cart({ navigation }) {
           quantity: items[item.id].quantity,
         };
       });
-
-      // console.log('cartData', cartData);
 
       return cartData;
     } catch (err) {
@@ -66,7 +49,6 @@ export default function Cart({ navigation }) {
       quantity: e[1].quantity,
     }));
 
-    // console.log('items:', items);
     console.log('item list:', itemList);
     const _createOrder = _functions.httpsCallable('createOrder');
     const _initTxn = _functions.httpsCallable('initWalletTxn');
@@ -74,12 +56,7 @@ export default function Cart({ navigation }) {
     try {
       let response = await _createOrder({ itemList });
 
-      // console.log('response', response);
       console.log('res data ', response.data);
-
-      // let id = response.data.order.orderId;
-      console.log('res data order id  ', response.data.order.orderId);
-      setOrderId(response.data.order.orderId);
 
       let txnResp = await _initTxn({
         amount: response.data.order.totalPrice,
@@ -98,6 +75,7 @@ export default function Cart({ navigation }) {
 
   useEffect(() => {
     cartData().then(res => setItm(res));
+    console.log('itm is:', itm);
   }, [totalAmount]);
 
   return (
@@ -124,9 +102,7 @@ export default function Cart({ navigation }) {
           textStyle={styles.confirmButtonText}
           onPress={async () => {
             // await createOrder();
-            navigation.navigate('Payment', {
-              orderList: orderList,
-            });
+            navigation.navigate('Payment');
           }}>
           Pay Now
         </Button>

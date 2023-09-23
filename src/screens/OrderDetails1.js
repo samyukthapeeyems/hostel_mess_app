@@ -9,6 +9,80 @@ import InfoCard from '../components/InfoCard';
 
 import useCart from '../contexts/CartContext';
 import { useItems } from '../functions/items';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const canteenItems = [
+  {
+    name: 'Burger',
+    quantity: 2,
+    price: 5.99,
+  },
+  {
+    name: 'Pizza',
+    quantity: 1,
+    price: 8.49,
+  },
+  {
+    name: 'Fries',
+    quantity: 3,
+    price: 2.99,
+  },
+  {
+    name: 'Chicken Nuggets',
+    quantity: 2,
+    price: 4.99,
+  },
+  {
+    name: 'Spaghetti',
+    quantity: 1,
+    price: 7.99,
+  },
+  {
+    name: 'Soda',
+    quantity: 4,
+    price: 1.49,
+  },
+  {
+    name: 'Salad',
+    quantity: 2,
+    price: 6.99,
+  },
+  {
+    name: 'Sandwich',
+    quantity: 1,
+    price: 5.49,
+  },
+  {
+    name: 'Chicken Wrap',
+    quantity: 2,
+    price: 6.99,
+  },
+  {
+    name: 'Milkshake',
+    quantity: 1,
+    price: 3.99,
+  },
+  {
+    name: 'Hot Dog',
+    quantity: 2,
+    price: 4.49,
+  },
+  {
+    name: 'Nachos',
+    quantity: 1,
+    price: 4.99,
+  },
+  {
+    name: 'Ice Cream',
+    quantity: 3,
+    price: 2.49,
+  },
+  {
+    name: 'French Toast',
+    quantity: 2,
+    price: 5.99,
+  },
+];
 
 const ListHeader = () => (
   <View style={styles.listHeaderContainer}>
@@ -35,7 +109,7 @@ const DetailsCard = ({ item }) => {
         <Text style={styles.text}>{item.quantity}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <Text style={styles.text}>{item.totalPrice}</Text>
+        <Text style={styles.text}>{item.price}</Text>
       </View>
     </View>
   );
@@ -58,74 +132,53 @@ const Total = ({ total }) => {
 export default function OrderDetails1({ route, navigation }) {
   const [orderList, setOrderList] = useState([]);
 
-  const { items } = useCart();
-  const { getItemList, mapItemWithDocId } = useItems();
-
   let total = orderList ? orderList.reduce((a, b) => a + b.totalPrice, 0) : 0;
 
   console.log('order id in order details page:', route.params.orderId);
 
-  async function cartData() {
-    try {
-      let itemIdList = Object.keys(items);
-      let itemList = await getItemList(itemIdList);
-      let itemListx = mapItemWithDocId(itemList);
-
-      let cartData = itemListx.map(item => {
-        return {
-          ...item,
-          totalPrice: items[item.id].quantity * item.price,
-          quantity: items[item.id].quantity,
-        };
-      });
-
-      return cartData;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   // fetch the order list from the database using the order id
   useEffect(() => {
-    firestore()
-      .collection('orders')
-      .doc(route.params.orderId)
-      .get()
-      .then(result => {
-        cartData().then(res => setOrderList(res));
-      });
+    // firestore()
+    //   .collection('orders')
+    //   .doc(route.params.orderId)
+    //   .get()
+    //   .then(result => {
+    //     cartData().then(res => setOrderList(res));
+    //   });
   }, []);
 
   return (
-    <View>
-      <FlatList
-        data={orderList}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <DetailsCard item={item} />}
-        ListHeaderComponent={<ListHeader />}
-        ListFooterComponent={<Total total={total} />}
-        style={styles.detailsContainer}
-      />
-      <View style={styles.disclaimerBox}>
-        <InfoCard
-          emoji="❌"
-          info="Order Cancellation Not Allowed due to Canteen Policies"
-          color="#E24C4B26"
-          borderColor="#E24C4B"
-          fontColor="#E24C4B"
+    <>
+      <ScrollView style={styles.container}>
+        <FlatList
+          data={canteenItems}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <DetailsCard item={item} />}
+          ListHeaderComponent={<ListHeader />}
+          ListFooterComponent={<Total total={total} />}
+          style={styles.detailsContainer}
         />
+        <View style={styles.disclaimerBox}>
+          <Text style={styles.disclaimerTitle}>Disclaimer</Text>
+          <InfoCard
+            emoji="❌"
+            info="Order Cancellation Not Allowed due to Canteen Policies"
+            color="#E24C4B26"
+            borderColor="#E24C4B"
+            fontColor="#E24C4B"
+          />
 
-        <InfoCard
-          emoji="🧾"
-          info="Only Generate the Token When You Reach the Counter"
-        />
+          <InfoCard
+            emoji="🧾"
+            info="Only Generate the Token When You Reach the Counter"
+          />
 
-        <InfoCard
-          emoji="⏱️"
-          info="The Token will Auto-Expire in 30s after Clicking Generate Token"
-        />
-      </View>
-
+          <InfoCard
+            emoji="⏱️"
+            info="The Token will Auto-Expire in 30s after Clicking Generate Token"
+          />
+        </View>
+      </ScrollView>
       <Button
         style={styles.confirmbutton}
         textStyle={styles.confirmButtonText}
@@ -134,15 +187,20 @@ export default function OrderDetails1({ route, navigation }) {
         }}>
         GENERATE TOKEN
       </Button>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'pink',
+  },
   detailsContainer: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     paddingHorizontal: 16,
     paddingVertical: 30,
+    flex: 1,
   },
   listHeaderContainer: {
     backgroundColor: 'white',
@@ -218,8 +276,16 @@ const styles = StyleSheet.create({
   },
   disclaimerBox: {
     backgroundColor: COLORS.white,
-    paddingHorizontal: 16,
+    paddingHorizontal: 4,
     paddingVertical: 15,
     marginBottom: 20,
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  disclaimerTitle: {
+    color: COLORS.black,
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 10,
   },
 });
