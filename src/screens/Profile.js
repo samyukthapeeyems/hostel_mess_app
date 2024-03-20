@@ -2,8 +2,7 @@ import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
 import useAuth from '../contexts/AuthContext';
-import firestore from '@react-native-firebase/firestore';
-
+import { useWallet, useTransactions } from '../hooks/profile';
 import { COLORS } from '../constants/theme';
 
 import YellowWallet from '../../assets/images/YellowWallet.png';
@@ -97,58 +96,35 @@ const UserDetailsCard = () => {
 
 export default function Profile() {
   const { user } = useAuth();
-  const [wallet, setWallet] = useState({});
-  const [transactionList, setTransactionList] = useState([]);
 
-  useEffect(() => {
-    let txnList = [];
-
-    firestore()
-      .collection('wallet')
-      .where('userId', '==', user.uid)
-      .get()
-      .then(result => {
-        result = result.docs[0];
-        let walletData = {
-          balance: result.data().balance,
-          walletId: result.id,
-        };
-        setWallet(walletData);
-        firestore()
-          .collection('transaction')
-          .where('instrumentId', '==', walletData.walletId)
-          .get()
-          .then(result => {
-            if (result.docs.length === 0) console.log('no txn');
-            else {
-              for (const txn of result.docs) txnList.push(txn.data());
-              setTransactionList(txnList);
-            }
-          });
-      });
-
-    console.log('transaction data is: ', transactionList);
-  }, []);
+  const { isLoading: walletLoading, data: wallet } = useWallet(user.uid);
+  const { isLoading: transactionsLoading, data: transactionList } = useTransactions(wallet?.walletId);
 
   return (
     <>
       <UserDetailsCard />
-      <WalletCardSection wallet={wallet} />
-      <FlatList
-        data={transactionList}
-        renderItem={({ item }) => <TransactionCard transaction={item} />}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={<View style={styles.seperator} />}
-        ListHeaderComponent={
-          <View style={styles.transactionHeaderContainer}>
-            <Text style={styles.transactionHeaderText}>
-              Recent Transactions
-            </Text>
-          </View>
-        }
-        style={styles.flatList}
-        showsVerticalScrollIndicator={false}
-      />
+      {walletLoading || transactionsLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <WalletCardSection wallet={wallet} />
+          <FlatList
+            data={transactionList}
+            renderItem={({ item }) => <TransactionCard transaction={item} />}
+            keyExtractor={item => item.id}
+            ItemSeparatorComponent={<View style={styles.seperator} />}
+            ListHeaderComponent={
+              <View style={styles.transactionHeaderContainer}>
+                <Text style={styles.transactionHeaderText}>
+                  Recent Transactions
+                </Text>
+              </View>
+            }
+            style={styles.flatList}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
+      )}
     </>
   );
 }
